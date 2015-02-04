@@ -1276,6 +1276,19 @@ a {
   color: #ffffff;
 }
 
+.warning {
+  background-color: #fefbe6;
+  border: 1px solid #d7cbab;
+  border-radius: 5px;
+  border-color: #d8cbab;
+  padding: 20px;
+  margin-left: 36px;
+}
+
+  .warning h3 {
+    color: #7f5d56;
+  }
+
 .current-event-card {
   position: relative;
   padding: 40px 0px 0px 36px;

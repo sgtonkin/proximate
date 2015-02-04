@@ -295,12 +295,18 @@ angular.module('proximate.controllers', [])
 .controller('BeaconsCtrl', function($scope, Populate) {
 
   $scope.beaconsData = [];
+  $scope.beaconsExist = false;
+
   // get beacons for given adminID
   $scope.getBeacons = function() {
     Populate.getBeaconsByAdminId($scope.adminId).then(function(beaconData) {
-      $scope.beaconsData = beaconData;
+      if(beaconData.length > 0) {
+        $scope.beaconsExist = true;
+        $scope.beaconsData = beaconData;
+      }
     });
   };
+
   $scope.getBeacons();
   // post beacon data
   $scope.addBeacon = function(beacon) {
@@ -311,6 +317,7 @@ angular.module('proximate.controllers', [])
   };
 
   $scope.showAddBeacon = function() {
+    //$(".ui.modal").modal();
     $('.addBeacon').show();
     $('.addBeacon-toggle').hide();
 

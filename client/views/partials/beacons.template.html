@@ -1,11 +1,30 @@
 <div class="events content">
   <div class="beaconsHeader">
     <h1>Beacons</h1>
-    <div class="addBeacon-toggle ui small labeled blue icon button" ng-click="showAddBeacon()">
+    <div ng-show="beaconsExist" class="addBeacon-toggle ui small labeled blue icon button" ng-click="showAddBeacon()">
       <i class="icon plus"></i>
       Add a beacon
     </div>
   </div>
+  <div ng-show="!beaconsExist" class="warning">
+    <h3>You haven't registered any beacons yet</h3>
+    <p>In order to use Proximate, you have to set up your beacons to work with the system.</p>
+    <div class="ui buttons">
+      <div class="ui button" ng-click="showAddBeacon()">Enter Manually</div>
+      <div class="or"></div>
+      <div class="ui primary button">Use App</div>
+    </div>
+  </div>
+   <div class="ui modal">
+       <i class="close icon"></i>
+       <div class="header">Test title</div>
+       <div class="content">Test content</div>
+       <div class="actions">
+           <div class="ui button approve green" data-value="easy">Easy</div>
+           <div class="ui button approve blue" data-value="normal">Normal</div>
+           <div class="ui button approve red" data-value="hard">Hard</div>
+       </div>
+   </div>
   <div class="addBeacon">
     <h3>Add a new beacon</h3>
     <div novalidate class="ui form segment">
@@ -29,13 +48,14 @@
       </div>
     </div>
   </div>
-  <table class="adminTable">
+  <table ng-show="beaconsExist" class="adminTable">
     <thead>
       <tr>
         <th>Identifier</th>
         <th>UUID</th>
         <th>Major</th>
         <th>Minor</th>
+        <th>Admin</th>
       </tr>
     </thead>
     <tbody>
@@ -44,6 +64,15 @@
         <td class="mail">{{beacon.uuid}}</td>
         <td class="participantStatus">{{beacon.major}}</td>
         <td class="participantStatus">{{beacon.minor}}</td>
+        <td class="participantStatus">
+          <div class="ui icon buttons basic">
+            <a class="ui icon button" ui-sref="admin.editBeacon({})">
+            <i class="edit icon"></i>
+            </a>
+            <a class="ui icon button" ui-sref="deleteBeacon({})">
+            <i class="delete icon"></i>
+            </a>
+          </div>
       </tr>
     </tbody>
   </table>
