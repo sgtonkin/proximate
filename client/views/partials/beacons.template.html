@@ -60,18 +60,34 @@
     </thead>
     <tbody>
       <tr class="adminRow" ng-repeat="beacon in beaconsData">
-        <td class="username">{{beacon.identifier}}</td>
-        <td class="mail">{{beacon.uuid}}</td>
-        <td class="participantStatus">{{beacon.major}}</td>
-        <td class="participantStatus">{{beacon.minor}}</td>
+        <td class="identifier">
+          <span editable-text="beacon.identifier" e-name="identifier" e-form="rowform" e-required>{{beacon.identifier}}
+          </span>
+        </td>
+        <td class="uuid">
+          <span editable-text="beacon.uuid" e-name="uuid" e-form="rowform" e-required>{{beacon.uuid}}
+          </span>
+        </td>
         <td class="participantStatus">
-          <div class="ui icon buttons basic">
-            <a class="ui icon button" ui-sref="admin.editBeacon({})">
-            <i class="edit icon"></i>
-            </a>
-            <a class="ui icon button" ui-sref="deleteBeacon({})">
-            <i class="delete icon"></i>
-            </a>
+          <span editable-text="beacon.major" e-name="major" e-form="rowform" e-required>{{beacon.major}}
+          </span>
+        </td>
+        <td class="participantStatus">
+          <span editable-text="beacon.minor" e-name="minor" e-form="rowform" e-required>{{beacon.minor}}
+          </span>
+        </td>
+        <td class="participantStatus">
+          <form editable-form name="rowform" onbeforesave="saveBeacon($data, beacon.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == beacon">
+            <button type="submit" ng-disabled="rowform.$waiting" class="ui icon button primary tiny">
+            <i class="check icon"></i></button>
+            </button>
+            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="ui button basic tiny">
+              cancel
+            </button>
+          </form>
+          <div class="ui icon buttons basic" ng-show="!rowform.$visible">
+            <button class="ui icon button" ng-click="rowform.$show()" onclick=""><i class="edit icon"></i></button>
+            <button class="ui icon button" ng-click="removeBeacon($index)"><i class="delete icon"></i></button>
           </div>
       </tr>
     </tbody>

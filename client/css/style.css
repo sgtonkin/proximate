@@ -1092,11 +1092,23 @@ a {
     border-bottom: 1px dashed #e4e4e4;
   }
 
+  .adminTable tr td input {
+    max-width: 60px;
+    padding: 5px 2px;
+  }
+
+  .adminTable tr td.identifier input {
+    max-width: 100px;
+  }
+
+  .adminTable tr td.uuid input {
+    max-width: 160px;
+  }
+
   .adminTable .eventTime, .adminTable .participantEmail {
     color: #000;
     opacity: .7;
     font-weight: 300;
-
   }
 
   .adminTable a {

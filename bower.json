@@ -35,6 +35,7 @@
     "semantic-ui-label": "~1.0.0",
     "moment-duration-format": "~1.3.0",
     "semantic-ui-loader": "~1.0.0",
-    "semantic-ui-modal": "~1.0.0"
+    "semantic-ui-modal": "~1.0.0",
+    "angular-xeditable": "~0.1.8"
   }
 }

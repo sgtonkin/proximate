@@ -300,9 +300,11 @@ angular.module('proximate.controllers', [])
   // get beacons for given adminID
   $scope.getBeacons = function() {
     Populate.getBeaconsByAdminId($scope.adminId).then(function(beaconData) {
-      if(beaconData.length > 0) {
-        $scope.beaconsExist = true;
-        $scope.beaconsData = beaconData;
+      if(beaconData) {
+        if(beaconData.length > 0) {
+          $scope.beaconsExist = true;
+          $scope.beaconsData = beaconData;
+        }
       }
     });
   };
