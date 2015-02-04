@@ -131,17 +131,11 @@ angular.module('proximate.services', [])
       });
     },
 
-    postNewBeacon: function(adminId, beacon) {
+    postNewBeacon: function(beacon) {
       return $http({
         method: 'POST',
         url: '/api/beacons',
-        data: {
-          adminId: adminId,
-          identifier: beacon.identifier,
-          uuid: beacon.uuid,
-          major: beacon.major,
-          minor: beacon.minor
-        },
+        data: beacon,
       }).then(function(res) {
         return res.data;
       }).catch(function(error) {

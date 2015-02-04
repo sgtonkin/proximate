@@ -318,6 +318,11 @@ angular.module('proximate.controllers', [])
     });
   };
 
+  $scope.saveBeacon = function(beacon, id) {
+    angular.extend(beacon, {id: id, adminId: $scope.adminId});
+    Populate.postNewBeacon(beacon);
+  }
+
   $scope.showAddBeacon = function() {
     //$(".ui.modal").modal();
     $('.addBeacon').show();
@@ -329,6 +334,8 @@ angular.module('proximate.controllers', [])
     $('.addBeacon').hide();
     $('.addBeacon-toggle').show();
   };
+
+
 
 })
 
