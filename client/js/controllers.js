@@ -310,13 +310,34 @@ angular.module('proximate.controllers', [])
   };
 
   $scope.getBeacons();
-  // post beacon data
+
   $scope.addBeacon = function(beacon) {
     Populate.postNewBeacon($scope.adminId, beacon)
     .then(function() {
       $scope.beaconsData.push(beacon);
     });
   };
+
+  // validation functions for inline edits
+  $scope.checkIdentifier = function(data) {
+    if(!data) {
+      return "Invalid name";
+    }
+  }
+
+  // check uuid
+  $scope.checkUuid = function(data) {
+    console.log('uuid', data);
+    if(!data) {
+      return "Invalid uuid";
+    }
+    var regex = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$','i');
+    console.log(regex.test(data), data);
+    if(!regex.test(data)) {
+      return "Format: 11111111-2222-3333-4444-555555555555"
+    }
+
+  }
 
   $scope.saveBeacon = function(beacon, id) {
     angular.extend(beacon, {id: id, adminId: $scope.adminId});

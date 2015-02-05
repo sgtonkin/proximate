@@ -61,22 +61,22 @@
     <tbody>
       <tr ng-repeat="beacon in beaconsData">
         <td class="identifier">
-          <span editable-text="beacon.identifier" e-name="identifier" e-form="rowform" e-required>{{beacon.identifier}}
+          <span editable-text="beacon.identifier" e-name="identifier" e-form="rowform" onbeforesave="checkIdentifier($data)" e-required>{{beacon.identifier}}
           </span>
         </td>
         <td class="uuid">
-          <span editable-text="beacon.uuid" e-name="uuid" e-form="rowform" e-required>{{beacon.uuid}}
+          <span editable-text="beacon.uuid" e-style="max-width: 370px" e-name="uuid" e-form="rowform" onbeforesave="checkUuid($data)" e-class="uuidInput" e-required>{{beacon.uuid}}
           </span>
         </td>
-        <td class="participantStatus">
-          <span editable-text="beacon.major" e-name="major" e-form="rowform" e-required>{{beacon.major}}
+        <td>
+          <span editable-text="beacon.major" e-name="major" e-form="rowform" onbeforesave="checkMajor($data)">{{beacon.major}}
           </span>
         </td>
-        <td class="participantStatus">
-          <span editable-text="beacon.minor" e-name="minor" e-form="rowform" e-required>{{beacon.minor}}
+        <td>
+          <span editable-text="beacon.minor" e-name="minor" e-form="rowform" onbeforesave="checkMinor($data)">{{beacon.minor}}
           </span>
         </td>
-        <td class="participantStatus">
+        <td>
           <form editable-form name="rowform" onbeforesave="saveBeacon($data, beacon.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == beacon">
             <button type="submit" ng-disabled="rowform.$waiting" class="ui icon button primary tiny">
             <i class="check icon"></i></button>
