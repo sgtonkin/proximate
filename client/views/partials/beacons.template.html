@@ -1,4 +1,4 @@
-<div class="events content">
+<div class="content beacons">
   <div class="beaconsHeader">
     <h1>Beacons</h1>
     <div ng-show="beaconsExist" class="addBeacon-toggle ui small labeled blue icon button" ng-click="showAddBeacon()">
@@ -48,7 +48,7 @@
       </div>
     </div>
   </div>
-  <table ng-show="beaconsExist" class="adminTable">
+  <table ng-show="beaconsExist" class="adminTable beaconTable">
     <thead>
       <tr>
         <th>Identifier</th>
@@ -65,7 +65,7 @@
           </span>
         </td>
         <td class="uuid">
-          <span editable-text="beacon.uuid" e-style="max-width: 370px" e-name="uuid" e-form="rowform" onbeforesave="checkUuid($data)" e-class="uuidInput" e-required>{{beacon.uuid}}
+          <span editable-text="beacon.uuid" e-style="min-width: 300px" e-name="uuid" e-form="rowform" onbeforesave="checkUuid($data)" e-class="uuidInput" e-required>{{beacon.uuid}}
           </span>
         </td>
         <td>
