@@ -292,14 +292,14 @@ angular.module('proximate.controllers', [])
 
 })
 
-.controller('BeaconsCtrl', function($scope, Populate) {
+.controller('BeaconsCtrl', function($scope, Beacon) {
 
   $scope.beaconsData = [];
   $scope.beaconsExist = false;
 
   // get beacons for given adminID
   $scope.getBeacons = function() {
-    Populate.getBeaconsByAdminId($scope.adminId).then(function(beaconData) {
+    Beacon.getBeaconsByAdminId($scope.adminId).then(function(beaconData) {
       if(beaconData) {
         if(beaconData.length > 0) {
           $scope.beaconsExist = true;
@@ -312,7 +312,7 @@ angular.module('proximate.controllers', [])
   $scope.getBeacons();
 
   $scope.addBeacon = function(beacon) {
-    Populate.postNewBeacon($scope.adminId, beacon)
+    Beacon.postNewBeacon($scope.adminId, beacon)
     .then(function() {
       $scope.beaconsData.push(beacon);
     });
@@ -323,7 +323,7 @@ angular.module('proximate.controllers', [])
     if(!data) {
       return "Invalid name";
     }
-  }
+  };
 
   // check uuid
   $scope.checkUuid = function(data) {
@@ -337,12 +337,19 @@ angular.module('proximate.controllers', [])
       return "Format: 11111111-2222-3333-4444-555555555555"
     }
 
-  }
+  };
 
   $scope.saveBeacon = function(beacon, id) {
     angular.extend(beacon, {id: id, adminId: $scope.adminId});
-    Populate.postNewBeacon(beacon);
-  }
+    Beacon.postNewBeacon(beacon);
+  };
+
+  $scope.deleteBeacon = function(id) {
+    if (confirm('Are you sure you want to delete this beacon?')) {
+      Beacon.deleteBeacon(id);
+      $scope.getBeacons();
+    }
+  };
 
   $scope.showAddBeacon = function() {
     //$(".ui.modal").modal();

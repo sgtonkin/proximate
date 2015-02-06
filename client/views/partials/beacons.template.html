@@ -65,7 +65,7 @@
           </span>
         </td>
         <td class="uuid">
-          <span editable-text="beacon.uuid" e-style="min-width: 300px" e-name="uuid" e-form="rowform" onbeforesave="checkUuid($data)" e-class="uuidInput" e-required>{{beacon.uuid}}
+          <span editable-text="beacon.uuid" e-style="width: 300px" e-name="uuid" e-form="rowform" onbeforesave="checkUuid($data)" e-class="uuidInput" e-required>{{beacon.uuid}}
           </span>
         </td>
         <td>
@@ -87,7 +87,7 @@
           </form>
           <div class="ui icon buttons basic" ng-show="!rowform.$visible">
             <button class="ui icon button" ng-click="rowform.$show()" onclick=""><i class="edit icon"></i></button>
-            <button class="ui icon button" ng-click="removeBeacon($index)"><i class="delete icon"></i></button>
+            <button class="ui icon button" ng-click="deleteBeacon(beacon.id)"><i class="delete icon"></i></button>
           </div>
       </tr>
     </tbody>

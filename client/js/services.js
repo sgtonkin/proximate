@@ -65,6 +65,48 @@ angular.module('proximate.services', [])
   };
 })
 
+.factory('Beacon', function($http) {
+
+  return {
+    postNewBeacon: function(beacon) {
+      return $http({
+        method: 'POST',
+        url: '/api/beacons',
+        data: beacon,
+      }).then(function(res) {
+        return res.data;
+      }).catch(function(error) {
+        console.log('Error adding new beacon');
+      });
+    },
+
+    deleteBeacon: function(id) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/beacons/'+id,
+        data: {id: id},
+      }).then(function(res) {
+        return res.data;
+      }).catch(function(error) {
+        console.log('Error deleting beacon');
+      });
+    },
+
+    getBeaconsByAdminId: function(adminId) {
+      var url = '/api/admins/' + adminId + '/beacons';
+      return $http({
+        method: 'GET',
+        url: url
+      }).then(function(res) {
+        return res.data;
+      }).catch(function(error) {
+        console.log('Error getting beacons');
+      });
+    }
+  }
+
+})
+
 .factory('Populate', function($http) {
   var adminId;
 
@@ -116,30 +158,6 @@ angular.module('proximate.services', [])
         return res.data;
       }).catch(function(error) {
         console.log('Error getting events');
-      });
-    },
-
-    getBeaconsByAdminId: function(adminId) {
-      var url = '/api/admins/' + adminId + '/beacons';
-      return $http({
-        method: 'GET',
-        url: url
-      }).then(function(res) {
-        return res.data;
-      }).catch(function(error) {
-        console.log('Error getting beacons');
-      });
-    },
-
-    postNewBeacon: function(beacon) {
-      return $http({
-        method: 'POST',
-        url: '/api/beacons',
-        data: beacon,
-      }).then(function(res) {
-        return res.data;
-      }).catch(function(error) {
-        console.log('Error adding new beacon');
       });
     },
 

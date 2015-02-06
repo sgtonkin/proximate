@@ -130,11 +130,22 @@ module.exports = function(app) {
         res.status(201).send(event_participant.toJSON());
       })
       .catch(function(error) {
-        res.status(404).send('Error updating participant status' + error);
+        res.status(404).send('Error deleting participant' + error);
       });
 
   });
 
+  // DELETE ROUTES
+
+  app.delete('/api/beacons/:beaconId', function(req, res) {
+    helpers.deleteBeacon(req.params.beaconId)
+      .then(function(beacon) {
+        res.status(200).send('Deleted beacon', beacon.toJSON());
+      })
+      .catch(function(error) {
+        res.status(404).send('Error deleting beacon' + error);
+      });
+  });
   // GET ROUTES
 
   // Return a list of beacons associated with events

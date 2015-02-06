@@ -96,6 +96,18 @@ exports.updateStatus = function(participantInfo) {
 
 };
 
+// DELETE HELPERS
+
+exports.deleteBeacon = function(id) {
+
+  console.log('deleting beacon', id);
+
+  return models.Beacon.forge({
+    id: id
+  }).destroy();
+
+};
+
 // GET HELPERS
 
 exports.getBeacons = function(eventId) {
