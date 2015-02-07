@@ -1,10 +1,11 @@
-<ion-view view-title="Splash">
+<ion-view view-title="Signup">
   <ion-content class="splash padding">
     <div class="login">
       <div class="login-box">
         <img src="img/proximate-blueOnWhite2.png">
-        <h1>proximate<span class="io">.io</span></h1>
-        <h4>AUTOMATED ATTENDANCE</h4>
+<!--         <h1>proximate<span class="io">.io</span></h1>
+        <h4>AUTOMATED ATTENDANCE</h4> -->
+        <h1>sign up as a participant</h1>
       </div>
       <div class="box-container">
         <div class="input-box">
@@ -13,12 +14,15 @@
         <div class="input-box">
             <input ng-model="data.password" type="password" placeholder="password" class="register">
         </div>
+        <div class="input-box">
+            <input ng-model="data.passwordConfirm" type="password" placeholder="password (confirmation)" class="register">
+        </div>
       </div>
       <div class="input-button">
-        <div class="login-button" ng-click="register()">login</div>
+        <div class="login-button" ng-click="signup()">sign up</div>
       </div>
       <div class="login-signup-switch-mode">
-        <h4>or <a href="#" ui-sref="signup">sign up as a participant</a></h4>
+        <h4>or <a href="#" ui-sref="splash">login with your email</a></h4>
       </div>
       <div class="splash-error" ng-show="error">{{error}}</div>
     </div>
