@@ -1271,9 +1271,10 @@ a {
 
 .addBeacon {
   position: relative;
-  padding: 40px 100px 0px 30px;
-  border: 1px solid #efefef;
+  padding: 30px;
+  border: 1px solid #ccc;
   background-color: rgba(236,239,241, .2);
+  margin: 20px 0 0 30px;
   display: none;
 }
 

@@ -27,26 +27,44 @@
    </div>
   <div class="addBeacon">
     <h3>Add a new beacon</h3>
-    <div novalidate class="ui form segment">
+    <form name="beaconForm" ng-submit="submitBeacon(newBeacon, beaconForm.$valid)" novalidate class="ui form segment">
       <div class="bigFields">
-        <input class="ui input fluid" type="text" ng-model="beacon.identifier" placeholder="Identifier" />
+
+        <!-- Identifier -->
+        <div ng-class="{'field error': beaconForm.identifier.$invalid && submitted}">
+          <input name="identifier" type="text" ng-model="newBeacon.identifier" placeholder="Identifier (name of your beacon)" required />
+          <span ng-show="beaconForm.identifier.$invalid && submitted" class="ui input error">Identifier is required.</span>
+        </div>
         <div class="ui divider"></div>
-        <input class="ui input fluid" type="text" ng-model="beacon.uuid" placeholder="UUID" />
+
+        <!-- UUID -->
+        <div ng-class="{'field error': beaconForm.uuid.$invalid && submitted}">
+          <input name="uuid" type="text" ng-model="newBeacon.uuid" placeholder="UUID (11111111-2222-3333-4444-555555555555)" required ng-pattern="/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/" />
+          <span ng-show="beaconForm.uuid.$invalid && submitted" class="ui input error">Enter a valid UUID (11111111-2222-3333-4444-555555555555)</span>
+        </div>
         <div class="ui divider"></div>
+
       </div>
       <div class="inline fields">
-        <div class="field">
-          <input class="ui input" type="number" ng-model="beacon.major" placeholder="Major"/>
+
+        <!-- Major -->
+        <div class="field" ng-class="{'error': beaconForm.major.$invalid && submitted}">
+          <input name="major" ng-pattern="/^[0-9]{1,5}$/" type="text" ng-model="newBeacon.major" placeholder="Major" required/>
+          <br /><span ng-show="beaconForm.major.$invalid && submitted" class="ui input error">Must be positive number < 65000</span>
         </div>
-        <div class="field">
-          <input class="ui input" type="number" ng-model="beacon.minor" placeholder="Minor"/>
+
+        <!-- Minor -->
+        <div class="field" ng-class="{'error': beaconForm.minor.$invalid && submitted}">
+          <input name="minor" ng-pattern="/^[0-9]{1,5}$/" class="ui input" type="text" ng-model="newBeacon.minor" placeholder="Minor" required/>
+          <br /><span ng-show="beaconForm.minor.$invalid && submitted" class="ui input error">Must be positive number < 65000</span>
         </div>
+
       </div>
       <div class="buttons">
         <a class="ui small icon button" type="cancel" ng-click="hideAddBeacon()">Cancel</a>
-        <a class="ui small icon blue button" type="submit" ng-click="addBeacon(beacon)" value="submit">Add this beacon</a>
+        <button type="submit" class="ui small icon blue button" type="submit">Add beacon</a>
       </div>
-    </div>
+    </form>
   </div>
   <table ng-show="beaconsExist" class="adminTable beaconTable">
     <thead>

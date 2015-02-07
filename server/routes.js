@@ -93,6 +93,8 @@ module.exports = function(app) {
       minor: req.body.minor
     };
 
+    console.log('beaconinfo', beaconInfo);
+
     helpers.upsert('Beacon', beaconInfo, beaconId)
       .then(function(beacon) {
         beaconId = beacon.get('id');

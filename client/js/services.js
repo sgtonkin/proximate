@@ -69,10 +69,11 @@ angular.module('proximate.services', [])
 
   return {
     postNewBeacon: function(beacon) {
+      console.log('posting beacon', beacon);
       return $http({
         method: 'POST',
         url: '/api/beacons',
-        data: beacon,
+        data: JSON.stringify(beacon),
       }).then(function(res) {
         return res.data;
       }).catch(function(error) {

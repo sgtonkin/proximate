@@ -80,7 +80,7 @@ angular.module('proximate.controllers', [])
       $scope.setCurrentEventParticipants(eventData.participants);
       $scope.$broadcast('current-event-updated');
     }).catch(function(err) {
-      console.log(err);
+
     });
   };
 
@@ -296,6 +296,7 @@ angular.module('proximate.controllers', [])
 
   $scope.beaconsData = [];
   $scope.beaconsExist = false;
+  $scope.newBeacon = {};
 
   // get beacons for given adminID
   $scope.getBeacons = function() {
@@ -304,6 +305,8 @@ angular.module('proximate.controllers', [])
         if(beaconData.length > 0) {
           $scope.beaconsExist = true;
           $scope.beaconsData = beaconData;
+        } else {
+          $scope.beaconsExist = false;
         }
       }
     });
@@ -311,11 +314,13 @@ angular.module('proximate.controllers', [])
 
   $scope.getBeacons();
 
-  $scope.addBeacon = function(beacon) {
-    Beacon.postNewBeacon($scope.adminId, beacon)
-    .then(function() {
-      $scope.beaconsData.push(beacon);
-    });
+  $scope.submitBeacon = function(beacon, valid) {
+    $scope.submitted = true;
+    if (valid) {
+      $scope.saveBeacon(beacon);
+      $scope.newBeacon = {};
+      $scope.submitted = false;
+    }
   };
 
   // validation functions for inline edits
@@ -339,23 +344,29 @@ angular.module('proximate.controllers', [])
 
   };
 
-  $scope.saveBeacon = function(beacon, id) {
-    angular.extend(beacon, {id: id, adminId: $scope.adminId});
-    Beacon.postNewBeacon(beacon);
+  $scope.saveBeacon = function(beacon) {
+    angular.extend(beacon, {adminId: $scope.adminId});
+    Beacon.postNewBeacon(beacon)
+      .then(function(beacon) {
+        $scope.hideAddBeacon();
+        $scope.beaconsExist = true;
+        $scope.getBeacons();
+    });
   };
 
   $scope.deleteBeacon = function(id) {
     if (confirm('Are you sure you want to delete this beacon?')) {
-      Beacon.deleteBeacon(id);
-      $scope.getBeacons();
+      console.log('id', id);
+      Beacon.deleteBeacon(id)
+        .then(function() {
+          $scope.getBeacons();
+        });
     }
   };
 
   $scope.showAddBeacon = function() {
-    //$(".ui.modal").modal();
     $('.addBeacon').show();
     $('.addBeacon-toggle').hide();
-
   };
 
   $scope.hideAddBeacon = function() {
