@@ -15,16 +15,6 @@
       <div class="ui primary button">Use App</div>
     </div>
   </div>
-   <div class="ui modal">
-       <i class="close icon"></i>
-       <div class="header">Test title</div>
-       <div class="content">Test content</div>
-       <div class="actions">
-           <div class="ui button approve green" data-value="easy">Easy</div>
-           <div class="ui button approve blue" data-value="normal">Normal</div>
-           <div class="ui button approve red" data-value="hard">Hard</div>
-       </div>
-   </div>
   <div class="addBeacon">
     <h3>Add a new beacon</h3>
     <form name="beaconForm" ng-submit="submitBeacon(newBeacon, beaconForm.$valid)" novalidate class="ui form segment">
@@ -79,6 +69,7 @@
     <tbody>
       <tr ng-repeat="beacon in beaconsData">
         <td class="identifier">
+          <input type="hidden" value="{{beacon.id}}"></input>
           <span editable-text="beacon.identifier" e-name="identifier" e-form="rowform" onbeforesave="checkIdentifier($data)" e-required>{{beacon.identifier}}
           </span>
         </td>

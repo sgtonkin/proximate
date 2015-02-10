@@ -344,8 +344,9 @@ angular.module('proximate.controllers', [])
 
   };
 
-  $scope.saveBeacon = function(beacon) {
-    angular.extend(beacon, {adminId: $scope.adminId});
+  $scope.saveBeacon = function(beacon, id) {
+    console.log('beacons data', $scope.beaconsData);
+    angular.extend(beacon, {id: id, adminId: $scope.adminId});
     Beacon.postNewBeacon(beacon)
       .then(function(beacon) {
         $scope.hideAddBeacon();
