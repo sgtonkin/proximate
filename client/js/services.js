@@ -84,8 +84,7 @@ angular.module('proximate.services', [])
     deleteBeacon: function(id) {
       return $http({
         method: 'DELETE',
-        url: '/api/beacons/' + id,
-        data: {id: id},
+        url: '/api/beacons/' + id
       }).then(function(res) {
         return res.data;
       }).catch(function(error) {
