@@ -337,22 +337,24 @@ a {
   box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
   background-color: rgba(255,255,255, 0);
   border-radius: 2px;
-  opacity: 0;
+  display: none;
   z-index: 20;
 }
 
 .rightMenu .subMenu {
   right: 1%;
   width: 130%;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .names .subMenu {
   width: 160px;
+  margin-top: 10px;
+  margin-left: 2px;
 }
 
 .subMenu.show {
-  opacity: 1;
+  display: block;
   background-color: rgba(255,255,255, .9);
 }
 

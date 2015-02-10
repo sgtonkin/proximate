@@ -35,14 +35,7 @@ angular.module('proximate.controllers', [])
 
   /**** SETUP FOR RIGHT (ADMIN) MENU HANDLERS AND LISTENERS ****/
 
-  // Fires on right menu clicks to handle opening and closing of right menu
-  $scope.rightMenuClick = function(e) {
-    if (!$('.rightMenu .subMenu').hasClass('show')) {
-      openRightMenu();
-    } else {
-      closeRightMenu();
-    }
-  };
+
 
   // Detects clicks on the page outside the menu, and determines if the right menu is open
   // If it is, we close it.
@@ -51,34 +44,26 @@ angular.module('proximate.controllers', [])
         !$(e.target).hasClass('item') &&
         !$(e.target).hasClass('participantName')) {
       closeMenus();
-      closeRightMenu();
     }
   });
 
   // Utility function for opening right menu
   function openRightMenu() {
     $('.rightMenu .subMenu').addClass('show');
-    $('.admin-name').addClass('menuOpen');
-    $('.rightMenu .highlight').addClass('menuOpen');
   }
 
-  // Utility function for closing right menu
-  function closeRightMenu() {
-    $('.rightMenu .subMenu').removeClass('show');
-    $('.admin-name').removeClass('menuOpen');
-    $('.rightMenu .highlight').removeClass('menuOpen');
-  }
+// Fires on right menu clicks to handle opening and closing of right menu
+  $scope.rightMenuClick = function(e) {
+    if (!$('.rightMenu .subMenu').hasClass('show')) {
+      openRightMenu();
+    } else {
+      closeMenus();
+    }
+  };
 
   $scope.signOut = Auth.signOut;
 
   /**** SETUP FOR PARTICIPANT STATUS MENU HANDLERS AND LISTENERS ****/
-
-  // Click on an item
-    // If it's menu is not open, open it [X]
-    // If it is open, close it [X]
-    // If any other menus are open, close them
-  // Click not on an item
-    // Close all items
 
   // Utility function for opening status menu
   var openStatusMenu = function(event, id) {
