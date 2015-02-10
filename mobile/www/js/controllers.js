@@ -138,6 +138,7 @@ angular.module('proximate.controllers', [])
   $scope.data = {
     username: '',
     password: '',
+    passwordConfirm: '', // For signup
     deviceId: ''
   };
 
@@ -150,6 +151,18 @@ angular.module('proximate.controllers', [])
 
   $scope.register = function() {
     Settings.signin($scope.data)
+      .then(function(res) {
+        $scope.error = '';
+        $scope.hide_header = false;
+        $state.go('tab.status');
+      })
+      .catch(function(err) {
+        $scope.logSplashError(err);
+      });
+  };
+
+  $scope.signup = function() {
+    Settings.signup($scope.data)
       .then(function(res) {
         $scope.error = '';
         $scope.hide_header = false;

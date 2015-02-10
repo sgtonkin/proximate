@@ -62,6 +62,12 @@ angular.module('proximate', ['ionic',
       url: '/splash',
       templateUrl: 'views/splash.html',
       controller: 'SplashCtrl'
+    })
+
+    .state('signup', {
+      url: '/signup',
+      templateUrl: 'views/signup.html',
+      controller: 'SplashCtrl'
     });
 
   // if none of the above states are matched, use this as the fallback
