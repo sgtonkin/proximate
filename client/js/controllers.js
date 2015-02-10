@@ -301,8 +301,8 @@ angular.module('proximate.controllers', [])
   // get beacons for given adminID
   $scope.getBeacons = function() {
     Beacon.getBeaconsByAdminId($scope.adminId).then(function(beaconData) {
-      if(beaconData) {
-        if(beaconData.length > 0) {
+      if (beaconData) {
+        if (beaconData.length > 0) {
           $scope.beaconsExist = true;
           $scope.beaconsData = beaconData;
         } else {
@@ -325,21 +325,21 @@ angular.module('proximate.controllers', [])
 
   // validation functions for inline edits
   $scope.checkIdentifier = function(data) {
-    if(!data) {
-      return "Invalid name";
+    if (!data) {
+      return 'Identifier';
     }
   };
 
   // check uuid
   $scope.checkUuid = function(data) {
     console.log('uuid', data);
-    if(!data) {
-      return "Invalid uuid";
+    if (!data) {
+      return 'Invalid uuid';
     }
-    var regex = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$','i');
+    var regex = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', 'i');
     console.log(regex.test(data), data);
-    if(!regex.test(data)) {
-      return "Format: 11111111-2222-3333-4444-555555555555"
+    if (!regex.test(data)) {
+      return 'Format: 11111111-2222-3333-4444-555555555555';
     }
 
   };
@@ -352,7 +352,7 @@ angular.module('proximate.controllers', [])
         $scope.hideAddBeacon();
         $scope.beaconsExist = true;
         $scope.getBeacons();
-    });
+      });
   };
 
   $scope.deleteBeacon = function(id) {
@@ -374,8 +374,6 @@ angular.module('proximate.controllers', [])
     $('.addBeacon').hide();
     $('.addBeacon-toggle').show();
   };
-
-
 
 })
 
