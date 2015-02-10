@@ -40,6 +40,12 @@
          <a ng-if="!participant.name">{{participant.email}}</a>
         </li>
       </ul>
+      <div class="subMenu">
+        <div class="item" ng-click="statusMenuClick()">Ontime</div>
+        <div class="item">Late</div>
+        <div class="item">Excused</div>
+        <div class="item">Absent</div>
+      </div>
     </div>
   </div>
   <ng-include src="'/views/partials/toast.html'"></ng-include>

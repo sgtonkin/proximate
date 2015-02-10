@@ -37,12 +37,11 @@ angular.module('proximate.controllers', [])
 
   // Fires on right menu clicks to handle opening and closing of right menu
   $scope.rightMenuClick = function(e) {
-    if (!$('.subMenu').hasClass('show')) {
+    if (!$('.rightMenu .subMenu').hasClass('show')) {
       openRightMenu();
     } else {
       closeRightMenu();
     }
-
   };
 
   // Detects clicks on the page outside the menu, and determines if the right menu is open
@@ -57,19 +56,31 @@ angular.module('proximate.controllers', [])
 
   // Utility function for opening right menu
   function openRightMenu() {
-    $('.subMenu').addClass('show');
+    $('.rightMenu .subMenu').addClass('show');
     $('.admin-name').addClass('menuOpen');
     $('.rightMenu .highlight').addClass('menuOpen');
   }
 
   // Utility function for closing right menu
   function closeRightMenu() {
-    $('.subMenu').removeClass('show');
+    $('.rightMenu .subMenu').removeClass('show');
     $('.admin-name').removeClass('menuOpen');
     $('.rightMenu .highlight').removeClass('menuOpen');
   }
 
   $scope.signOut = Auth.signOut;
+
+  /**** SETUP FOR PARTICIPANT STATUS MENU HANDLERS AND LISTENERS ****/
+
+  // Fires on names menu click to handle opening and closing of sub menu
+  $scope.statusMenuClick = function(e) {
+    console.log(e);
+    if (!$('.names .subMenu').hasClass('show')) {
+      openStatusMenu();
+    } else {
+      closeStatusMenu();
+    }
+  };
 
   // Fetch the participant and event data from the server
   $scope.getCurrentEventData = function() {

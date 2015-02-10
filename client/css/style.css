@@ -216,6 +216,10 @@ a {
 
     }
 
+    .projector .names ul li a:hover {
+      background-color: rgba(39,58,71, 1);
+    }
+
 .leftMenu {
   position: absolute;
   top: 2%;
@@ -327,14 +331,20 @@ a {
   -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.33);
   -moz-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.33);
   box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
-  width: 130%;
-  height: auto;
   background-color: rgba(255,255,255, 0);
-  right: 1%;
-  margin-top: 15px;
   border-radius: 2px;
   opacity: 0;
   z-index: 20;
+}
+
+.rightMenu .subMenu {
+  right: 1%;
+  width: 130%;
+  margin-top: 15px;
+}
+
+.names .subMenu {
+  width: 160px;
 }
 
 .subMenu.show {
@@ -345,9 +355,7 @@ a {
 .subMenu .item {
   padding-top: 10px;
   padding-left: 15px;
-  padding-right: 10px;
   padding-bottom: 10px;
-  width: 85%;
 }
 
 .subMenu i {
@@ -362,7 +370,6 @@ a {
   cursor: pointer;
   color: white;
   background-color: rgba(39,58,71, 1);
-  width: 87%;
 }
 
 .subMenu .item:nth-of-type(1) {
