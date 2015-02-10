@@ -35,7 +35,7 @@
     </ul>
     <div class="names">
       <ul>
-        <li ng-repeat="participant in participants | removeArrivedParticipants" class="repeated-item">
+        <li ng-repeat="participant in participants | removeArrivedParticipants">
          <a ng-if="participant.name">{{participant.name}}</a>
          <a ng-if="!participant.name">{{participant.email}}</a>
         </li>
