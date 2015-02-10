@@ -156,7 +156,7 @@ angular.module('proximate.services')
     $localStorage.set('password', info.password);
     data.password = info.password;
     $localStorage.set('initialized', 'true');
-  };
+  }
 
   // Utility logging function. Currently set to log to settings screen on app for DEV purposes
 

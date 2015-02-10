@@ -65,6 +65,48 @@ angular.module('proximate.services', [])
   };
 })
 
+.factory('Beacon', function($http) {
+
+  return {
+    postNewBeacon: function(beacon) {
+      console.log('posting beacon', beacon);
+      return $http({
+        method: 'POST',
+        url: '/api/beacons',
+        data: JSON.stringify(beacon),
+      }).then(function(res) {
+        return res.data;
+      }).catch(function(error) {
+        console.log('Error adding new beacon');
+      });
+    },
+
+    deleteBeacon: function(id) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/beacons/' + id
+      }).then(function(res) {
+        return res.data;
+      }).catch(function(error) {
+        console.log('Error deleting beacon');
+      });
+    },
+
+    getBeaconsByAdminId: function(adminId) {
+      var url = '/api/admins/' + adminId + '/beacons';
+      return $http({
+        method: 'GET',
+        url: url
+      }).then(function(res) {
+        return res.data;
+      }).catch(function(error) {
+        console.log('Error getting beacons');
+      });
+    }
+  };
+
+})
+
 .factory('Populate', function($http) {
   var adminId;
 
@@ -116,36 +158,6 @@ angular.module('proximate.services', [])
         return res.data;
       }).catch(function(error) {
         console.log('Error getting events');
-      });
-    },
-
-    getBeaconsByAdminId: function(adminId) {
-      var url = '/api/admins/' + adminId + '/beacons';
-      return $http({
-        method: 'GET',
-        url: url
-      }).then(function(res) {
-        return res.data;
-      }).catch(function(error) {
-        console.log('Error getting beacons');
-      });
-    },
-
-    postNewBeacon: function(adminId, beacon) {
-      return $http({
-        method: 'POST',
-        url: '/api/beacons',
-        data: {
-          adminId: adminId,
-          identifier: beacon.identifier,
-          uuid: beacon.uuid,
-          major: beacon.major,
-          minor: beacon.minor
-        },
-      }).then(function(res) {
-        return res.data;
-      }).catch(function(error) {
-        console.log('Error adding new beacon');
       });
     },
 

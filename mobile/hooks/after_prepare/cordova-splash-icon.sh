@@ -1,3 +1,3 @@
 #!/bin/bash
-cordova-icon
-cordova-splash
+#cordova-icon
+#cordova-splash

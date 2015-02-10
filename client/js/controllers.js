@@ -80,7 +80,7 @@ angular.module('proximate.controllers', [])
       $scope.setCurrentEventParticipants(eventData.participants);
       $scope.$broadcast('current-event-updated');
     }).catch(function(err) {
-      console.log(err);
+
     });
   };
 
@@ -292,28 +292,82 @@ angular.module('proximate.controllers', [])
 
 })
 
-.controller('BeaconsCtrl', function($scope, Populate) {
+.controller('BeaconsCtrl', function($scope, Beacon) {
 
   $scope.beaconsData = [];
+  $scope.beaconsExist = false;
+  $scope.newBeacon = {};
+
   // get beacons for given adminID
   $scope.getBeacons = function() {
-    Populate.getBeaconsByAdminId($scope.adminId).then(function(beaconData) {
-      $scope.beaconsData = beaconData;
+    Beacon.getBeaconsByAdminId($scope.adminId).then(function(beaconData) {
+      if (beaconData) {
+        if (beaconData.length > 0) {
+          $scope.beaconsExist = true;
+          $scope.beaconsData = beaconData;
+        } else {
+          $scope.beaconsExist = false;
+        }
+      }
     });
   };
+
   $scope.getBeacons();
-  // post beacon data
-  $scope.addBeacon = function(beacon) {
-    Populate.postNewBeacon($scope.adminId, beacon)
-    .then(function() {
-      $scope.beaconsData.push(beacon);
-    });
+
+  $scope.submitBeacon = function(beacon, valid) {
+    $scope.submitted = true;
+    if (valid) {
+      $scope.saveBeacon(beacon);
+      $scope.newBeacon = {};
+      $scope.submitted = false;
+    }
+  };
+
+  // validation functions for inline edits
+  $scope.checkIdentifier = function(data) {
+    if (!data) {
+      return 'Identifier';
+    }
+  };
+
+  // check uuid
+  $scope.checkUuid = function(data) {
+    console.log('uuid', data);
+    if (!data) {
+      return 'Invalid uuid';
+    }
+    var regex = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', 'i');
+    console.log(regex.test(data), data);
+    if (!regex.test(data)) {
+      return 'Format: 11111111-2222-3333-4444-555555555555';
+    }
+
+  };
+
+  $scope.saveBeacon = function(beacon, id) {
+    console.log('beacons data', $scope.beaconsData);
+    angular.extend(beacon, {id: id, adminId: $scope.adminId});
+    Beacon.postNewBeacon(beacon)
+      .then(function(beacon) {
+        $scope.hideAddBeacon();
+        $scope.beaconsExist = true;
+        $scope.getBeacons();
+      });
+  };
+
+  $scope.deleteBeacon = function(id) {
+    if (confirm('Are you sure you want to delete this beacon?')) {
+      console.log('id', id);
+      Beacon.deleteBeacon(id)
+        .then(function() {
+          $scope.getBeacons();
+        });
+    }
   };
 
   $scope.showAddBeacon = function() {
     $('.addBeacon').show();
     $('.addBeacon-toggle').hide();
-
   };
 
   $scope.hideAddBeacon = function() {

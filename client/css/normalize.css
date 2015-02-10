@@ -72,19 +72,6 @@ html {
 }
 
 /**
- * Address `font-family` inconsistency between `textarea` and other form
- * elements.
- */
-
-html,
-button,
-input,
-select,
-textarea {
-  font-family: sans-serif;
-}
-
-/**
  * Address margins handled incorrectly in IE 6/7.
  */
 
@@ -382,10 +369,6 @@ textarea {
  * the UA stylesheet.
  */
 
-button,
-input {
-  line-height: normal;
-}
 
 /**
  * Address inconsistent `text-transform` inheritance for `button` and `select`.

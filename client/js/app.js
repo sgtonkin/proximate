@@ -4,7 +4,8 @@ angular.module('proximate',
   'proximate.controllers',
   'proximate.services',
   'angularMoment',
-  'ngAnimate'
+  'ngAnimate',
+  'xeditable'
   ])
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {

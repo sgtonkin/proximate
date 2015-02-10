@@ -1,49 +1,103 @@
-<div class="events content">
+<div class="content beacons">
   <div class="beaconsHeader">
     <h1>Beacons</h1>
-    <div class="addBeacon-toggle ui small labeled blue icon button" ng-click="showAddBeacon()">
+    <div ng-show="beaconsExist" class="addBeacon-toggle ui small labeled blue icon button" ng-click="showAddBeacon()">
       <i class="icon plus"></i>
       Add a beacon
     </div>
   </div>
+  <div ng-show="!beaconsExist" class="warning">
+    <h3>You haven't registered any beacons yet</h3>
+    <p>In order to use Proximate, you have to set up your beacons to work with the system.</p>
+    <div class="ui buttons">
+      <div class="ui button" ng-click="showAddBeacon()">Enter Manually</div>
+      <div class="or"></div>
+      <div class="ui primary button">Use App</div>
+    </div>
+  </div>
   <div class="addBeacon">
     <h3>Add a new beacon</h3>
-    <div novalidate class="ui form segment">
+    <form name="beaconForm" ng-submit="submitBeacon(newBeacon, beaconForm.$valid)" novalidate class="ui form segment">
       <div class="bigFields">
-        <input class="ui input fluid" type="text" ng-model="beacon.identifier" placeholder="Identifier" />
+
+        <!-- Identifier -->
+        <div ng-class="{'field error': beaconForm.identifier.$invalid && submitted}">
+          <input name="identifier" type="text" ng-model="newBeacon.identifier" placeholder="Identifier (name of your beacon)" required />
+          <span ng-show="beaconForm.identifier.$invalid && submitted" class="ui input error">Identifier is required.</span>
+        </div>
         <div class="ui divider"></div>
-        <input class="ui input fluid" type="text" ng-model="beacon.uuid" placeholder="UUID" />
+
+        <!-- UUID -->
+        <div ng-class="{'field error': beaconForm.uuid.$invalid && submitted}">
+          <input name="uuid" type="text" ng-model="newBeacon.uuid" placeholder="UUID (11111111-2222-3333-4444-555555555555)" required ng-pattern="/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/" />
+          <span ng-show="beaconForm.uuid.$invalid && submitted" class="ui input error">Enter a valid UUID (11111111-2222-3333-4444-555555555555)</span>
+        </div>
         <div class="ui divider"></div>
+
       </div>
       <div class="inline fields">
-        <div class="field">
-          <input class="ui input" type="number" ng-model="beacon.major" placeholder="Major"/>
+
+        <!-- Major -->
+        <div class="field" ng-class="{'error': beaconForm.major.$invalid && submitted}">
+          <input name="major" ng-pattern="/^[0-9]{1,5}$/" type="text" ng-model="newBeacon.major" placeholder="Major" required/>
+          <br /><span ng-show="beaconForm.major.$invalid && submitted" class="ui input error">Must be positive number < 65000</span>
         </div>
-        <div class="field">
-          <input class="ui input" type="number" ng-model="beacon.minor" placeholder="Minor"/>
+
+        <!-- Minor -->
+        <div class="field" ng-class="{'error': beaconForm.minor.$invalid && submitted}">
+          <input name="minor" ng-pattern="/^[0-9]{1,5}$/" class="ui input" type="text" ng-model="newBeacon.minor" placeholder="Minor" required/>
+          <br /><span ng-show="beaconForm.minor.$invalid && submitted" class="ui input error">Must be positive number < 65000</span>
         </div>
+
       </div>
       <div class="buttons">
         <a class="ui small icon button" type="cancel" ng-click="hideAddBeacon()">Cancel</a>
-        <a class="ui small icon blue button" type="submit" ng-click="addBeacon(beacon)" value="submit">Add this beacon</a>
+        <button type="submit" class="ui small icon blue button" type="submit">Add beacon</a>
       </div>
-    </div>
+    </form>
   </div>
-  <table class="adminTable">
+  <table ng-show="beaconsExist" class="adminTable beaconTable">
     <thead>
       <tr>
         <th>Identifier</th>
         <th>UUID</th>
         <th>Major</th>
         <th>Minor</th>
+        <th>Admin</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="adminRow" ng-repeat="beacon in beaconsData">
-        <td class="username">{{beacon.identifier}}</td>
-        <td class="mail">{{beacon.uuid}}</td>
-        <td class="participantStatus">{{beacon.major}}</td>
-        <td class="participantStatus">{{beacon.minor}}</td>
+      <tr ng-repeat="beacon in beaconsData">
+        <td class="identifier">
+          <input type="hidden" value="{{beacon.id}}"></input>
+          <span editable-text="beacon.identifier" e-name="identifier" e-form="rowform" onbeforesave="checkIdentifier($data)" e-required>{{beacon.identifier}}
+          </span>
+        </td>
+        <td class="uuid">
+          <span editable-text="beacon.uuid" e-style="width: 300px" e-name="uuid" e-form="rowform" onbeforesave="checkUuid($data)" e-class="uuidInput" e-required>{{beacon.uuid}}
+          </span>
+        </td>
+        <td>
+          <span editable-text="beacon.major" e-name="major" e-form="rowform" onbeforesave="checkMajor($data)">{{beacon.major}}
+          </span>
+        </td>
+        <td>
+          <span editable-text="beacon.minor" e-name="minor" e-form="rowform" onbeforesave="checkMinor($data)">{{beacon.minor}}
+          </span>
+        </td>
+        <td>
+          <form editable-form name="rowform" onbeforesave="saveBeacon($data, beacon.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == beacon">
+            <button type="submit" ng-disabled="rowform.$waiting" class="ui icon button primary tiny">
+            <i class="check icon"></i></button>
+            </button>
+            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="ui button basic tiny">
+              cancel
+            </button>
+          </form>
+          <div class="ui icon buttons basic" ng-show="!rowform.$visible">
+            <button class="ui icon button" ng-click="rowform.$show()" onclick=""><i class="edit icon"></i></button>
+            <button class="ui icon button" ng-click="deleteBeacon(beacon.id)"><i class="delete icon"></i></button>
+          </div>
       </tr>
     </tbody>
   </table>
