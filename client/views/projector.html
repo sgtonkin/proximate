@@ -35,17 +35,17 @@
     </ul>
     <div class="names">
       <ul>
-        <li ng-repeat="participant in participants | removeArrivedParticipants">
-         <a ng-if="participant.name">{{participant.name}}</a>
-         <a ng-if="!participant.name">{{participant.email}}</a>
+        <li id="{{participant.id}}" ng-repeat="participant in participants | removeArrivedParticipants">
+         <a class="participantName" ng-if="participant.name" ng-click="statusMenuClick($event, participant.id)">{{participant.name}}</a>
+         <a class="participantName" ng-if="!participant.name" ng-click="statusMenuClick($event, participant.id)">{{participant.email}}</a>
+          <div class="subMenu">
+            <div class="item" ng-click="updateStatus({{participant.id}}, 'ontime'">Ontime</div>
+            <div class="item">Late</div>
+            <div class="item">Excused</div>
+            <div class="item">Absent</div>
+          </div>
         </li>
       </ul>
-      <div class="subMenu">
-        <div class="item" ng-click="statusMenuClick()">Ontime</div>
-        <div class="item">Late</div>
-        <div class="item">Excused</div>
-        <div class="item">Absent</div>
-      </div>
     </div>
   </div>
   <ng-include src="'/views/partials/toast.html'"></ng-include>

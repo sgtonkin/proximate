@@ -216,6 +216,10 @@ a {
 
     }
 
+    .projector .names ul li a.selected {
+      background-color: rgba(39,58,71, 1);
+    }
+
     .projector .names ul li a:hover {
       background-color: rgba(39,58,71, 1);
     }

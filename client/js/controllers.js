@@ -49,7 +49,8 @@ angular.module('proximate.controllers', [])
   $('body').click(function(e) {
     if (!$(e.target).hasClass('admin-name') &&
         !$(e.target).hasClass('item') &&
-        $('.admin-name').hasClass('menuOpen')) {
+        !$(e.target).hasClass('participantName')) {
+      closeMenus();
       closeRightMenu();
     }
   });
@@ -72,13 +73,33 @@ angular.module('proximate.controllers', [])
 
   /**** SETUP FOR PARTICIPANT STATUS MENU HANDLERS AND LISTENERS ****/
 
+  // Click on an item
+    // If it's menu is not open, open it [X]
+    // If it is open, close it [X]
+    // If any other menus are open, close them
+  // Click not on an item
+    // Close all items
+
+  // Utility function for opening status menu
+  var openStatusMenu = function(event, id) {
+    closeMenus(event, id);
+    $('#'+id +' > div').addClass('show');
+    $('#'+id +' > div').addClass('menuOpen');
+    $(event.target).addClass('selected');
+  }
+
+  var closeMenus = function(event, id) {
+    $('.participantName').removeClass('selected');
+    $('.subMenu').removeClass('show');
+    $('.menuOpen').removeClass('menuOpen');
+  }
+
   // Fires on names menu click to handle opening and closing of sub menu
-  $scope.statusMenuClick = function(e) {
-    console.log(e);
-    if (!$('.names .subMenu').hasClass('show')) {
-      openStatusMenu();
+  $scope.statusMenuClick = function(event, id) {
+    if (!$('#' + id + ' > div').hasClass('show')) {
+      openStatusMenu(event, id);
     } else {
-      closeStatusMenu();
+      closeMenus(event, id);
     }
   };
 
