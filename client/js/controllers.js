@@ -66,14 +66,14 @@ angular.module('proximate.controllers', [])
   // Utility function for opening status menu
   var openStatusMenu = function(event, id) {
     closeMenus(event, id);
-    $('#'+id +' > div').addClass('show');
+    $('#' + id + ' > div').addClass('show');
     $(event.target).addClass('selected');
-  }
+  };
 
   var closeMenus = function() {
     $('.participantName').removeClass('selected');
     $('.subMenu').removeClass('show');
-  }
+  };
 
   // Fires on names menu click to handle opening and closing of sub menu
   $scope.statusMenuClick = function(event, id) {
@@ -90,7 +90,7 @@ angular.module('proximate.controllers', [])
     closeMenus();
     $scope.setScopeVars(eventId);
 
-  }
+  };
 
   // Fetch the participant and event data from the server
   $scope.getCurrentEventData = function() {
