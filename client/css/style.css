@@ -224,6 +224,12 @@ a {
       background-color: rgba(39,58,71, 1);
     }
 
+    .projector .names .everyoneHere {
+      font-style: italic;
+      font-size: 1.2em;
+      font-weight: 300;
+    }
+
 .leftMenu {
   position: absolute;
   top: 2%;
@@ -307,23 +313,6 @@ a {
 .rightMenu .admin-name:hover {
   cursor: pointer;
   opacity: .7;
-}
-
-.rightMenu .admin-name.menuOpen {
-  opacity: 1;
-}
-
-.rightMenu .highlight {
-  position: absolute;
-  top: -15px;
-  right: 1%;
-  height: 4px;
-  background-color: rgba(236,240,241, 0);
-  width: 95%;
-}
-
-.rightMenu .highlight.menuOpen {
-  background-color: rgba(236,240,241, .9);
 }
 
 .subMenu {

@@ -35,8 +35,6 @@ angular.module('proximate.controllers', [])
 
   /**** SETUP FOR RIGHT (ADMIN) MENU HANDLERS AND LISTENERS ****/
 
-
-
   // Detects clicks on the page outside the menu, and determines if the right menu is open
   // If it is, we close it.
   $('body').click(function(e) {
@@ -69,14 +67,12 @@ angular.module('proximate.controllers', [])
   var openStatusMenu = function(event, id) {
     closeMenus(event, id);
     $('#'+id +' > div').addClass('show');
-    $('#'+id +' > div').addClass('menuOpen');
     $(event.target).addClass('selected');
   }
 
-  var closeMenus = function(event, id) {
+  var closeMenus = function() {
     $('.participantName').removeClass('selected');
     $('.subMenu').removeClass('show');
-    $('.menuOpen').removeClass('menuOpen');
   }
 
   // Fires on names menu click to handle opening and closing of sub menu
@@ -84,9 +80,17 @@ angular.module('proximate.controllers', [])
     if (!$('#' + id + ' > div').hasClass('show')) {
       openStatusMenu(event, id);
     } else {
-      closeMenus(event, id);
+      closeMenus();
     }
   };
+
+  $scope.updateParticipantStatus = function(participantId, eventId, status) {
+    Populate.updateParticipantStatus(participantId,
+      eventId, status);
+    closeMenus();
+    $scope.setScopeVars(eventId);
+
+  }
 
   // Fetch the participant and event data from the server
   $scope.getCurrentEventData = function() {
