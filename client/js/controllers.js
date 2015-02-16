@@ -230,7 +230,6 @@ angular.module('proximate.controllers', [])
 
   // Fetch events data for given adminId
   Populate.getEventsByAdminId($scope.adminId).then(function(eventsData) {
-    console.log('events data', eventsData);
     // Make sure we have some events to display
     if (eventsData.length !== 0) {
       $scope.events = eventsData;
@@ -238,10 +237,10 @@ angular.module('proximate.controllers', [])
       var activeEvents = eventsData.filter(function(event) {
         return event.status !== 'cancelled';
       });
-      console.log('active events', activeEvents);
       if (activeEvents.length !== 0) {
         // We have at least one event
-        return $scope.eventsExist = true;
+        $scope.eventsExist = true;
+        return;
       }
     }
     // No events, hide data table

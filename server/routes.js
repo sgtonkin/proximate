@@ -288,7 +288,7 @@ module.exports = function(app) {
     if (adminId) {
       sync(adminId)
         .then(function() {
-          return helpers.getEventsByAdminId(adminId)
+          return helpers.getEventsByAdminId(adminId);
         })
         .then(function(model) {
           if (model) {
