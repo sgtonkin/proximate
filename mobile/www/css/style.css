@@ -170,7 +170,6 @@ body {
 }
 
 .splash-error {
-  margin-top: -30px;
   text-align: center;
   font-size: 1.5em;
   color: #EC4F43;
@@ -210,6 +209,10 @@ body {
 
 input.register {
   font-size: 1.5em;
+}
+
+.register.ng-touched.ng-invalid-email, .register.ng-touched.ng-invalid-minlength {
+  color: red !important;
 }
 
 .input-box ::-webkit-input-placeholder {

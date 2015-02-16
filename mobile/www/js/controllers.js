@@ -173,6 +173,45 @@ angular.module('proximate.controllers', [])
       });
   };
 
+  /***********************************************************
+  ** Scope error functions                                  **
+  ***********************************************************/
+
+  // Sets an error on invalid email; clears if ok
+  $scope.invalidEmail = function() {
+    var emailEl = angular.element(document.querySelector('#email'));
+
+    if (emailEl.hasClass('ng-invalid-email')) {
+      $scope.error = 'Invalid email';
+    } else {
+      $scope.error = '';
+    }
+
+  };
+
+  // Sets an error on invalid password; clears if ok. Currently only
+  // detects passwords that are too short, as defined in their minlength param.
+  // See view html for details
+  $scope.invalidPassword = function() {
+    var passwordEl = angular.element(document.querySelector('#password'));
+
+    if (passwordEl.hasClass('ng-invalid-minlength')) {
+      $scope.error = 'Password too short';
+    } else {
+      $scope.error = '';
+    }
+
+  };
+
+  // Sets an error on non-matching passwords; clears if matching
+  $scope.passwordMatch = function() {
+    if ($scope.data.password !== $scope.data.passwordConfirm) {
+      $scope.error = 'Passwords don\'t match';
+    } else {
+      $scope.error = '';
+    }
+  };
+
   $scope.logSplashError = function(err) {
     if (err.status === 404) {
       $scope.error = 'We couldn\'t find you in the system. Please contact your administrator.';

@@ -8,10 +8,10 @@
       </div>
       <div class="box-container">
         <div class="input-box">
-          <input ng-model="data.email" type="email" placeholder="email" class="register">
+          <input id="email" ng-model="data.email" type="email" placeholder="email" class="register" ng-required="true" ng-blur="invalidEmail()" ng-change="invalidEmail()">
         </div>
         <div class="input-box">
-            <input ng-model="data.password" type="password" placeholder="password" class="register">
+            <input id="password" ng-model="data.password" type="password" placeholder="password" class="register" ng-minlength="6" ng-required="true" ng-change="invalidPassword()">
         </div>
       </div>
       <div class="input-button">
