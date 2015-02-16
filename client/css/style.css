@@ -785,7 +785,7 @@ a {
   margin-top: -12em;
 }
 
-.pane5 a:link, a:visited {
+.pane5 a:link {
   float: left;
   margin-top: 5.9em;
   margin-right: 2em;
@@ -1247,6 +1247,10 @@ a {
   .warning h3 {
     color: #7f5d56;
   }
+
+.noEvents {
+  margin-top: 115px;
+}
 
 .current-event-card {
   position: relative;

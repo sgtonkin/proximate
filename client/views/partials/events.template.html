@@ -1,5 +1,5 @@
 <div class="events content">
-  <div class="current-event-card" ng-show="currentEvent.name">
+  <div class="current-event-card" ng-show="currentEvent.name && eventsExist">
     <div>
       <div class="title">
         <h2>{{currentEvent.name}}</h2>
@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  <div class="tableControls">
+  <div class="tableControls" ng-show="eventsExist">
     <div class="ui icon input small filterbox">
       <input placeholder="search" type="text" ng-model="search" />
       <i class="search icon"></i>
@@ -52,7 +52,7 @@
       </li>
     </ul>
   </div>
-  <table class="adminTable">
+  <table class="adminTable" ng-show="eventsExist">
     <thead>
       <tr>
         <th>Name</th>
@@ -80,4 +80,14 @@
       </tr>
     </tbody>
   </table>
+  <div ng-show="eventsExist === false" class="warning noEvents">
+    <h3>Activate Proximate for your calendar events</h3>
+    <p>To setup attendance tracking on your Google Calendar event:</p>
+    <ol>
+      <li>Access <a href="http://www.google.com/calendar" target="top">Google Calendar</a> and create an event</li>
+      <li>Invite attendance@proximate.io to your event</li>
+      <li><a href="javascript:history.go(0);">Refresh</a> the page</li>
+    </ol>
+  </div>
 </div>
+
