@@ -182,13 +182,16 @@ angular.module('proximate.controllers', [])
     var emailEl = angular.element(document.querySelector('#email'));
 
     if (emailEl.hasClass('ng-invalid-email')) {
-      $scope.error = 'Invalid email'
+      $scope.error = 'Invalid email';
     } else {
       $scope.error = '';
     }
 
   };
 
+  // Sets an error on invalid password; clears if ok. Currently only
+  // detects passwords that are too short, as defined in their minlength param.
+  // See view html for details
   $scope.invalidPassword = function() {
     var passwordEl = angular.element(document.querySelector('#password'));
 
