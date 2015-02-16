@@ -216,66 +216,19 @@ a {
 
     }
 
-/*
-  We're using CSS transitions for when
-  the enter and move events are triggered
-  for the element that has the .repeated-item
-  class
-*/
-.repeated-item.ng-enter, .repeated-item.ng-move {
-  -webkit-transition:1.0s linear all;
-  -moz-transition:1.0s linear all;
-  -o-transition:1.0s linear all;
-  transition:1.0s linear all;
-  opacity:0;
-}
+    .projector .names ul li a.selected {
+      background-color: rgba(39,58,71, 1);
+    }
 
-/*
- The ng-enter-active and ng-move-active
- are where the transition destination properties
- are set so that the animation knows what to
- animate.
-*/
-.repeated-item.ng-enter.ng-enter-active,
-.repeated-item.ng-move.ng-move-active {
-  opacity:1;
-}
+    .projector .names ul li a:hover {
+      background-color: rgba(39,58,71, 1);
+    }
 
-/*
-  We're using CSS keyframe animations for when
-  the leave event is triggered for the element
-  that has the .repeated-item class
-*/
-.repeated-item.ng-leave {
-  -webkit-animation:1.5s my_animation;
-  -moz-animation:1.5s my_animation;
-  -o-animation:1.5s my_animation;
-  animation:1.5s my_animation;
-}
-
-@keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
-
-/*
-  Unfortunately each browser vendor requires
-  its own definition of keyframe animation code...
-*/
-@-webkit-keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
-
-@-moz-keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
-
-@-o-keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
+    .projector .names .everyoneHere {
+      font-style: italic;
+      font-size: 1.2em;
+      font-weight: 300;
+    }
 
 .leftMenu {
   position: absolute;
@@ -283,8 +236,6 @@ a {
   left: 2%;
   width: 100px;
 }
-
-
 
 .admin-topbar .leftMenu {
   position: absolute;
@@ -364,23 +315,6 @@ a {
   opacity: .7;
 }
 
-.rightMenu .admin-name.menuOpen {
-  opacity: 1;
-}
-
-.rightMenu .highlight {
-  position: absolute;
-  top: -15px;
-  right: 1%;
-  height: 4px;
-  background-color: rgba(236,240,241, 0);
-  width: 95%;
-}
-
-.rightMenu .highlight.menuOpen {
-  background-color: rgba(236,240,241, .9);
-}
-
 .subMenu {
   color: #34495E;
   position: absolute;
@@ -390,27 +324,33 @@ a {
   -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.33);
   -moz-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.33);
   box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
-  width: 130%;
-  height: auto;
   background-color: rgba(255,255,255, 0);
-  right: 1%;
-  margin-top: 15px;
   border-radius: 2px;
-  opacity: 0;
+  display: none;
   z-index: 20;
 }
 
+.rightMenu .subMenu {
+  right: 1%;
+  width: 130%;
+  margin-top: 10px;
+}
+
+.names .subMenu {
+  width: 160px;
+  margin-top: 10px;
+  margin-left: 2px;
+}
+
 .subMenu.show {
-  opacity: 1;
+  display: block;
   background-color: rgba(255,255,255, .9);
 }
 
 .subMenu .item {
   padding-top: 10px;
   padding-left: 15px;
-  padding-right: 10px;
   padding-bottom: 10px;
-  width: 85%;
 }
 
 .subMenu i {
@@ -425,7 +365,6 @@ a {
   cursor: pointer;
   color: white;
   background-color: rgba(39,58,71, 1);
-  width: 87%;
 }
 
 .subMenu .item:nth-of-type(1) {

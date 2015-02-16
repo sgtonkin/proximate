@@ -35,41 +35,62 @@ angular.module('proximate.controllers', [])
 
   /**** SETUP FOR RIGHT (ADMIN) MENU HANDLERS AND LISTENERS ****/
 
-  // Fires on right menu clicks to handle opening and closing of right menu
-  $scope.rightMenuClick = function(e) {
-    if (!$('.subMenu').hasClass('show')) {
-      openRightMenu();
-    } else {
-      closeRightMenu();
-    }
-
-  };
-
   // Detects clicks on the page outside the menu, and determines if the right menu is open
   // If it is, we close it.
   $('body').click(function(e) {
     if (!$(e.target).hasClass('admin-name') &&
         !$(e.target).hasClass('item') &&
-        $('.admin-name').hasClass('menuOpen')) {
-      closeRightMenu();
+        !$(e.target).hasClass('participantName')) {
+      closeMenus();
     }
   });
 
   // Utility function for opening right menu
   function openRightMenu() {
-    $('.subMenu').addClass('show');
-    $('.admin-name').addClass('menuOpen');
-    $('.rightMenu .highlight').addClass('menuOpen');
+    $('.rightMenu .subMenu').addClass('show');
   }
 
-  // Utility function for closing right menu
-  function closeRightMenu() {
-    $('.subMenu').removeClass('show');
-    $('.admin-name').removeClass('menuOpen');
-    $('.rightMenu .highlight').removeClass('menuOpen');
-  }
+// Fires on right menu clicks to handle opening and closing of right menu
+  $scope.rightMenuClick = function(e) {
+    if (!$('.rightMenu .subMenu').hasClass('show')) {
+      openRightMenu();
+    } else {
+      closeMenus();
+    }
+  };
 
   $scope.signOut = Auth.signOut;
+
+  /**** SETUP FOR PARTICIPANT STATUS MENU HANDLERS AND LISTENERS ****/
+
+  // Utility function for opening status menu
+  var openStatusMenu = function(event, id) {
+    closeMenus(event, id);
+    $('#' + id + ' > div').addClass('show');
+    $(event.target).addClass('selected');
+  };
+
+  var closeMenus = function() {
+    $('.participantName').removeClass('selected');
+    $('.subMenu').removeClass('show');
+  };
+
+  // Fires on names menu click to handle opening and closing of sub menu
+  $scope.statusMenuClick = function(event, id) {
+    if (!$('#' + id + ' > div').hasClass('show')) {
+      openStatusMenu(event, id);
+    } else {
+      closeMenus();
+    }
+  };
+
+  $scope.updateParticipantStatus = function(participantId, eventId, status) {
+    Populate.updateParticipantStatus(participantId,
+      eventId, status);
+    closeMenus();
+    $scope.setScopeVars(eventId);
+
+  };
 
   // Fetch the participant and event data from the server
   $scope.getCurrentEventData = function() {
