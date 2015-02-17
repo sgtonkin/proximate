@@ -33,3 +33,4 @@ client/lib
 
 # Configuration data
 **/config.js
+.env

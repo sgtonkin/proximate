@@ -36,6 +36,7 @@
     "bluebird": "^2.4.0",
     "body-parser": "^1.10.0",
     "bookshelf": "^0.7.9",
+    "dotenv": "^0.5.1",
     "express": "^4.10.6",
     "googleapis": "^1.0.22",
     "jsonwebtoken": "^3.2.1",
