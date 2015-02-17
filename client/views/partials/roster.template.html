@@ -1,5 +1,15 @@
 <div class="events content">
   <div class="rosterHeader">
+    <div class="buttons">
+       <a href="#" ui-sref="projector({eventId: event.id})" class="ui small icon blue button">
+         <i class="desktop icon"></i>
+         Projector
+       </a>
+       <a href="{{event.htmlLink}}" target="top" class="ui small icon blue button">
+         <i class="google icon"></i>
+         GCal
+       </a>
+     </div>
     <h1>{{event.name}}</h1>
     <p class="admin-time">{{event.start_time | date:'EEE, MMM d, h:mm a'}}</p>
   </div>
@@ -27,7 +37,7 @@
         </td>
         <td data-title="'Status'" class="setStatus-cell" ng-class="setClassForStatus(participant._pivot_status)" ng-click="participant.$edit = true">
           <span ng-if="!participant.$edit && participant._pivot_status !== null && participant._pivot_status !== 'null'"><i class="edit icon setStatus-icon"></i>{{participant._pivot_status}}</span>
-          <span ng-if="!participant.$edit && (participant._pivot_status === null || participant._pivot_status == 'null')"><i class="edit icon setStatus-icon"></i>None</span>
+          <span ng-if="!participant.$edit && (participant._pivot_status === null || participant._pivot_status == 'null')"><i class="edit icon setStatus-icon"></i>none</span>
           <div ng-if="participant.$edit">
             <select id="setStatus" class="" ng-model="participant._pivot_status" ng-change="participant.$edit = false; updateParticipantStatus(participant)">
                <option value="none">None</option>
