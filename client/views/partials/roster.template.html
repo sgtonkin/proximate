@@ -27,13 +27,14 @@
         </td>
         <td data-title="'Status'" class="setStatus-cell" ng-class="setClassForStatus(participant._pivot_status)" ng-click="participant.$edit = true">
           <span ng-if="!participant.$edit && participant._pivot_status !== null && participant._pivot_status !== 'null'"><i class="edit icon setStatus-icon"></i>{{participant._pivot_status}}</span>
-          <span ng-if="!participant.$edit && (participant._pivot_status === null || participant._pivot_status == 'null')"><i class="edit icon setStatus-icon"></i>absent</span>
+          <span ng-if="!participant.$edit && (participant._pivot_status === null || participant._pivot_status == 'null')"><i class="edit icon setStatus-icon"></i>None</span>
           <div ng-if="participant.$edit">
             <select id="setStatus" class="" ng-model="participant._pivot_status" ng-change="participant.$edit = false; updateParticipantStatus(participant)">
+               <option value="none">None</option>
                <option value="late">Late</option>
                <option value="ontime">Ontime</option>
                <option value="excused">Excused</option>
-               <option value="null">Absent</option>
+               <option value="absent">Absent</option>
             </select>
           </div>
         </td>
