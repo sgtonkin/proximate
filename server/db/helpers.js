@@ -178,7 +178,7 @@ exports.getEventsByAdminId = function(adminId) {
 
   return new models.Events()
     .query({where: {admin_id: adminId}})
-    .fetch({require: true})
+    .fetch()
     .then(function(collection) {
       return collection;
     });

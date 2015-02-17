@@ -271,7 +271,7 @@ module.exports = function(app) {
         if (events.length > 0) {
           res.status(200).json(events.at(0).toJSON());
         } else {
-          res.status(404).send('No current event found for this admin ');
+          res.status(204).send('No current event found for this admin ');
         }
       })
       .catch(function(error) {
@@ -285,13 +285,22 @@ module.exports = function(app) {
 
     var adminId = req.params.adminId;
 
-    helpers.getEventsByAdminId(adminId)
-      .then(function(model) {
-        res.status(200).json(model.toJSON());
-      })
-      .catch(function(error) {
-        res.status(404).send('Unable to fetch admin events data ' + error);
-      });
+    if (adminId) {
+      sync(adminId)
+        .then(function() {
+          return helpers.getEventsByAdminId(adminId);
+        })
+        .then(function(model) {
+          if (model) {
+            res.status(200).json(model.toJSON());
+          } else {
+            res.status(204).send('No events found for this admin ');
+          }
+        })
+        .catch(function(error) {
+          res.status(404).send('Unable to fetch admin events data ' + error);
+        });
+    }
 
   });
 

@@ -95,11 +95,15 @@ angular.module('proximate.controllers', [])
   // Fetch the participant and event data from the server
   $scope.getCurrentEventData = function() {
     Populate.getCurrentEvent($scope.adminId).then(function(eventData) {
-      $scope.setCurrentEvent(eventData);
-      return Populate.getEventWithParticipants($scope.currentEvent.id);
+      if (eventData) {
+        $scope.setCurrentEvent(eventData);
+        return Populate.getEventWithParticipants($scope.currentEvent.id);
+      }
     }).then(function(eventData) {
-      $scope.setCurrentEventParticipants(eventData.participants);
-      $scope.$broadcast('current-event-updated');
+      if (eventData) {
+        $scope.setCurrentEventParticipants(eventData.participants);
+        $scope.$broadcast('current-event-updated');
+      }
     }).catch(function(err) {
 
     });
@@ -189,6 +193,7 @@ angular.module('proximate.controllers', [])
 
   $scope.displayFilterTime = 'all';
   $scope.displayFilterStatus = 'confirmed';
+  $scope.eventsExist = null;
 
   // Calculate and set # of checked-in users for current event
   var setCheckinCount = function() {
@@ -225,7 +230,21 @@ angular.module('proximate.controllers', [])
 
   // Fetch events data for given adminId
   Populate.getEventsByAdminId($scope.adminId).then(function(eventsData) {
-    $scope.events = eventsData;
+    // Make sure we have some events to display
+    if (eventsData.length !== 0) {
+      $scope.events = eventsData;
+      // Make sure at least one is not cancelled
+      var activeEvents = eventsData.filter(function(event) {
+        return event.status !== 'cancelled';
+      });
+      if (activeEvents.length !== 0) {
+        // We have at least one event
+        $scope.eventsExist = true;
+        return;
+      }
+    }
+    // No events, hide data table
+    $scope.eventsExist = false;
   });
 
   // Define checkin count on the scope so we can display
@@ -316,7 +335,7 @@ angular.module('proximate.controllers', [])
 .controller('BeaconsCtrl', function($scope, Beacon) {
 
   $scope.beaconsData = [];
-  $scope.beaconsExist = false;
+  $scope.beaconsExist = null;
   $scope.newBeacon = {};
 
   // get beacons for given adminID
