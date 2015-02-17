@@ -2,10 +2,8 @@
   <ion-content class="splash padding">
     <div class="login">
       <div class="login-box">
-        <img src="img/proximate-blueOnWhite2.png">
-<!--         <h1>proximate<span class="io">.io</span></h1>
-        <h4>AUTOMATED ATTENDANCE</h4> -->
-        <h1>sign up as a participant</h1>
+        <img src="img/proximate_v4_white.png">
+        <h1>PROXIMATE<sup class="beta">beta</sup></h1>
       </div>
       <div class="box-container">
         <div class="input-box">
@@ -15,14 +13,14 @@
             <input id="password" ng-model="data.password" type="password" placeholder="password" class="register" ng-minlength="6" ng-required="true" ng-change="invalidPassword()">
         </div>
         <div class="input-box">
-            <input id="passwordConfirm" ng-model="data.passwordConfirm" type="password" placeholder="password (confirmation)" class="register" ng-minlength="6" ng-required="true" ng-change="passwordMatch()">
+            <input id="passwordConfirm" ng-model="data.passwordConfirm" type="password" placeholder="repeat password" class="register" ng-minlength="6" ng-required="true" ng-change="passwordMatch()">
         </div>
       </div>
       <div class="input-button">
-        <div class="login-button" ng-click="signup()">sign up</div>
+        <div class="login-button" ng-click="signup()">SIGN UP</div>
       </div>
       <div class="login-signup-switch-mode">
-        <h4>or <a href="#" ui-sref="splash">login with your email</a></h4>
+        <h4><a href="#" ui-sref="splash">or login with your email</a></h4>
       </div>
       <div class="splash-error" ng-show="error">{{error}}</div>
     </div>

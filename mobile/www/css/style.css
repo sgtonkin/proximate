@@ -5,6 +5,25 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'LatoLight';
+  src: url('../fonts/Lato-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LatoHairline';
+  src: url('../fonts/Lato-Hairline.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Penna';
+  src: url('../fonts/penna.otf') format('opentype');
+}
+
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
@@ -36,10 +55,7 @@ body {
 }
 
 .splash {
-  background: url('../img/ubserhift1.png');
-  background-position: 60 center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: #24262d;
 }
 
 /* MOBILE LOGIN VIEW */
@@ -62,10 +78,7 @@ body {
   width: 90%;
   text-align: center;
   margin: 2% auto;
-  padding: 30px 18px;
-  -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.33);
-  -moz-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.33);
-  box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
+  padding: 30px 18px 10px 18px;
 }
 
 .login img {
@@ -75,11 +88,12 @@ body {
 
 .login .box-container {
   margin-top: 10%;
+  margin-bottom: -18px;
 }
 
 .login .input-box, .login .input-box input {
   height: 60px;
-  background-color: rgba(255,255,255, .25);
+  background-color: rgba(255,255,255, .10);
   color: white !important;
 }
 
@@ -115,18 +129,11 @@ body {
 .login .input-button {
   width: 90%;
   text-align: center;
-  font-size: 2em;
-  color: #273A47;
+  font-size: 1.5em;
+  color: #fff;
   margin: 10% auto;
   padding: 20px 18px;
-  background: rgba(255,255,255,.9);
-  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(236,240,241,1) 100%);
-  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(236,240,241,1)));
-  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(236,240,241,1) 100%);
-  background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(236,240,241,1) 100%);
-  background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(236,240,241,1) 100%);
-  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(236,240,241,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ecf0f1', GradientType=0 );
+  background-color: #3498db;
 }
 
 .login .input-button span {
@@ -136,28 +143,33 @@ body {
 }
 
 .login h1 {
+  font-family: 'Penna';
   margin-top: 30px;
-  letter-spacing: -.05em;
-  font-size: 2.5em;
-  text-shadow: 0px 1px 5px rgba(0,0,0,0.6);
-  font-weight: 700;
+  letter-spacing: .118em;
+  font-size: 3.5em;
+  text-shadow: 0px 1px 5px rgba(255,255,255,0.6);
+  font-weight: bold;
   color: white;
   margin-bottom: 0;
   padding-bottom: 0;
 }
 
-.login h1 .io {
+.login h1 .beta {
+  font-family: 'Lato';
+  font-size: .3em;
+  margin-left: 2px;
+  top: -20px;
+  letter-spacing: 0;
   font-style: normal;
   font-weight: 300;
 }
 
 .login h4 {
-  margin-top: 10px;
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'LatoLight';
   text-shadow: 0px 1px 5px rgba(0,0,0,0.6);
   color: white;
   opacity: .8;
+  margin-top: -25px;
   margin-bottom: 0;
   padding-bottom: 0;
 }
@@ -181,7 +193,6 @@ body {
 }
 
 .login-signup-switch-mode a {
-  text-decoration: none;
   color: #fff;
   font-weight: bold;
 }
@@ -216,25 +227,32 @@ input.register {
 }
 
 .input-box ::-webkit-input-placeholder {
-  color: #fff;
+  font-family: 'LatoLight';
   opacity: .7;
+  color: #fff;
   text-shadow: 0px 1px 5px rgba(0,0,0,0.3);
   padding-top: 4px;
 }
 
 .input-box :-moz-placeholder { /* Firefox 18- */
+  font-family: 'LatoLight';
+  opacity: .7;
   color: #fff;
   text-shadow: 0px 1px 5px rgba(0,0,0,0.3);
   padding-top: 4px;
 }
 
 .input-box ::-moz-placeholder {  /* Firefox 19+ */
+  font-family: 'LatoLight';
+  opacity: .7;
   color: #fff;
   text-shadow: 0px 1px 5px rgba(0,0,0,0.3);
   padding-top: 4px;
 }
 
 .input-box :-ms-input-placeholder {
+  font-family: 'LatoLight';
+  opacity: .7;
   color: #fff;
   text-shadow: 0px 1px 5px rgba(0,0,0,0.3);
   padding-top: 4px;
