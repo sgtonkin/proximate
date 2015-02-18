@@ -3,7 +3,8 @@ angular.module('proximate.services', [])
 .factory('PubNub', function(pubNubKeys) {
   var pubNub = PUBNUB.init({
     publish_key: pubNubKeys.pub,
-    subscribe_key: pubNubKeys.sub
+    subscribe_key: pubNubKeys.sub,
+    ssl: pubNubKeys.ssl
   });
 
   var subscribe = function(channel, callback) {

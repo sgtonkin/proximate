@@ -2,7 +2,8 @@ var helpers = require('./db/helpers.js');
 var pubnub = {
   publish_key: process.env.PUBNUB_PUBLISH_KEY,
   subscribe_key: process.env.PUBNUB_SUBSCRIBE_KEY,
-  channel: process.env.PUBNUB_CHANNEL
+  channel: process.env.PUBNUB_CHANNEL,
+  ssl: process.env.PUBNUB_SSL
 };
 var PubNub = require('pubnub').init(pubnub);
 
