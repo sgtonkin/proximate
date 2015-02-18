@@ -4,7 +4,7 @@ angular.module('proximate.services', [])
   var pubNub = PUBNUB.init({
     publish_key: pubNubKeys.pub,
     subscribe_key: pubNubKeys.sub,
-    ssl: true
+    ssl: pubNubKeys.ssl
   });
 
   var subscribe = function(channel, callback) {
