@@ -1287,12 +1287,12 @@ a {
     width: 20%
   }
 
-.buttons {
+.eventCardButtons, .rosterButtons {
   float: right;
   padding-right: 20px;
 }
 
-.buttons a {
+.eventCardButtons, .rosterButtons {
     color: #ffffff;
 }
 
