@@ -3,7 +3,7 @@ var pubnub = {
   publish_key: process.env.PUBNUB_PUBLISH_KEY,
   subscribe_key: process.env.PUBNUB_SUBSCRIBE_KEY,
   channel: process.env.PUBNUB_CHANNEL
-}
+};
 var PubNub = require('pubnub').init(pubnub);
 
 var pubnub = module.exports = {

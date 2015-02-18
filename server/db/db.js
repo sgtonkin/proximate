@@ -3,7 +3,7 @@ var mysqlConnection = {
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
-}
+};
 var knex = require('knex')({
   client: 'mysql',
   connection: mysqlConnection,
@@ -12,7 +12,7 @@ var bookshelf = require('bookshelf')(knex);
 module.exports = bookshelf;
 var sync = require('./sync');
 
-if (process.env.RESET_DATABASE_ON_LOAD !== "false") {
+if (process.env.RESET_DATABASE_ON_LOAD !== 'false') {
   // Drop any existing db tables to ensure increment values reset
   bookshelf.knex.schema.dropTableIfExists('participants')
   .then(function() {

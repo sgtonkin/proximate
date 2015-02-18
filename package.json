@@ -1,21 +1,11 @@
 {
   "name": "proximate",
   "version": "0.1.0",
-  "description": "Automated attendance tracking for your space",
+  "description": "Automated attendance",
   "main": "server.js",
   "scripts": {
     "test": "mocha test/server/serverspec.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tenderloin-tech/proximate.git"
-  },
-  "author": "Derek Ryan Barncard, Valentyn Boginskey, Avi Dunn, Sebastian Tonkin",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tenderloin-tech/proximate/issues"
-  },
-  "homepage": "https://github.com/tenderloin-tech/proximate",
   "devDependencies": {
     "chai": "^1.10.0",
     "gulp": "^3.8.10",
