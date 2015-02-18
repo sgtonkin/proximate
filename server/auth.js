@@ -29,7 +29,6 @@ var jwt = require('jsonwebtoken');
 // End dragons
 var request = require('request');
 
-var config = require('./config/config');
 var helpers = require('./db/helpers');
 
 // Promisify stuff
@@ -39,8 +38,8 @@ promise.promisifyAll(jwt);
 
 // Initialize OAuth2 client
 var client = exports.client = new auth.OAuth2(
-  config.google.clientId,
-  config.google.clientSecret,
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
   'postmessage'
 );
 
@@ -76,7 +75,7 @@ var getJWKSet = promise.method(function(refresh) {
 
 var verifyJWT = function(token, keys) {
   return jwt.verifyAsync(token, keys, {
-    aud: config.google.clientId,
+    aud: process.env.GOOGLE_CLIENT_ID,
     iss: 'accounts.google.com'
   })
     .catch(function(err) {
@@ -86,7 +85,7 @@ var verifyJWT = function(token, keys) {
           // ... and try again
           .then(function(keys) {
             return jwt.verifyAsync(token, keys, {
-              aud: config.google.clientId,
+              aud: process.env.GOOGLE_CLIENT_ID,
               iss: 'accounts.google.com'
             });
           });

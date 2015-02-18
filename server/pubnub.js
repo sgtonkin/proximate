@@ -1,6 +1,10 @@
-var config = require('./config/config');
 var helpers = require('./db/helpers.js');
-var PubNub = require('pubnub').init(config.pubnub);
+var pubnub = {
+  publish_key: process.env.PUBNUB_PUBLISH_KEY,
+  subscribe_key: process.env.PUBNUB_SUBSCRIBE_KEY,
+  channel: process.env.PUBNUB_CHANNEL
+};
+var PubNub = require('pubnub').init(pubnub);
 
 var pubnub = module.exports = {
   subscribe: function(channel, callback) {

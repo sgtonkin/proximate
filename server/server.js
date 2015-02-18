@@ -2,7 +2,9 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var morgan = require('morgan');
 
-var config = require('./config/config');
+var dotenv = require('dotenv');
+dotenv._getKeysAndValuesFromEnvFilePath('../.env');
+dotenv._setEnvs();
 
 require('./db/db');
 require('./pubnub');
