@@ -1,0 +1,19 @@
+# server
+PORT=1234
+
+# database
+RESET_DATABASE_ON_LOAD=false
+MYSQL_HOST="xxx"
+MYSQL_USER="xxx"
+MYSQL_PASSWORD="xxx"
+MYSQL_DATABASE="xxx"
+
+# pubnub
+PUBNUB_PUBLISH_KEY="xxx"
+PUBNUB_SUBSCRIBE_KEY="xxx"
+PUBNUB_CHANNEL="xxx"
+
+# google
+GOOGLE_CLIENT_ID="xxx"
+GOOGLE_CLIENT_SECRET="xxx"
+
