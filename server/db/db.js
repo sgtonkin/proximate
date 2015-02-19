@@ -1,8 +1,12 @@
+// We include the UTC timezone because we are writing cal events to the db with start_time
+// In UTC form and otherwise it will assume dates are being passed from the server's timezone meaning
+// All date/times would be off by a fixed number of hours
 var mysqlConnection = {
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
+    database: process.env.MYSQL_DATABASE,
+    timezone: "UTC"
 };
 var knex = require('knex')({
   client: 'mysql',
