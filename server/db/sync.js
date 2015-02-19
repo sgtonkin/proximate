@@ -285,6 +285,8 @@ module.exports = function(adminId) {
 
       // Update the events and events_participants tables
       var formattedEvents = formatEvents(fetchedEvents, participantIds);
+      console.log('formatted Events');
+      console.log(formattedEvents);
 
       return promise.map(formattedEvents, upsertEventsBeaconsParticipants);
     })
