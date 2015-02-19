@@ -1,21 +1,50 @@
-<ion-view view-title="Upcoming">
+<ion-view view-title="EVENT LOG">
   <ion-content class="upcoming">
   <ion-refresher pulling-text="pull to refresh" on-refresh="doRefresh()">
   </ion-refresher>
-    <div ng-show="data.events.length===0" class="no-upcoming">
-      <h2 class="status-heading">No events found!</h2>
-      <small class="status-heading">try refreshing if you expected some</small>
-    </div>
-    <div class="list">
-      <div ng-repeat="event in data.events" class="item">
-        <div class="upcoming-datetime">
-          <h3>{{event.start_time | date:'MM/dd/yyyy'}}</h3>
-          <small>{{event.start_time | date:'h:mm a'}}</small>
-        </div>
-        <div class="upcoming-content">
-          {{event.name}}
+
+    <div class="event-log-content">
+
+      <!-- no events to show -->
+      <div ng-show="data.events.length===0" class="no-upcoming">
+        <h2>No events found!</h2>
+        <h3>try refreshing if you expected some</h3>
+      </div>
+
+      <!-- events list -->
+      <div class="events-list">
+        <div class="list">
+          <div ng-repeat="event in data.events" class="item">
+            <div class="events-list-info">
+              <h2>{{event.name.toUpperCase()}}</h2>
+              <h3>{{event.start_time | date:'EEEE, MMMM d, yyyy'}}</h3>
+            </div>
+            <div class="events-list-status late">late</div>
+          </div>
         </div>
       </div>
+
     </div>
+
+
   </ion-content>
+
+  <!-- filters -->
+  <ion-footer-bar class="bar-stable events-filter">
+    <div class="button-bar events-filter-buttons">
+      <button class="button"
+              ng-click="eventsFilterSetting='upcoming'"
+              ng-class="{active: eventsFilterSetting==='upcoming'}">
+              UPCOMING
+      </button>
+      <button class="button"
+              ng-click="eventsFilterSetting='all'"
+              ng-class="{active: eventsFilterSetting==='all'}">
+              ALL
+      </button>
+    </div>
+<!--   <div class="buttons" ng-click="doSomething()">
+    <button class="button">ALL</button>
+  </div> -->
+</ion-footer-bar>
 </ion-view>

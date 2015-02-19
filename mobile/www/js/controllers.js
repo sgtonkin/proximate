@@ -3,8 +3,6 @@ angular.module('proximate.controllers', [])
 .controller('AppCtrl', function($ionicPlatform, $localStorage,
   $scope, $state, Settings, Events, PubNub, Beacons) {
 
-  $scope.hide_header = true;
-
   // Initialize current event
   $scope.event = {
     id: null
@@ -126,14 +124,15 @@ angular.module('proximate.controllers', [])
 
 })
 
-.controller('UpcomingCtrl', function($scope, Events) {
+.controller('UpcomingCtrl', function($rootScope, $scope, Events) {
 
-  $scope.broadcast('showHeader');
-
-  //Instantiate empty events list
+  // Instantiate empty events list
   $scope.data = {
     events: []
   };
+
+  // Sets the initial state of the Events Filter to upcoming
+  $scope.eventsFilterSetting = 'upcoming';
 
   $scope.getUpcomingEvents = function() {
     Events.getUpcomingEvents()

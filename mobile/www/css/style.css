@@ -42,13 +42,15 @@
   display: none !important;
 }
 
-html, .scroll {
+html,
+body,
+.status .scroll,
+.upcoming .scroll {
   height: 100%;
 }
 
 body {
   font-family: 'Lato';
-  height: 100%;
 }
 
 .event-timestamp {
@@ -200,11 +202,81 @@ body {
   font-weight: bold;
 }
 
-.status, .upcoming {
-  background-color: gray;
-  color: #fff;
+.upcoming {
+  height: 100%;
+}
+
+.upcoming h2, .upcoming h3 {
+  font-family: 'Lato';
+}
+
+.upcoming h3 {
+  font-weight: 300;
+}
+
+.upcoming .event-log-content {
+  height: 100%;
+}
+
+.upcoming .no-upcoming {
+  text-align: center;
+  padding-top: 20%;
+}
+
+.upcoming .events-list {
   width: 100%;
-  text-align: center !important;
+}
+
+.events-filter {
+  height: 60px;
+  padding: 0;
+  border-top: 1px gray solid;
+}
+
+.events-filter .button {
+  border-width: 0px;
+  font-family: 'Lato';
+  letter-spacing: .2em;
+}
+
+.events-filter .active {
+  color: #fff;
+  background-color: #000 !important;
+}
+
+.events-filter-buttons {
+}
+
+.events-list-info {
+  float: left;
+}
+
+.events-list-status {
+  float: right;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.events-list-status.no-data {
+  background-color: gray;
+}
+
+.events-list-status.ontime {
+  background-color: #22c064;
+}
+
+.events-list-status.excused {
+  background-color: #3498db;
+}
+
+.events-list-status.absent, .events-list-status.late {
+  background-color: #ec4f43;
+}
+
+.status, .upcoming {
+  width: 100%;
+  height: 100%;
 }
 
 /* Revisit: might be able to eliminate this class;*/
@@ -214,7 +286,9 @@ body {
 }
 
 .status {
-  height: 100%;
+  background-color: gray;
+  color: #fff;
+  text-align: center !important;
 }
 
 .status.no-data, .status.nothing-scheduled, .status.excused {

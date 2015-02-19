@@ -1,4 +1,4 @@
-<ion-view view-title="Current">
+<ion-view view-title="Current" hide-nav-bar="true">
   <ion-content class="status" ng-class="class">
   <ion-refresher pulling-text="pull to refresh" on-refresh="doRefresh()">
   </ion-refresher>
@@ -9,7 +9,7 @@
           <i class="ion-loop"></i>
         </div>
         <!-- status null -->
-        <div class="checkin-status-notyet" ng-show="event.status===null||event.status==='null'" ng-cloak>
+        <div class="checkin-status-notyet" ng-show="event.status===null||event.status==='null'||event.status==='none'" ng-cloak>
           <i class="huge spinner loading icon"></i>
           <h2>NOT HERE YET</h2>
           <h3>Your phone doesn't seem to be in range</h3>

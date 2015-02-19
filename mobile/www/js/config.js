@@ -9,5 +9,5 @@ angular.module('proximate')
 })
 
 .constant('webServer', {
-	url: 'http://www.proximate.io'
+	url: 'http://proximateio.herokuapp.com'
 });
