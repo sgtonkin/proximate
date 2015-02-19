@@ -157,8 +157,14 @@ module.exports = function(adminId) {
     .value();
   };
 
+  var formatDateUTC = function(dateString) {
+    var d = new Date(dateString);
+    return moment.utc('Thu, 19 Feb 2015 08:00:00 GMT').format();
+  }
+
   // Isolate gcal event fields we need and combine with adminid, participantids
   var formatEvents = function(events, participantIds) {
+
     return _.chain(events)
       .uniq(function(event) {
         return event.id;
@@ -170,7 +176,7 @@ module.exports = function(adminId) {
           location: event.location,
           htmlLink: event.htmlLink,
           recurring_event_id: event.recurringEventId,
-          start_time: event.start.dateTime,
+          start_time: formatDateUTC(event.start.dateTime),
           updated: event.updated,
           status: event.status,
           admin_id: adminParams.id,
@@ -179,6 +185,8 @@ module.exports = function(adminId) {
       })
       .value();
   };
+
+  // Convert Google timezone offset to UTC for database storage
 
   // FUNCTIONS TO FILTER PARTICIPANT INFORMATION
 
