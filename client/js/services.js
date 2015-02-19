@@ -249,14 +249,6 @@ angular.module('proximate.services', [])
   };
 })
 
-.filter('dateLocalize', function() {
-  return function (utcDate) {
-    return utcDate;
-    var dateTime = new Date(utcDate).getTime();
-      return dateTime;
-  }
-})
-
 .directive('spinner', function() {
   return {
     restrict: 'C',

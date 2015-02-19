@@ -162,7 +162,7 @@ module.exports = function(adminId) {
   var formatDateUTC = function(dateString) {
     var d = new Date(dateString);
     return moment.utc(dateString).format();
-  }
+  };
 
   // Isolate gcal event fields we need and combine with adminid, participantids
   var formatEvents = function(events, participantIds) {
