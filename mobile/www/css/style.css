@@ -416,7 +416,6 @@ body {
 }
 
 .event-log {
-
 }
 
 .upcoming-datetime {
@@ -428,6 +427,37 @@ body {
   margin-left: 22%;
   margin-top: 2%;
   font-size: 2em;
+}
+
+.settings {
+}
+
+.settings label {
+  display: block;
+  margin-bottom: 5px;
+  color: #7f7f82;
+}
+
+.settings h2 {
+  font-family: 'Lato';
+}
+
+.settings-buttons {
+  margin-top: 50px;
+  text-align: center;
+  width: 100%;
+  padding: 30px;
+}
+
+.settings-buttons div {
+  margin: 0px 0 20px 0;
+}
+
+.settings-buttons button {
+  font-family: 'Lato';
+  color: #fff;
+  background-color: #409cda;
+  height: 100px;
 }
 
 .logo-image {

@@ -260,6 +260,7 @@ angular.module('proximate.controllers', [])
 
   $scope.updatePassword = function() {
     // Stem function
+    console.log('updatePassword triggered!');
   };
 
   $scope.refreshBeacons = function() {
