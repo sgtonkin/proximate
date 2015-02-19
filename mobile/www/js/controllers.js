@@ -131,7 +131,7 @@ angular.module('proximate.controllers', [])
     events: []
   };
 
-  // Sets the initial state of the Events Filter to upcoming
+  // Sets the initial state of the Events Filter
   $scope.eventsFilterSetting = 'upcoming';
 
   $scope.getUpcomingEvents = function() {

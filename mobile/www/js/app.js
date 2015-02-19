@@ -73,4 +73,21 @@ angular.module('proximate', ['ionic',
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/status');
 
+})
+
+
+// Filters events for upcoming, or otherwise just returns all events
+.filter('eventsFilter', function(){
+
+  var now = new moment();
+
+  return function(input, eventsFilterSetting) {
+    if (eventsFilterSetting === 'upcoming') {
+      return input.filter(function(event) {
+        return moment(event.start_time).isAfter(now);
+      });
+    } else {
+      return input;
+    }
+  }
 });
