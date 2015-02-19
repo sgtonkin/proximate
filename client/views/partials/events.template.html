@@ -3,7 +3,7 @@
     <div>
       <div class="title">
         <h2>{{currentEvent.name}}</h2>
-        <h5>{{currentEvent.start_time | date:'MMM d, y, h:mm a'}}</h5>
+        <h5>{{currentEvent.start_time | dateLocalize | date:'EEE, MMM d, h:mm a'}}</h5>
       </div>
       <div class="checkIn">
         <h2>{{checkedInUserCount}} / {{totalUserCount}}</h2>
@@ -63,7 +63,7 @@
     <tbody>
       <tr class="adminRow" ng-repeat="event in events | filterByTime: displayFilterTime | filter: search | filterByStatus: displayFilterStatus | orderBy: '-start_time'">
         <td ui-sref="admin.roster({eventId: event.id})" class="eventName"><a>{{event.name}}</a></td>
-        <td ui-sref="admin.roster({eventId: event.id})" class="eventTime">{{event.start_time | date:'EEE, MMM d, h:mm a'}}</td>
+        <td ui-sref="admin.roster({eventId: event.id})" class="eventTime">{{event.start_time | dateLocalize | date:'EEE, MMM d, h:mm a'}}</td>
         <td class="eventAdmin">
           <div class="ui icon buttons basic">
             <a class="ui icon button" ui-sref="admin.roster({eventId: event.id})">
