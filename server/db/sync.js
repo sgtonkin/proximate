@@ -157,8 +157,16 @@ module.exports = function(adminId) {
     .value();
   };
 
+  // Our node mysql connection is set to expect utc date/times, regardless of
+  // The timezone of the server.
+  var formatDateUTC = function(dateString) {
+    var d = new Date(dateString);
+    return moment.utc(dateString).format();
+  };
+
   // Isolate gcal event fields we need and combine with adminid, participantids
   var formatEvents = function(events, participantIds) {
+
     return _.chain(events)
       .uniq(function(event) {
         return event.id;
@@ -170,8 +178,8 @@ module.exports = function(adminId) {
           location: event.location,
           htmlLink: event.htmlLink,
           recurring_event_id: event.recurringEventId,
-          start_time: event.start.dateTime,
-          updated: event.updated,
+          start_time: formatDateUTC(event.start.dateTime),
+          updated: formatDateUTC(event.updated),
           status: event.status,
           admin_id: adminParams.id,
           attendees: filterAttendees(event.attendees, participantIds)
@@ -179,6 +187,8 @@ module.exports = function(adminId) {
       })
       .value();
   };
+
+  // Convert Google timezone offset to UTC for database storage
 
   // FUNCTIONS TO FILTER PARTICIPANT INFORMATION
 
