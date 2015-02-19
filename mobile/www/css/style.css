@@ -20,6 +20,20 @@
 }
 
 @font-face {
+  font-family: 'LatoLightItalic';
+  src: url('../fonts/Lato-LightItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LatoBold';
+  src: url('../fonts/Lato-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Penna';
   src: url('../fonts/penna.otf') format('opentype');
 }
@@ -28,30 +42,19 @@
   display: none !important;
 }
 
+html, .scroll {
+  height: 100%;
+}
+
 body {
   font-family: 'Lato';
+  height: 100%;
 }
 
 .event-timestamp {
   text-align: right;
   color: gray;
   margin-right: 30px;
-}
-
-.checkin-status {
-  font-size: 2em;
-  font-weight: bold;
-  line-height: 1em;
-  margin: 30px;
-}
-
-.checkin-status i {
-  font-size: 4em;
-  display: block;
-}
-
-.checkin-status i {
-  margin-right: 10px;
 }
 
 .splash {
@@ -204,8 +207,153 @@ body {
   text-align: center !important;
 }
 
+/* Revisit: might be able to eliminate this class;*/
+
 .status-heading {
   color: #fff;
+}
+
+.status {
+  height: 100%;
+}
+
+.status.no-data, .status.nothing-scheduled, .status.excused {
+  background-color: #3498db;
+}
+
+.status.late, .status.absent {
+ background-color: #ec4f43;
+}
+
+.status.ontime {
+  background-color: #22c064;
+}
+
+.status h2, .status h3, .status h4, .status h5 {
+  color: #fff;
+}
+
+.status h2 {
+  letter-spacing: .05em;
+}
+
+.status h3 {
+  font-family: 'LatoLightItalic';
+}
+
+.status h4 {
+  font-family: 'LatoBold';
+}
+
+.current-event {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.checkin-status {
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1em;
+  margin: 25% 10% 10% 10%;
+  /*position: relative;*/
+  /*top: 0px;*/
+  position: absolute;
+  top: 0px;
+}
+
+.manual-checkin-button {
+  cursor: pointer;
+  height: 50px;
+  background-color: #ecf0f1;
+  padding-top: 5px;
+  margin-top: 30px;
+}
+
+.manual-checkin-button h4 {
+  color: black;
+}
+
+.current-event-info {
+  border-top: 2px solid rgba(0,0,0,0.4);
+  /*margin-top: 35%;*/
+  /*height: 300px;*/
+  padding: 10px 0px 0px 0px;
+  background-color: rgba(0,0,0,.3);
+  position: absolute;
+  bottom: 45px;
+}
+
+/*.current-event-info-container {
+  position: relative;
+}*/
+
+.status .current-event-info i {
+  margin-top: 20%;
+  opacity: .5;
+}
+
+/*.status .current-event-info h4 {
+  margin-top: 5%;
+}*/
+
+
+.status .current-event-info h5 {
+  font-family: 'LatoLight';
+  font-size: 1.8em;
+  margin-top: 20px;
+}
+
+.current-event-name, .current-event-time {
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/*.current-event-name, .current-event-time, .current-event-location {
+  position: absolute;
+}
+
+.current-event-name {
+  top: 0%;
+  height: 30%;
+}
+
+.current-event-time {
+  top: 30%;
+  height: 30%;
+}
+
+.current-event-location {
+  top: 60%;
+  height: 30%;
+}*/
+
+.status-nothing-scheduled {
+  position: relative;
+  background-image: url('../img/clouds_overlay.png');
+  background-repeat: no-repeat;
+  min-height: 800px;
+  min-width: 500px;
+}
+
+.status-nothing-scheduled-content {
+  position: absolute;
+  top: 50%;
+  /*height: 200px;*/
+}
+
+.event-log {
+
+}
+
+.upcoming-datetime {
+  float: left;
+}
+
+.upcoming-content {
+  float: left;
+  margin-left: 22%;
+  margin-top: 2%;
+  font-size: 2em;
 }
 
 .logo-image {
@@ -256,15 +404,4 @@ input.register {
   color: #fff;
   text-shadow: 0px 1px 5px rgba(0,0,0,0.3);
   padding-top: 4px;
-}
-
-.upcoming-datetime {
-  float: left;
-}
-
-.upcoming-content {
-  float: left;
-  margin-left: 22%;
-  margin-top: 2%;
-  font-size: 2em;
 }

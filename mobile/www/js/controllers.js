@@ -10,6 +10,9 @@ angular.module('proximate.controllers', [])
     id: null
   };
 
+  // Default class value for background
+  $scope.class = 'nothing-scheduled';
+
   // Gets the most current event for the user, and updates the
   // relevant checkin status, protecting for empty responses.
   $scope.initWithEvent = function() {
@@ -27,8 +30,14 @@ angular.module('proximate.controllers', [])
         console.log('Checkin status is: ' + JSON.stringify(res));
         if (res) {
           $scope.event.status = res.status;
+          $scope.class = res.status;
+          console.log('res.status', res.status);
+          if ($scope.class == null) {
+            $scope.class = 'no-data';
+          }
         } else {
           $scope.event.status = null;
+          $scope.class = 'nothing-scheduled';
           console.log('No data returned for checkin status');
         }
       })
@@ -37,12 +46,18 @@ angular.module('proximate.controllers', [])
 
         if (err.status === 404) {
           $scope.event.id = null;
+          $scope.class = $scope.class = 'nothing-scheduled';
         }
 
       })
       .finally(function() {
         $scope.$broadcast('scroll.refreshComplete');
       });
+  };
+
+  $scope.manualCheckin = function() {
+    //do stuff
+    console.log('manualCheckin fired');
   };
 
   // Utility function that populates the pretty time field from start time
@@ -95,6 +110,14 @@ angular.module('proximate.controllers', [])
     }
   });
 
+  $scope.$on('showHeader', function() {
+    $scope.hide_header = false;
+  });
+
+  $scope.$on('hideHeader', function() {
+    $scope.hide_header = true;
+  });
+
 })
 
 .controller('StatusCtrl', function($scope) {
@@ -104,6 +127,8 @@ angular.module('proximate.controllers', [])
 })
 
 .controller('UpcomingCtrl', function($scope, Events) {
+
+  $scope.broadcast('showHeader');
 
   //Instantiate empty events list
   $scope.data = {
