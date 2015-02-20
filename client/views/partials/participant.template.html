@@ -1,11 +1,25 @@
 <div class="events content">
   <div class="participantHeader">
     <h1>Attendance history for <i>{{participantInfo.name}}</i></h1>
-    <div id="chart" class="chart">
-      <div id="history-stats-ontime" class="history-stats"></div>
-      <div id="history-stats-late" class="history-stats"></div>
-      <div id="history-stats-excused" class="history-stats"></div>
-      <div id="history-stats-absent" class="history-stats"></div>
+    <div class="chartWrapper">
+      <table class="chart">
+        <tr class="history-stats-ontime statsRow">
+          <td class="history-label">On time:</td>
+          <td><div class="history-stats"></div></td>
+        </tr>
+        <tr class="history-stats-late statsRow">
+          <td class="history-label">Late:</td>
+          <td><div class="history-stats"></div></td>
+        </tr>
+        <tr class="history-stats-absent statsRow">
+          <td class="history-label">Absent:</td>
+          <td><div class="history-stats"></div></td>
+        </tr>
+        <tr class="history-stats-excused statsRow">
+          <td class="history-label">Excused:</td>
+          <td><div class="history-stats"></div></td>
+        </tr>
+      </table>
     </div>
   </div>
   <table class="adminTable">
@@ -22,13 +36,14 @@
         <td>{{data.event.start_time | date:'EEE, MMM d, h:mm a'}}</td>
         <td data-title="'Status'" class="setStatus-cell" ng-class="setClassForStatus(data.status)" ng-click="participant.$edit = true">
           <span ng-if="!participant.$edit && data.status !== null && data.status !== 'null'"><i class="edit icon setStatus-icon"></i>{{data.status}}</span>
-          <span ng-if="!participant.$edit && (data.status === null || data.status == 'null')"><i class="edit icon setStatus-icon"></i>absent</span>
+          <span ng-if="!participant.$edit && (data.status === null || data.status == 'null')"><i class="edit icon setStatus-icon"></i>none</span>
           <div ng-if="participant.$edit">
             <select id="setStatus" class="" ng-model="data.status" ng-change="participant.$edit = false; updateParticipantStatus(data)">
+               <option value="none">None</option>
                <option value="late">Late</option>
                <option value="ontime">Ontime</option>
                <option value="excused">Excused</option>
-               <option value="null">Absent</option>
+               <option value="absent">Absent</option>
             </select>
           </div>
         </td>

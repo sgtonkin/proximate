@@ -934,7 +934,7 @@ a {
 
 .participantHeader {
   padding-top: 40px;
-  margin-left: 4%;
+  margin-left: 30px;
 }
 
 .tableControls {
@@ -1073,19 +1073,24 @@ a {
   }
 
   .adminTable .ontime {
-    color: #66BB6A;
+    color: #22c064;
   }
 
   .adminTable .late {
-    color: #EC4F43;
+    color: #ec4f43;
   }
 
   .adminTable .excused {
-    color: #3498DB;
+    color: #3498db;
   }
 
   .adminTable .absent {
-    color: #666666;
+    color: #ec4f43;
+  }
+
+  .adminTable .setStatus-icon {
+    font-size: 1.3em;
+    font-weight: bold;
   }
 
 .beaconTable {
@@ -1316,55 +1321,58 @@ a {
   margin: 140px 0 0 0px !important;
 }
 
-#chart {
-  padding: 10px 0 10px;
+.chartWrapper {
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  width: 50%;
+  margin: 20px 0;
 }
 
-#chart div {
-  text-align: left;
-  padding: 3px;
-  margin: 4px;
-  height: 25px;
+.chart {
+  width: 100%;
+}
+
+.statsRow {
+  display: none;
+}
+
+.statsRow td:last-child {
+  color: #fff;
+  line-height: 22px;
+}
+
+.history-label {
+  width: 75px;
+  margin-left: 5px;
+  line-height: 22px;
+  font-weight: bold;
 }
 
 .history-stats {
-  width: 0px;
-  height: 30px;
+  height: 22px;
   margin: 1px;
   opacity: 0;
+  max-width: 90%;
+  width: 0;
+  padding-left: 10px;
+  border-radius: 3px;
 }
 
-.history-stats span{
-  margin-left: 5px;
-  display: inline;
-  line-height: 1.5em;
+.history-stats-ontime td:last-child div {
+  background-color: #22c064;
 }
 
-.history-stats strong{
-  opacity: 0;
-  margin-left: 2px;
-  font-size: 1.2em;
+.history-stats-late td:last-child div {
+  background-color: #ec4f43;
 }
 
-#history-stats-ontime {
-  color: #ffffff;
-  background-color: #66BB6A;
+.history-stats-absent td:last-child div {
+  background-color: #ec4f43;
 }
 
-#history-stats-late {
-  color: #ffffff;
-  background-color: #EC4F43;
-}
-
-#history-stats-absent {
-  color: #ffffff;
-  background-color: #666666;
-}
-
-#history-stats-excused {
-  color: #ffffff;
-  background-color: #3498DB;
+.history-stats-excused td:last-child div {
+  background-color: #3498db;
 }
 
 
