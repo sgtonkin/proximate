@@ -230,8 +230,6 @@ angular.module('proximate.controllers', [])
 
   // Fetch events data for given adminId
   Populate.getEventsByAdminId($scope.adminId).then(function(eventsData) {
-    console.log('eventsData');
-    console.log(eventsData);
     // Make sure we have some events to display
     if (eventsData.length !== 0) {
       $scope.events = eventsData;

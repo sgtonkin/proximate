@@ -1,22 +1,22 @@
 // We include the UTC timezone and write date/times in UTC
 // Because otherwise the system assumes GCal events are in
 // The same timezone as the server, even if they're not
-var mysqlConnection = {
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    timezone: 'UTC'
-};
 var knex = require('knex')({
-  client: 'mysql',
-  connection: mysqlConnection,
+  client: 'pg',
+  connection: {
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_DATABASE,
+    timezone: 'UTC',
+    ssl: true
+  }
 });
 var bookshelf = require('bookshelf')(knex);
 module.exports = bookshelf;
 var sync = require('./sync');
 
-if (process.env.RESET_DATABASE_ON_LOAD !== 'false') {
+if (process.env.RESET_DATABASE_ON_LOAD === 'reset') {
   // Drop any existing db tables to ensure increment values reset
   bookshelf.knex.schema.dropTableIfExists('participants')
   .then(function() {
