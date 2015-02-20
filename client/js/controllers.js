@@ -230,6 +230,8 @@ angular.module('proximate.controllers', [])
 
   // Fetch events data for given adminId
   Populate.getEventsByAdminId($scope.adminId).then(function(eventsData) {
+    console.log('eventsData');
+    console.log(eventsData);
     // Make sure we have some events to display
     if (eventsData.length !== 0) {
       $scope.events = eventsData;
@@ -268,50 +270,65 @@ angular.module('proximate.controllers', [])
     {name: 'ontime', label:'On Time', id: 'history-stats-ontime', value: 0},
     {name: 'late', label:'Late', id: 'history-stats-late', value: 0},
     {name: 'excused', label:'Excused', id: 'history-stats-excused', value: 0},
-    {name: null, label:'Absent', id: 'history-stats-absent', value: 0},
+    {name: 'absent', label:'Absent', id: 'history-stats-absent', value: 0},
   ];
+  $scope.maxValue = 0;
 
   $scope.updateParticipantStatus = function(participant) {
     Populate.updateParticipantStatus(participant.participant_id,
-      participant.event_id, participant.status);
+      participant.event_id, participant.status)
+      .then(function(){
+        clearChart();
+        computeStats();
+        drawChart()
+      });
   };
 
   // Populates $scope.stats for use in table and chart
   var computeStats = function() {
-
     $scope.eventHistory.forEach(function(event) {
       $scope.stats.forEach(function(item) {
         if (item.name === event.status) {
           item.value++;
+          if (item.value > $scope.maxValue) {
+            $scope.maxValue = item.value;
+          }
         }
       });
     });
 
   };
 
+  var clearChart = function() {
+    $scope.maxValue = 0;
+    $('.statsRow').css('display', 'none');
+    $('.history-stats').empty();
+    $('.history-stats').css('opacity', 0, 'width', 0);
+    $scope.stats.forEach(function(stat) {
+      stat.value = 0;
+    })
+  }
+
   var drawChart = function() {
 
-    var widthScale = 100;
     var animationTime = 1000;
-    var textAnimationTime = 500;
+    var maxValue = $scope.maxValue;
 
     $scope.stats.forEach(function(stat) {
-      var nameForClass = stat.name === null ? 'absent' : stat.name;
-      // If no vals calculated, hide element
-      if (stat.value === 0) {
-        $('#history-stats-' + nameForClass).css('display', 'none');
-        return;
+      var nameForClass = stat.name;
+      var tableWidth = $('.chartWrapper').width();
+      var widthScale = ((tableWidth - 100) / maxValue);
+
+      if (stat.value !== 0) {
+        $('.history-stats-' + nameForClass).css('display', 'table-row');
+        $('.history-stats-' + nameForClass + ' td:nth-child(2) div')
+          .css('opacity', .7)
+          .animate({width: stat.value * widthScale + 'px'}, animationTime, 'swing',
+            // Animate stats values on completion
+            function() {
+              $(this).append(stat.value)
+            });
       }
-      // Otherwise append and animate
-      $('#history-stats-' + nameForClass)
-        .css('opacity', 1)
-        .animate({width: stat.value * widthScale + 'px'}, animationTime, 'swing',
-          // Animate stats values on completion
-          function() {
-            $('#history-stats-' + nameForClass + ' strong')
-            .animate({opacity: 1}, textAnimationTime);
-          })
-        .append('<span>' + nameForClass + ': <strong>' + stat.value + '</strong></span>');
     });
 
   };
@@ -326,6 +343,7 @@ angular.module('proximate.controllers', [])
         moment(item.event.start_time).diff(moment()) < 0);
     });
     //Then call functions with fetched info
+    clearChart();
     computeStats();
     drawChart();
   });
