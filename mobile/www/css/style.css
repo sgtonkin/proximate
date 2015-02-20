@@ -336,6 +336,12 @@ body {
   top: 0px;
 }
 
+/* makes room for manual checkin button @50px height */
+
+.checkin-status-notyet {
+  margin-top: -50px;
+}
+
 .manual-checkin-button {
   cursor: pointer;
   height: 50px;
@@ -405,14 +411,15 @@ body {
   position: relative;
   background-image: url('../img/clouds_overlay.png');
   background-repeat: no-repeat;
+  background-size: auto;
   min-height: 800px;
-  min-width: 500px;
+  /*min-width: 500px;*/
 }
 
 .status-nothing-scheduled-content {
   position: absolute;
-  top: 50%;
-  /*height: 200px;*/
+  top: 30%;
+  height: 200px;
 }
 
 .event-log {

@@ -75,7 +75,6 @@ angular.module('proximate', ['ionic',
 
 })
 
-
 // Filters events for upcoming, or otherwise just returns all events
 .filter('eventsFilter', function(){
 
