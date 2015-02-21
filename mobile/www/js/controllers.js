@@ -53,6 +53,10 @@ angular.module('proximate.controllers', [])
       });
   };
 
+  $scope.goToManualCheckin = function(){
+    $state.go('tab.manualCheckin');
+  };
+
   $scope.manualCheckin = function() {
     //do stuff
     console.log('manualCheckin fired');

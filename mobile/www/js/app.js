@@ -38,6 +38,16 @@ angular.module('proximate', ['ionic',
       }
     })
 
+    .state('tab.manualCheckin', {
+      url:'/manualCheckin',
+      views: {
+        'manualCheckin': {
+          templateUrl: 'views/manual_checkin.html',
+          controller: 'StatusCtrl'
+        }
+      }
+    })
+
     .state('tab.upcoming', {
       url: '/upcoming',
       views: {
