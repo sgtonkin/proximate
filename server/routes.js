@@ -82,6 +82,50 @@ module.exports = function(app) {
 
   });
 
+  // Create a new participant account
+  app.post('/api/signup', function(req, res) {
+
+    var email = req.body.email;
+    var password = req.body.password;
+
+    // First make sure the account doesn't exist
+    helpers.accountExists(email)
+      .then(function(exists) {
+        if (exists) {
+          throw new Error('Account already exists');
+          return;
+        }
+        return helpers.createAccount(email, password);
+      })
+      .then(function(model) {
+        // Participant record has been updated, send the id
+        res.status(201).send({id: model.get('id')});
+      })
+      .catch(function(error) {
+        res.status(404).send('Error creating account ' + error);
+      });
+
+  });
+
+  // Check the credentials of a participant against the db
+  app.post('/api/validateLogin', function(req, res) {
+
+    var email = req.body.email;
+    var password = req.body.password;
+
+    helpers.validateLogin(email, password)
+      .then(function(model) {
+        if (model !== false) {
+          return res.status(200).send();
+        }
+        res.status(401).send();
+      })
+      .catch(function(error) {
+        res.status(401).send('Error checking credentials ' + error);
+      });
+
+  });
+
   app.post('/api/beacons', function(req, res) {
 
     var beaconId = req.body.id;
@@ -148,7 +192,27 @@ module.exports = function(app) {
         res.status(404).send('Error deleting beacon' + error);
       });
   });
+
   // GET ROUTES
+
+  // Check if a participant has already registered their account
+  app.get('/api/participants/:email/accountExists', function(req, res) {
+
+    var email = req.params.email;
+
+    helpers.accountExists(email)
+      .then(function(model) {
+        if (model) {
+          res.status(200).json('true');
+        } else {
+          res.status(200).json('false');
+        }
+      })
+      .catch(function(error) {
+        res.status(404).send('Error verifying account ' + error);
+      });
+
+  });
 
   // Return a list of beacons associated with events
   // that belong to a certain device ID
@@ -239,7 +303,7 @@ module.exports = function(app) {
         if (events.length > 0) {
           res.status(200).json(events.at(0).toJSON());
         } else {
-          res.status(404).send('No current event found for this participant ');
+          res.status(200).send('No current event found for this participant ');
           return;
         }
       })
