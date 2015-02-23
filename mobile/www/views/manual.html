@@ -1,14 +1,14 @@
 <ion-view view-title="CHECKIN MANUALLY">
+  <!-- adds 'Back' button to get back to status view -->
+  <ion-nav-buttons side="left">
+  </ion-nav-buttons>
   <ion-content class="status manual" ng-class="class">
   <ion-refresher pulling-text="pull to refresh" on-refresh="doRefresh()">
   </ion-refresher>
 
   <div class="current-event">
     <div class="checkin-status row">
-        <!-- status null -->
-        <div class="checkin-status-notyet col col-80" ng-cloak>
-          <i class="huge spinner loading icon"></i>
-<!--           <h2>NOT HERE YET</h2> -->
+        <div class="manual-checkin-info col col-80" ng-cloak>
           <h3>Verify you're here by connecting to WiFi before you checkin.</h3>
           <div class="manual-checkin-button" ng-click="manualCheckin()"><h4>I'M HERE!</h4></div>
           <a>(Having trouble with auto-detection?)</a>
@@ -44,6 +44,7 @@
         </div>
       </div>
     </div>
+
   </div>
 
   </ion-content>

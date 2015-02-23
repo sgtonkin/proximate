@@ -336,9 +336,13 @@ body {
   top: 0px;
 }
 
+.checkin-status a {
+  text-decoration: none;
+}
+
 /* makes room for manual checkin button @50px height */
 
-.checkin-status-notyet {
+.manual-checkin-info {
   margin-top: -50px;
 }
 
@@ -362,6 +366,12 @@ body {
   background-color: rgba(0,0,0,.3);
   position: absolute;
   bottom: 45px;
+}
+
+/* Makes room for the title bar presense */
+
+.status.manual .current-event-info {
+  bottom: 90px;
 }
 
 /*.current-event-info-container {

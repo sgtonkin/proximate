@@ -53,13 +53,14 @@ angular.module('proximate.controllers', [])
       });
   };
 
-  $scope.goToManualCheckin = function(){
-    $state.go('tab.manualCheckin');
-  };
-
   $scope.manualCheckin = function() {
     //do stuff
     console.log('manualCheckin fired');
+  };
+
+  // Implements custom 'Back' button for the manual checkin view to return to Status
+  $scope.backToStatus = function() {
+    $state.go('tab.status', {}, {reload: true, inherit: false, location: 'replace'});
   };
 
   // Utility function that populates the pretty time field from start time

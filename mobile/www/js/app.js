@@ -38,11 +38,11 @@ angular.module('proximate', ['ionic',
       }
     })
 
-    .state('tab.manualCheckin', {
-      url:'/manualCheckin',
+    .state('tab.manual', {
+      url:'/manual',
       views: {
-        'manualCheckin': {
-          templateUrl: 'views/manual_checkin.html',
+        'status': {
+          templateUrl: 'views/manual.html',
           controller: 'StatusCtrl'
         }
       }

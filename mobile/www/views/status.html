@@ -1,4 +1,4 @@
-<ion-view view-title="Current" hide-nav-bar="true">
+<ion-view view-title="Status" hide-nav-bar="true">
   <ion-content class="status" ng-class="class">
   <ion-refresher pulling-text="pull to refresh" on-refresh="doRefresh()">
   </ion-refresher>
@@ -13,7 +13,7 @@
           <i class="huge spinner loading icon"></i>
           <h2>NOT HERE YET</h2>
           <h3>Your phone doesn't seem to be in range</h3>
-          <div class="manual-checkin-button" ng-click="goToManualCheckin()"><h4>CHECK-IN MANUALLY</h4></div>
+          <div class="manual-checkin-button" ng-click="goToManualCheckin()"><a href="#" ui-sref="tab.manual"><h4>CHECK-IN MANUALLY</h4></a></div>
         </div>
         <!-- status ontime -->
         <div class="checkin-status-ontime col col-80" ng-show="event.status==='ontime'" ng-cloak>
