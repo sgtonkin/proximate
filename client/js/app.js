@@ -5,10 +5,18 @@ angular.module('proximate',
   'proximate.services',
   'angularMoment',
   'ngAnimate',
-  'xeditable'
+  'xeditable',
+  'auth0',
+  'angular-storage',
+  'angular-jwt'
   ])
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, authProvider) {
+  authProvider.init({
+      domain: 'proximateio.auth0.com',
+      clientID: 'nJT0VagYnM6qeMyL01V84ociE46s9LOn'
+  });
+
   $urlRouterProvider.otherwise('/login');
 
   $stateProvider
@@ -93,16 +101,18 @@ angular.module('proximate',
   $httpProvider.interceptors.push('authInterceptor');
 })
 
-.run(function($rootScope, $state, Auth) {
+.run(function($rootScope, $state, auth, Auth) {
+
+  auth.hookEvents();
   // Redirect to login if user is not authenticated
-  $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
-    if (toState.name !== 'login' && !Auth.isAuth()) {
-      event.preventDefault();
-      $rootScope.next = {
-        name: toState.name,
-        params: toParams
-      };
-      $state.transitionTo('login');
-    }
-  });
+  // $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+  //   if (toState.name !== 'login' && !Auth.isAuth()) {
+  //     event.preventDefault();
+  //     $rootScope.next = {
+  //       name: toState.name,
+  //       params: toParams
+  //     };
+  //     $state.transitionTo('login');
+  //   }
+  // });
 });
