@@ -3,21 +3,22 @@ angular.module('proximate.controllers', [])
 .controller('AppCtrl', function($q, $rootScope, $scope, $state, $window, auth, Populate, PubNub) {
 
   // Load the G+ API
-  var po = document.createElement('script');
-  po.type = 'text/javascript';
-  po.async = true;
-  po.src = 'https://plus.google.com/js/client:plusone.js';
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(po, s);
+  // var po = document.createElement('script');
+  // po.type = 'text/javascript';
+  // po.async = true;
+  // po.src = 'https://plus.google.com/js/client:plusone.js';
+  // var s = document.getElementsByTagName('script')[0];
+  // s.parentNode.insertBefore(po, s);
 
-  po.onload = function() {
-    $scope.gapi_loaded = true;
-    $scope.$broadcast('google-api-loaded');
-  };
+  // po.onload = function() {
+  //   $scope.gapi_loaded = true;
+  //   $scope.$broadcast('google-api-loaded');
+  // };
 
   // Initialize scope variables
   $scope.currentEvent = {};
   $scope.currentEventParticipants = {};
+  $scope.auth = auth;
 
   // Listen for checkin confirmations
   PubNub.subscribe('checkins', function(message) {
@@ -50,7 +51,7 @@ angular.module('proximate.controllers', [])
     $('.rightMenu .subMenu').addClass('show');
   }
 
-// Fires on right menu clicks to handle opening and closing of right menu
+  // Fires on right menu clicks to handle opening and closing of right menu
   $scope.rightMenuClick = function(e) {
     if (!$('.rightMenu .subMenu').hasClass('show')) {
       openRightMenu();
@@ -58,8 +59,6 @@ angular.module('proximate.controllers', [])
       closeMenus();
     }
   };
-
-  // $scope.signOut = Auth.signOut;
 
   $scope.logout = function() {
     auth.signout();
@@ -191,7 +190,7 @@ angular.module('proximate.controllers', [])
       store.set('profile', profile);
       store.set('token', token);
       $location.path('/');
-    }, function() {
+    }, function(error) {
       // Error callback
     });
   }
