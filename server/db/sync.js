@@ -266,7 +266,6 @@ module.exports = function(adminId, accessToken, email) {
     // })
   return getCalendars()
     .then(function(calendarIds) {
-      console.log('calendar ids', calendarIds);
       // Get the gcal event data from all calendars into one array
       var events = _.map(calendarIds, function(item) {
         return getEvents(item);
@@ -309,9 +308,9 @@ module.exports = function(adminId, accessToken, email) {
       var statusChangeCount = countStatusChanges(eventRecords);
       console.log('created/updated', statusChangeCount, 'status records');
     })
-    // .catch(function(error) {
-    //   console.log('Error syncing calendar for', adminParams.email, error);
-    //   throw new Error();
-    // });
+    .catch(function(error) {
+      console.log('Error syncing calendar for', adminParams.email, error);
+      throw new Error();
+    });
 
 };

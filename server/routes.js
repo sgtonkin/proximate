@@ -37,23 +37,25 @@ module.exports = function(app) {
       name: req.body.name
     }
 
+    var adminId;
+
     helpers.updateAdminTokens(userInfo)
       .then(function(admin) {
         // Preserving this to take special action for a new account
         if (admin.isNew()) {
           return admin.save().then(function(admin) {
+            adminId = admin.get('id');
             return sync(admin.get('id'), admin.get('access_token'), admin.get('email'));
           });
         } else {
           return admin.save().then(function(admin) {
+            adminId = admin.get('id');
             return sync(admin.get('id'), admin.get('access_token'), admin.get('email'));
           });
         }
       })
-      .then(function(admin) {
-        var adminId = admin.get('id');
+      .then(function() {
         res.status(200).json({adminId: adminId});
-        return true;
       })
       // .catch(function(error) {
       //   res.status(500).send('Authentication error', error);
