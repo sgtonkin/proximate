@@ -1,6 +1,6 @@
 angular.module('proximate.controllers', [])
 
-.controller('AppCtrl', function($q, $rootScope, $scope, $state, $window, auth, Populate, PubNub) {
+.controller('AppCtrl', function($q, $rootScope, $scope, $state, $window, auth, Populate, PubNub, store) {
 
   // Load the G+ API
   // var po = document.createElement('script');

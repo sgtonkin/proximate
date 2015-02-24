@@ -44,7 +44,7 @@ angular.module('proximate',
     .state('admin.beacons', {
       templateUrl: 'views/partials/beacons.template.html',
       controller: 'BeaconsCtrl',
-      url: '/beacons'
+      url: '/beacons',
       data: { requiresLogin: true }
     })
 

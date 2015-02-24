@@ -4,17 +4,23 @@ var auth = require('./auth');
 var models = require('./models');
 var helpers = require('./db/helpers');
 var sync = require('./db/sync');
+var jwt = require('express-jwt');
+
+var jwtCheck = jwt({
+  secret: new Buffer('HX1IIvt93PfF1XF8Y73tpZ8LwIDKEaYKHTe0jWm_E30rQ9dN8cwZEboX-uRkKDlD', 'base64'),
+  audience: 'nJT0VagYnM6qeMyL01V84ociE46s9LOn'
+});
 
 module.exports = function(app) {
 
   // Set up authenticated routes
-  // app.use([
-  //   '/api/token',
-  //   '/api/beacons',
-  //   '/api/participant/status',
-  //   '/api/admins/id',
-  //   '/api/admins/*/beacons'
-  // ], auth.authClient);
+  app.use([
+    '/api/token',
+    '/api/beacons',
+    '/api/participant/status',
+    '/api/admins/id',
+    '/api/admins/*/beacons'
+  ], jwtCheck);
 
   /* API routes */
 
