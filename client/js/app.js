@@ -10,7 +10,7 @@ angular.module('proximate',
   'angular-jwt',
   ])
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider, authProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, authProvider, jwtInterceptorProvider) {
   authProvider.init({
       domain: 'proximateio.auth0.com',
       clientID: 'nJT0VagYnM6qeMyL01V84ociE46s9LOn'
@@ -61,41 +61,48 @@ angular.module('proximate',
       url: '/login'
     });
 
-  $httpProvider.interceptors.push(function($q, $injector) {
-    var $http;
-    var rootScope;
+  // $httpProvider.interceptors.push(function($q, $injector) {
+  //   var $http;
+  //   var rootScope;
 
-    return {
-      request: function(config) {
-        rootScope = rootScope || $injector.get('$rootScope');
-        rootScope.$broadcast('ajax-loading');
+  //   return {
+  //     request: function(config) {
+  //       rootScope = rootScope || $injector.get('$rootScope');
+  //       rootScope.$broadcast('ajax-loading');
 
-        return config;
-      },
+  //       return config;
+  //     },
 
-      response: function(response) {
-        $http = $http || $injector.get('$http');
+  //     response: function(response) {
+  //       $http = $http || $injector.get('$http');
 
-        if ($http.pendingRequests.length === 0) {
-          rootScope = rootScope || $injector.get('$rootScope');
-          rootScope.$broadcast('ajax-success');
-        }
+  //       if ($http.pendingRequests.length === 0) {
+  //         rootScope = rootScope || $injector.get('$rootScope');
+  //         rootScope.$broadcast('ajax-success');
+  //       }
 
-        return response;
-      },
+  //       return response;
+  //     },
 
-      responseError: function(rejection) {
-        $http = $http || $injector.get('$http');
+  //     responseError: function(rejection) {
+  //       $http = $http || $injector.get('$http');
 
-        if ($http.pendingRequests.length === 0) {
-          rootScope = rootScope || $injector.get('$rootScope');
-          rootScope.$broadcast('ajax-success');
-        }
+  //       if ($http.pendingRequests.length === 0) {
+  //         rootScope = rootScope || $injector.get('$rootScope');
+  //         rootScope.$broadcast('ajax-success');
+  //       }
 
-        return $q.reject(rejection);
-      }
-    };
-  });
+  //       return $q.reject(rejection);
+  //     }
+  //   };
+  // });
+
+  jwtInterceptorProvider.tokenGetter = ['store', function(store) {
+    // Return the saved token
+    return store.get('token');
+  }];
+
+  $httpProvider.interceptors.push('jwtInterceptor');
 
   // $httpProvider.interceptors.push('authInterceptor');
 
