@@ -44,8 +44,6 @@ exports.updateAdminTokens = function(userInfo) {
 
   userInfo.created_at = moment().utc().format();
 
-  console.log('email', userInfo.email);
-
   return new models.Admin({email: userInfo.email})
     .fetch()
     .then(function(model) {

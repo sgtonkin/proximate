@@ -127,13 +127,10 @@ angular.module('proximate.controllers', [])
 
   // Set the username and fetch current event data
   $scope.getAdminAndEventInfo = function() {
-    $scope.username = $window.sessionStorage.name;
-
-    Populate.getAdminId($window.sessionStorage.email)
-      .then(function(adminId) {
-        $scope.adminId = adminId;
-        $scope.getCurrentEventData();
-      });
+    $scope.username = auth.profile.name;
+    $scope.email = auth.profile.email;
+    $scope.adminId = store.get('adminId');
+    $scope.getCurrentEventData();
   };
 
   // Gets participant and event data for a given eventId
@@ -171,20 +168,20 @@ angular.module('proximate.controllers', [])
   };
 
   // Get admin and event info on user login
-  // $rootScope.$on('auth-login-success', function() {
-  //   $scope.getAdminAndEventInfo();
-  //   if ($rootScope.next) {
-  //     $state.go($rootScope.next.name, $rootScope.next.params);
-  //   } else {
-  //     $state.go('admin.events');
-  //   }
-  // });
+  $rootScope.$on('auth-login-success', function() {
+    $scope.getAdminAndEventInfo();
+    if ($rootScope.next) {
+      $state.go($rootScope.next.name, $rootScope.next.params);
+    } else {
+      $state.go('admin.events');
+    }
+  });
 
   // Fetch relevant info again in case the controller is reloaded
   // if (Auth.isAuth()) { $scope.getAdminAndEventInfo(); }
 })
 
-.controller('LoginCtrl', function($scope, $http, auth, store, $state) {
+.controller('LoginCtrl', function($scope, $rootScope, $http, auth, store) {
   $scope.login = function() {
     auth.signin({    extraParameters: {
         access_type: 'offline'
@@ -205,19 +202,21 @@ angular.module('proximate.controllers', [])
       }).then(function(res) {
         // Access token successfully stored
         if (res.status === 200) {
-          var adminId = res.data.adminId;
-          store.set('adminId', adminId);
-          $state.go('admin.events');
+          store.set('adminId', res.data.adminId);
+          $rootScope.$broadcast('auth-login-success');
           // There was some problem storing the code
         } else {
-          console.log('Authentication error');
+          console.log('An authentication error occured');
         }
-      });
+      })
+      .catch(function(error) {
+        console.log('An authentication error occured', error);
+      })
 
       // $location.path('/');
     }, function(error) {
       // Error logging in with Auth0
-      console.log(error);
+      console.log('Error logging in', error);
     });
   }
 })

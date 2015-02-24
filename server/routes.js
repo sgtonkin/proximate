@@ -37,48 +37,23 @@ module.exports = function(app) {
       name: req.body.name
     }
 
+    // Closure variable to store admin ID after db
     var adminId;
 
+    // Save the new token to the DB
     helpers.updateAdminTokens(userInfo)
       .then(function(admin) {
-        // Preserving this to take special action for a new account
-        if (admin.isNew()) {
-          return admin.save().then(function(admin) {
-            adminId = admin.get('id');
-            return sync(admin.get('id'), admin.get('access_token'), admin.get('email'));
-          });
-        } else {
-          return admin.save().then(function(admin) {
-            adminId = admin.get('id');
-            return sync(admin.get('id'), admin.get('access_token'), admin.get('email'));
-          });
-        }
+        return admin.save().then(function(admin) {
+          adminId = admin.get('id');
+          return sync(admin.get('id'), admin.get('access_token'), admin.get('email'));
+        });
       })
       .then(function() {
         res.status(200).json({adminId: adminId});
       })
-      // .catch(function(error) {
-      //   res.status(500).send('Authentication error', error);
-      // });
-
-              // .then(function(admin) {
-              //   if (admin.isNew()) {
-              //     return admin.save().then(function(admin) {
-              //       return sync(admin.get('id'));
-              //     });
-              //   } else {
-              //     return admin.save();
-              //   }
-              // })
-              // .then(function() {
-              //   res.status(200).json({name: data.displayName, email: email.value});
-              //   return true;
-              // })
-              // .catch(function() {
-              //   res.status(401).send('Authentication error');
-              // });
-
-
+      .catch(function(error) {
+        res.status(500).send('Authentication error', error);
+      });
 
 
     // Exchange one-time code for tokens
@@ -345,10 +320,7 @@ module.exports = function(app) {
     var adminId = req.params.adminId;
 
     if (adminId) {
-      sync(adminId)
-        .then(function() {
-          return helpers.getEventsByAdminId(adminId);
-        })
+      helpers.getEventsByAdminId(adminId)
         .then(function(model) {
           if (model) {
             res.status(200).json(model.toJSON());

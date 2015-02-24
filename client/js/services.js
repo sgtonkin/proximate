@@ -158,7 +158,7 @@ angular.module('proximate.services', [])
       }).then(function(res) {
         return res.data;
       }).catch(function(error) {
-        console.log('Error getting events');
+        console.log('Error getting events', error);
       });
     },
 
