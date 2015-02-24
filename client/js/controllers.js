@@ -275,10 +275,10 @@ angular.module('proximate.controllers', [])
   $scope.updateParticipantStatus = function(participant) {
     Populate.updateParticipantStatus(participant.participant_id,
       participant.event_id, participant.status)
-      .then(function(){
+      .then(function() {
         clearChart();
         computeStats();
-        drawChart()
+        drawChart();
       });
   };
 
@@ -304,8 +304,8 @@ angular.module('proximate.controllers', [])
     $('.history-stats').css('opacity', 0, 'width', 0);
     $scope.stats.forEach(function(stat) {
       stat.value = 0;
-    })
-  }
+    });
+  };
 
   var drawChart = function() {
 
@@ -320,11 +320,11 @@ angular.module('proximate.controllers', [])
       if (stat.value !== 0) {
         $('.history-stats-' + nameForClass).css('display', 'table-row');
         $('.history-stats-' + nameForClass + ' td:nth-child(2) div')
-          .css('opacity', .7)
+          .css('opacity', 0.7)
           .animate({width: stat.value * widthScale + 'px'}, animationTime, 'swing',
             // Animate stats values on completion
             function() {
-              $(this).append(stat.value)
+              $(this).append(stat.value);
             });
       }
     });

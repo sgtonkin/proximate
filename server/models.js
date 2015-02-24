@@ -1,7 +1,6 @@
 var bookshelf = require('./db/db');
 
 // Define bookshelf models
-
 var Admin = exports.Admin = bookshelf.Model.extend({
   tableName: 'admins',
   events: function() {
@@ -16,10 +15,12 @@ var Admin = exports.Admin = bookshelf.Model.extend({
   currentEvent: function() {
     return this.hasMany(Event)
     .query(function(qb) {
+      //jscs:disable
       return qb.whereRaw("ABS(1424470690 - extract(epoch FROM events.start_time)) <=" +
         "86400 AND (events.status != 'cancelled')")
         .orderByRaw('ABS(1424470690 - extract(epoch FROM events.start_time)) ASC')
         .limit(1);
+      //jscs:enable
     });
   }
 });
@@ -36,10 +37,12 @@ var Participant = exports.Participant = bookshelf.Model.extend({
     return this.belongsToMany(Event)
     .through(EventParticipant)
     .query(function(qb) {
+      //jscs:disable
       return qb.whereRaw("ABS(1424470690 - extract(epoch FROM events.start_time)) <=" +
         "3600 AND (events.status != 'cancelled')")
         .orderByRaw('ABS(1424470690 - extract(epoch FROM events.start_time)) ASC')
         .limit(1);
+      //jscs:enable
     });
   }
 });
