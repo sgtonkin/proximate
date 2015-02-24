@@ -183,15 +183,40 @@ angular.module('proximate.controllers', [])
   // if (Auth.isAuth()) { $scope.getAdminAndEventInfo(); }
 })
 
-.controller('LoginCtrl', function($scope, auth, store, $location) {
+.controller('LoginCtrl', function($scope, $http, auth, store, $state) {
   $scope.login = function() {
-    auth.signin({}, function(profile, token) {
-      // Success callback
+    auth.signin({    extraParameters: {
+        access_type: 'offline'
+    }}, function(profile, token) {
+      // Authenticated with Google
       store.set('profile', profile);
       store.set('token', token);
-      $location.path('/');
+      $http({
+        method: 'POST',
+        url: 'api/token',
+        data: {
+          // We only support G+ so there is only one identity
+          accessToken: auth.profile.identities[0].access_token,
+          email: auth.profile.email,
+          name: auth.profile.name,
+          refreshToken: null
+        },
+      }).then(function(res) {
+        // Access token successfully stored
+        if (res.status === 200) {
+          var adminId = res.data.adminId;
+          store.set('adminId', adminId);
+          $state.go('admin.events');
+          // There was some problem storing the code
+        } else {
+          console.log('Authentication error');
+        }
+      });
+
+      // $location.path('/');
     }, function(error) {
-      // Error callback
+      // Error logging in
+      console.log(error);
     });
   }
 })

@@ -1,0 +1,70 @@
+1. Update the index.html dependencies to be local
+2. Delete old auth code out of app.run
+3. Remove old auth from the server routes
+4. Remove the login styles
+5. Remove auth interceptor from config
+6. Remove reference to the G+ API in AppCtrl
+
+User logs in with Google using Auth0
+  // If their account is new
+    // Write their account info to the admin table
+    // Set their admin ID to the correct value
+    // Redirect to events
+    // Sync their calendar
+  // If the account is not new
+    // Set their admin ID to the correct value
+    // Redirect to events
+    // Sync all their info (beacons, events, current event etc.)
+
+// Refactor controllers (way too big)
+// Move auth stuff into auth factory
+
+DOCUMENTING POST SIGN-IN ACTIVITY
+
+// After signin
+
+// Auth callback
+  // If token is valid
+    // Write id token to storage [X]
+    // Post id token and code to server
+    -- Update token post to upsert access token
+    -- Update references to sessionStorage.name/email to reference profile
+    -- Trigger logout if we can't store their token
+    // Broadcast auth-login-success
+      // Call getAdminAndEventInfo
+        // GetAdminId based off of email
+        // Set $scope.adminID to whatever is returned
+        // Get current events based off adminId
+      // Redirect to admin.events
+        // Call populate.getEventsByAdminId
+  // If token is invalid
+    // Delete the token from storage
+
+
+
+// Be sure to reload event info if controller is reloaded
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
