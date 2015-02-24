@@ -37,18 +37,17 @@ module.exports = function(app) {
       name: req.body.name
     }
 
-    auth.client.setCredentials({
-       access_token: userInfo.accessToken
-    });
-
     helpers.updateAdminTokens(userInfo)
       .then(function(admin) {
+        // Preserving this to take special action for a new account
         if (admin.isNew()) {
           return admin.save().then(function(admin) {
-            return sync(admin.get('id'));
+            return sync(admin.get('id'), admin.get('access_token'), admin.get('email'));
           });
         } else {
-          return admin.save();
+          return admin.save().then(function(admin) {
+            return sync(admin.get('id'), admin.get('access_token'), admin.get('email'));
+          });
         }
       })
       .then(function(admin) {
@@ -56,9 +55,9 @@ module.exports = function(app) {
         res.status(200).json({adminId: adminId});
         return true;
       })
-      .catch(function() {
-        res.status(401).send('Authentication error');
-      });
+      // .catch(function(error) {
+      //   res.status(500).send('Authentication error', error);
+      // });
 
               // .then(function(admin) {
               //   if (admin.isNew()) {

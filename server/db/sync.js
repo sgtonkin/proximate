@@ -5,7 +5,11 @@ var helpers = require('./helpers');
 var _ = require('underscore');
 var moment = require('moment');
 
-module.exports = function(adminId) {
+module.exports = function(adminId, accessToken, email) {
+
+  auth.client.setCredentials({
+     access_token: accessToken,
+  });
 
   // Define calendar API and admin info
   var calendar = require('googleapis').calendar({version: 'v3', auth: auth.client});
@@ -251,17 +255,18 @@ module.exports = function(adminId) {
   var fetchedEvents;
   var participantIds;
   // Remainder of admin parameters will be fetched from DB
-  var adminParams = {id: adminId};
+  var adminParams = {id: adminId, email: email};
 
-  return helpers.getAdminName(adminId)
-    .then(function(admin) {
-      adminParams.email = admin.get('email');
-    })
-    .then(function() {
-      return auth.authenticate(adminParams.email);
-    })
-    .then(getCalendars)
+  // return helpers.getAdminName(adminId)
+  //   .then(function(admin) {
+  //     adminParams.email = admin.get('email');
+  //   })
+    // .then(function() {
+    //   return auth.authenticate(adminParams.email);
+    // })
+  return getCalendars()
     .then(function(calendarIds) {
+      console.log('calendar ids', calendarIds);
       // Get the gcal event data from all calendars into one array
       var events = _.map(calendarIds, function(item) {
         return getEvents(item);
@@ -304,9 +309,9 @@ module.exports = function(adminId) {
       var statusChangeCount = countStatusChanges(eventRecords);
       console.log('created/updated', statusChangeCount, 'status records');
     })
-    .catch(function(error) {
-      console.log('Error syncing calendar for', adminParams.email, error);
-      throw new Error();
-    });
+    // .catch(function(error) {
+    //   console.log('Error syncing calendar for', adminParams.email, error);
+    //   throw new Error();
+    // });
 
 };

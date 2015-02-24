@@ -64,6 +64,7 @@ angular.module('proximate.controllers', [])
     auth.signout();
     store.remove('profile');
     store.remove('token');
+    store.remove('adminId');
   }
 
   /**** SETUP FOR PARTICIPANT STATUS MENU HANDLERS AND LISTENERS ****/
@@ -188,7 +189,7 @@ angular.module('proximate.controllers', [])
     auth.signin({    extraParameters: {
         access_type: 'offline'
     }}, function(profile, token) {
-      // Authenticated with Google
+      // Sucess handler post Auth0 authentication
       store.set('profile', profile);
       store.set('token', token);
       $http({
@@ -215,7 +216,7 @@ angular.module('proximate.controllers', [])
 
       // $location.path('/');
     }, function(error) {
-      // Error logging in
+      // Error logging in with Auth0
       console.log(error);
     });
   }

@@ -44,6 +44,8 @@ exports.updateAdminTokens = function(userInfo) {
 
   userInfo.created_at = moment().utc().format();
 
+  console.log('email', userInfo.email);
+
   return new models.Admin({email: userInfo.email})
     .fetch()
     .then(function(model) {
@@ -56,7 +58,6 @@ exports.updateAdminTokens = function(userInfo) {
       } else {
         // Update existing record
         model.set('access_token', userInfo.access_token);
-        model.set('token_expiry', userInfo.expiry_date);
         return model;
       }
     });
