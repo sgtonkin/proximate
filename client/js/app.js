@@ -109,18 +109,21 @@ angular.module('proximate',
 
 })
 
-.run(function($rootScope, $state, auth) {
+.run(function($rootScope, $state, auth, store, jwtHelper) {
 
   auth.hookEvents();
-  // Redirect to login if user is not authenticated
-  // $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
-  //   if (toState.name !== 'login' && !Auth.isAuth()) {
-  //     event.preventDefault();
-  //     $rootScope.next = {
-  //       name: toState.name,
-  //       params: toParams
-  //     };
-  //     $state.transitionTo('login');
-  //   }
-  // });
+
+  $rootScope.$on('$stateChangeStart', function() {
+    if (!auth.isAuthenticated) {
+      var token = store.get('token');
+      if (token) {
+        if (!jwtHelper.isTokenExpired(token)) {
+          auth.authenticate(store.get('profile'), token);
+        } else {
+          // Either show Login page or use the refresh token to get a new idToken
+          $location.path('/login');
+        }
+      }
+    }
+  });
 });
