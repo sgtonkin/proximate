@@ -13,7 +13,8 @@ angular.module('proximate',
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, authProvider, jwtInterceptorProvider) {
   authProvider.init({
       domain: 'proximateio.auth0.com',
-      clientID: 'nJT0VagYnM6qeMyL01V84ociE46s9LOn'
+      clientID: 'nJT0VagYnM6qeMyL01V84ociE46s9LOn',
+      loginState: 'login'
   });
 
   $urlRouterProvider.otherwise('/login');
@@ -22,37 +23,43 @@ angular.module('proximate',
 
     .state('admin', {
       templateUrl: 'views/admin.html',
-      url: '/admin'
+      url: '/admin',
+      data: { requiresLogin: true }
     })
 
     .state('admin.events', {
       templateUrl: 'views/partials/events.template.html',
       controller: 'EventsCtrl',
-      url: '/events'
+      url: '/events',
+      data: { requiresLogin: true }
     })
 
     .state('admin.roster', {
       templateUrl: 'views/partials/roster.template.html',
       controller: 'RosterCtrl',
-      url: '/events/:eventId/roster'
+      url: '/events/:eventId/roster',
+      data: { requiresLogin: true }
     })
 
     .state('admin.beacons', {
       templateUrl: 'views/partials/beacons.template.html',
       controller: 'BeaconsCtrl',
       url: '/beacons'
+      data: { requiresLogin: true }
     })
 
     .state('admin.participant', {
       templateUrl: 'views/partials/participant.template.html',
       controller: 'ParticipantCtrl',
-      url: '/participant/:participantId'
+      url: '/participant/:participantId',
+      data: { requiresLogin: true }
     })
 
     .state('projector', {
       templateUrl: 'views/projector.html',
       controller: 'ProjectorCtrl',
-      url: '/events/:eventId/projector'
+      url: '/events/:eventId/projector',
+      data: { requiresLogin: true }
     })
 
     .state('login', {
@@ -97,15 +104,12 @@ angular.module('proximate',
   //   };
   // });
 
+  // Interceptor to add JWT to all secure API requests
   jwtInterceptorProvider.tokenGetter = ['store', function(store) {
-    // Return the saved token
     return store.get('token');
   }];
 
   $httpProvider.interceptors.push('jwtInterceptor');
-
-  // $httpProvider.interceptors.push('authInterceptor');
-
 
 })
 
@@ -113,6 +117,7 @@ angular.module('proximate',
 
   auth.hookEvents();
 
+  // Event handler to check for login credentials, otherwise redirect
   $rootScope.$on('$stateChangeStart', function() {
     if (!auth.isAuthenticated) {
       var token = store.get('token');
@@ -121,7 +126,7 @@ angular.module('proximate',
           auth.authenticate(store.get('profile'), token);
         } else {
           // Either show Login page or use the refresh token to get a new idToken
-          $location.path('/login');
+          $state.transitionTo('login');
         }
       }
     }
