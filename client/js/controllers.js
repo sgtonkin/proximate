@@ -59,7 +59,7 @@ angular.module('proximate.controllers', [])
     }
   };
 
-  $scope.signOut = Auth.signOut;
+  // $scope.signOut = Auth.signOut;
 
   /**** SETUP FOR PARTICIPANT STATUS MENU HANDLERS AND LISTENERS ****/
 
@@ -165,17 +165,30 @@ angular.module('proximate.controllers', [])
   };
 
   // Get admin and event info on user login
-  $rootScope.$on('auth-login-success', function() {
-    $scope.getAdminAndEventInfo();
-    if ($rootScope.next) {
-      $state.go($rootScope.next.name, $rootScope.next.params);
-    } else {
-      $state.go('admin.events');
-    }
-  });
+  // $rootScope.$on('auth-login-success', function() {
+  //   $scope.getAdminAndEventInfo();
+  //   if ($rootScope.next) {
+  //     $state.go($rootScope.next.name, $rootScope.next.params);
+  //   } else {
+  //     $state.go('admin.events');
+  //   }
+  // });
 
   // Fetch relevant info again in case the controller is reloaded
-  if (Auth.isAuth()) { $scope.getAdminAndEventInfo(); }
+  // if (Auth.isAuth()) { $scope.getAdminAndEventInfo(); }
+})
+
+.controller('LoginCtrl', function($scope, auth, store, $location) {
+  $scope.login = function() {
+    auth.signin({}, function(profile, token) {
+      // Success callback
+      store.set('profile', profile);
+      store.set('token', token);
+      $location.path('/');
+    }, function() {
+      // Error callback
+    });
+  }
 })
 
 .controller('AdminCtrl', function($scope) {
