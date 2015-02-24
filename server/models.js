@@ -16,9 +16,9 @@ var Admin = exports.Admin = bookshelf.Model.extend({
     return this.hasMany(Event)
     .query(function(qb) {
       //jscs:disable
-      return qb.whereRaw("ABS(1424470690 - extract(epoch FROM events.start_time)) <=" +
+      return qb.whereRaw("ABS(extract(epoch from now()) - extract(epoch FROM events.start_time)) <=" +
         "86400 AND (events.status != 'cancelled')")
-        .orderByRaw('ABS(1424470690 - extract(epoch FROM events.start_time)) ASC')
+        .orderByRaw('ABS(extract(epoch from now()) - extract(epoch FROM events.start_time)) ASC')
         .limit(1);
       //jscs:enable
     });
@@ -38,9 +38,9 @@ var Participant = exports.Participant = bookshelf.Model.extend({
     .through(EventParticipant)
     .query(function(qb) {
       //jscs:disable
-      return qb.whereRaw("ABS(1424470690 - extract(epoch FROM events.start_time)) <=" +
+      return qb.whereRaw("ABS(extract(epoch from now()) - extract(epoch FROM events.start_time)) <=" +
         "3600 AND (events.status != 'cancelled')")
-        .orderByRaw('ABS(1424470690 - extract(epoch FROM events.start_time)) ASC')
+        .orderByRaw('ABS(extract(epoch from now()) - extract(epoch FROM events.start_time)) ASC')
         .limit(1);
       //jscs:enable
     });
