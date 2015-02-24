@@ -2,7 +2,7 @@
   <!-- adds 'Back' button to get back to status view -->
   <ion-nav-buttons side="left">
   </ion-nav-buttons>
-  <ion-content class="status manual" ng-class="class">
+  <ion-content class="status manual">
   <ion-refresher pulling-text="pull to refresh" on-refresh="doRefresh()">
   </ion-refresher>
 
@@ -38,7 +38,7 @@
             <i class="huge marker icon"></i>
           </div>
           <div class="col col-80">
-            <h5>6th Floor Presentation Area</h5>
+            <h5>{{event.location}}</h5>
           </div>
           <div class="col col-10"></div>
         </div>

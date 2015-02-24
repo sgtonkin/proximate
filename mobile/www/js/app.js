@@ -86,7 +86,7 @@ angular.module('proximate', ['ionic',
 })
 
 // Filters events for upcoming, or otherwise just returns all events
-.filter('eventsFilter', function(){
+.filter('eventsFilter', function() {
 
   var now = new moment();
 
@@ -98,5 +98,5 @@ angular.module('proximate', ['ionic',
     } else {
       return input;
     }
-  }
+  };
 });

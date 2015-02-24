@@ -30,7 +30,7 @@ angular.module('proximate.controllers', [])
           $scope.event.status = res.status;
           $scope.class = res.status;
           console.log('res.status', res.status);
-          if ($scope.class == null) {
+          if ($scope.class === null) {
             $scope.class = 'no-data';
           }
         } else {
@@ -53,9 +53,20 @@ angular.module('proximate.controllers', [])
       });
   };
 
+  // Triggers a manual checkin event, publishing a message through PubNub
   $scope.manualCheckin = function() {
-    //do stuff
-    console.log('manualCheckin fired');
+
+    var checkinInfo = {
+        deviceId: Settings.data.deviceId,
+        userId: Settings.data.userId,
+        username: Settings.data.username,
+        eventId: $scope.event.id,
+        eventType: 'manualCheckin'
+      };
+
+    PubNub.publish('checkins', checkinInfo);
+
+    $scope.backToStatus();
   };
 
   // Implements custom 'Back' button for the manual checkin view to return to Status
@@ -111,14 +122,6 @@ angular.module('proximate.controllers', [])
     if (fromState.name === 'splash') {
       loadCycle();
     }
-  });
-
-  $scope.$on('showHeader', function() {
-    $scope.hide_header = false;
-  });
-
-  $scope.$on('hideHeader', function() {
-    $scope.hide_header = true;
   });
 
 })
@@ -277,7 +280,6 @@ angular.module('proximate.controllers', [])
   };
 
   $scope.logout = function() {
-    $scope.hide_header = true;
     Auth.logout();
   };
 });
