@@ -1,6 +1,5 @@
 angular.module('proximate',
   ['ui.router',
-  'proximate.auth',
   'proximate.controllers',
   'proximate.services',
   'angularMoment',
@@ -8,7 +7,7 @@ angular.module('proximate',
   'xeditable',
   'auth0',
   'angular-storage',
-  'angular-jwt'
+  'angular-jwt',
   ])
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, authProvider) {
@@ -98,10 +97,12 @@ angular.module('proximate',
     };
   });
 
-  $httpProvider.interceptors.push('authInterceptor');
+  // $httpProvider.interceptors.push('authInterceptor');
+
+
 })
 
-.run(function($rootScope, $state, auth, Auth) {
+.run(function($rootScope, $state, auth) {
 
   auth.hookEvents();
   // Redirect to login if user is not authenticated

@@ -1,6 +1,6 @@
 angular.module('proximate.controllers', [])
 
-.controller('AppCtrl', function($q, $rootScope, $scope, $state, $window, Auth, Populate, PubNub) {
+.controller('AppCtrl', function($q, $rootScope, $scope, $state, $window, auth, Populate, PubNub) {
 
   // Load the G+ API
   var po = document.createElement('script');
@@ -60,6 +60,12 @@ angular.module('proximate.controllers', [])
   };
 
   // $scope.signOut = Auth.signOut;
+
+  $scope.logout = function() {
+    auth.signout();
+    store.remove('profile');
+    store.remove('token');
+  }
 
   /**** SETUP FOR PARTICIPANT STATUS MENU HANDLERS AND LISTENERS ****/
 
