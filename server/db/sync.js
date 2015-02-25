@@ -294,7 +294,7 @@ module.exports = function(adminId, accessToken, email) {
       return promise.map(formattedAttendees, helpers.upsertParticipant);
     })
     .then(function(participantRecords) {
-      console.log('created/updated', participantRecords.length, 'participant records');
+      console.log('created/updated', participantRecords.length, 'participant records for', email);
       // Store participant ids to access later once db operation is complete
       participantIds = _.map(participantRecords, function(participant) {
         return {
@@ -310,9 +310,9 @@ module.exports = function(adminId, accessToken, email) {
     })
     .then(function(eventRecords) {
       // Log the results of our update if successful
-      console.log('created/updated', eventRecords.length, 'event records');
+      console.log('created/updated', eventRecords.length, 'event records for', email);
       var statusChangeCount = countStatusChanges(eventRecords);
-      console.log('created/updated', statusChangeCount, 'status records');
+      console.log('created/updated', statusChangeCount, 'status records for', email);
     })
     .catch(function(error) {
       console.log('Error syncing calendar for', adminParams.email, error);
