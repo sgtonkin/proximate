@@ -1,67 +1,25 @@
-1. Update the index.html dependencies to be local
-2. Delete old auth code out of app.run
+// CLEANUP
+
 3. Remove old auth from the server routes
 4. Remove the login styles
 5. Remove auth interceptor from config
 6. Remove reference to the G+ API in AppCtrl
 7. In Routes, handle the case of a new account being created
 8. In Auth, make sure the auth.authenticate method works
+9. Refactor controllers (way too big)
+10. Move auth stuff into auth factory
+11. Add visual feedback to sync button
+12. Refactor stylesheet
 
-User logs in with Google using Auth0
-  // If their account is new
-    // Write their account info to the admin table [X]
-    // Set their admin ID to the correct value [X]
-    // Redirect to events [X]
-    // Sync their calendar [X]
-  // If the account is not new
-    // Set their admin ID to the correct value [X]
-    // Redirect to events [X]
+// NEXT STEPS
 
-
-
-// Refactor controllers (way too big)
-// Move auth stuff into auth factory
-
-// User is redirected to to admin.events
-
-
-
-
-
-
-
-
-
-
-
-
-
-DOCUMENTING POST SIGN-IN ACTIVITY
-
-// After signin
-
-// Auth callback
-  // If token is valid
-    // Write id token to storage [X]
-    // Call a callback function [X]
-    // Post id token and code to server
-    -- Update token post to upsert access token
-    -- Update references to sessionStorage.name/email to reference profile
-    -- Trigger logout if we can't store their token
-    // Broadcast auth-login-success
-      // Call getAdminAndEventInfo
-        // GetAdminId based off of email
-        // Set $scope.adminID to whatever is returned
-        // Get current events based off adminId
-      // Redirect to admin.events
-        // Call populate.getEventsByAdminId
-  // If token is invalid
-    // Delete the token from storage
-
-// Be sure to reload event info if controller is reloaded
-
-
-
+1. Reformat login page to incorporate new look
+2. Refactor app initialization sequence (factories / controller split)
+3. Refactor controllers overall, eliminate unncessary getters/setters/functions, implement events model
+5. Refactor code to make use of a refresh token instead of just access token
+6. Cash beacon and event info so we don't need to constantly call the db
+7. Bring back the loading spinner where needed
+8. If you're already logged in and go to login, you should be redirected
 
 
 

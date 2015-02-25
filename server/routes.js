@@ -26,7 +26,7 @@ module.exports = function(app) {
 
   // POST ROUTES
 
-  // Update admin info after login
+  // Update admin info after a G+ login
   app.post('/api/token', function(req, res) {
 
     // Format info for a db insert
@@ -49,54 +49,12 @@ module.exports = function(app) {
         });
       })
       .then(function() {
+        // Send the adminId back so it can be stored in the client session
         res.status(200).json({adminId: adminId});
       })
       .catch(function(error) {
         res.status(500).send('Authentication error', error);
       });
-
-
-    // Exchange one-time code for tokens
-    // auth.client.getToken(req.body.code, function(err, tokens) {
-    //   if (err) {
-    //     console.log('Unable to exchange code for tokens: ', err);
-    //     res.status(401).send('Authentication error');
-    //     return;
-    //   }
-
-    //   console.log('Received server-side tokens');
-    //   auth.client.setCredentials(tokens);
-    //   // Retrieve authenticated user's e-mail address
-    //   var plus = require('googleapis').plus({version: 'v1', auth: auth.client});
-    //   plus.people.get({userId: 'me'}, function(err, data) {
-    //     if (err) {
-    //       res.status(401).send('Authentication error');
-    //       return;
-    //     }
-
-    //     data.emails.some(function(email) {
-    //       if (email.type === 'account') {
-    //         helpers.updateAdminTokens(email.value, data.displayName, tokens)
-    //           .then(function(admin) {
-    //             if (admin.isNew()) {
-    //               return admin.save().then(function(admin) {
-    //                 return sync(admin.get('id'));
-    //               });
-    //             } else {
-    //               return admin.save();
-    //             }
-    //           })
-    //           .then(function() {
-    //             res.status(200).json({name: data.displayName, email: email.value});
-    //             return true;
-    //           })
-    //           .catch(function() {
-    //             res.status(401).send('Authentication error');
-    //           });
-    //       }
-    //     });
-    //   });
-    // });
 
   });
 
