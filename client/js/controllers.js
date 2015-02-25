@@ -1,6 +1,6 @@
 angular.module('proximate.controllers', [])
 
-.controller('AppCtrl', function($q, $rootScope, $scope, $state, $window, auth, Populate, PubNub, store) {
+.controller('AppCtrl', function($q, $rootScope, $http, $scope, $state, $window, auth, Populate, PubNub, store) {
 
   // Initialize scope variables
   $scope.currentEvent = {};
@@ -99,7 +99,7 @@ angular.module('proximate.controllers', [])
         $scope.$broadcast('current-event-updated');
       }
     }).catch(function(err) {
-
+      console.log('Error getting current event', err);
     });
   };
 
@@ -155,6 +155,11 @@ angular.module('proximate.controllers', [])
       });
   };
 
+  $scope.syncCalendar = function() {
+    var accessToken = auth.profile.identities[0].access_token;
+    Populate.syncCalendar(accessToken, $scope.email, $scope.adminId);
+  };
+
   // Get admin and event info on user login
   $rootScope.$on('auth-login-success', function() {
     $scope.getAdminAndEventInfo();
@@ -163,6 +168,11 @@ angular.module('proximate.controllers', [])
     } else {
       $state.go('admin.events');
     }
+  });
+
+    // Get admin and event info on user login
+  $scope.$on('calendar-sync', function() {
+    $scope.getAdminAndEventInfo();
   });
 
   // Fetch relevant info again in case the controller is reloaded
@@ -200,8 +210,6 @@ angular.module('proximate.controllers', [])
       .catch(function(error) {
         console.log('An authentication error occured', error);
       })
-
-      // $location.path('/');
     }, function(error) {
       // Error logging in with Auth0
       console.log('Error logging in', error);
@@ -220,7 +228,7 @@ angular.module('proximate.controllers', [])
   };
 })
 
-.controller('EventsCtrl', function($scope, $state, Populate) {
+.controller('EventsCtrl', function($scope, $rootScope, $state, Populate, auth, $http) {
 
   $scope.displayFilterTime = 'all';
   $scope.displayFilterStatus = 'confirmed';

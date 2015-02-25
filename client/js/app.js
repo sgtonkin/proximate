@@ -108,7 +108,6 @@ angular.module('proximate',
   jwtInterceptorProvider.tokenGetter = ['store', function(store) {
     return store.get('token');
   }];
-
   $httpProvider.interceptors.push('jwtInterceptor');
 
 })
@@ -117,16 +116,17 @@ angular.module('proximate',
 
   auth.hookEvents();
 
-  // Event handler to check for login credentials, otherwise redirect
+  // Event handler to check for login credentials, otherwise redirect to login
   $rootScope.$on('$locationChangeStart', function() {
     if (!auth.isAuthenticated) {
       var token = store.get('token');
       if (token) {
         if (!jwtHelper.isTokenExpired(token)) {
+          // Valid token, reload page
           auth.authenticate(store.get('profile'), token);
           $rootScope.$broadcast('auth-login-success');
         } else {
-          // Either show Login page or use the refresh token to get a new idToken
+          // Invalid token, send to login
           $state.go('login')
         }
       }
