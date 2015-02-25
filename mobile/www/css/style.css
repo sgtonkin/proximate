@@ -151,7 +151,7 @@ body {
   font-family: 'Penna';
   margin-top: 30px;
   letter-spacing: .118em;
-  font-size: 3em;
+  font-size: 2.8em;
   text-shadow: 0px 1px 5px rgba(255,255,255,0.6);
   font-weight: bold;
   color: white;
@@ -352,6 +352,10 @@ body {
 
 .manual-checkin-info {
   margin-top: -50px;
+}
+
+.status.no-data .checkin-status {
+  margin-top: 30px;
 }
 
 .manual-checkin-info a {
