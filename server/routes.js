@@ -85,6 +85,7 @@ module.exports = function(app) {
         res.status(200).send();
       })
       .catch(function(error) {
+        console.log('error', error);
         res.status(500).send('Error syncing calendar' + error);
       });
 

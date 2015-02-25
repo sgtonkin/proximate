@@ -1,12 +1,21 @@
 var promise = require('bluebird');
 var models = require('../models');
-var auth = require('../auth');
+// var auth = require('../auth');
+var auth = require('googleapis').auth;
 var helpers = require('./helpers');
 var _ = require('underscore');
 var moment = require('moment');
 
 module.exports = function(adminId, accessToken, email) {
 
+  // Initialize the Google client library from config
+  auth.client = new auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    'postmessage'
+  );
+
+  // Set the access token we received from Auth0 after login
   auth.client.setCredentials({
      access_token: accessToken,
   });

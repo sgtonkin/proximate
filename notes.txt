@@ -1,25 +1,4 @@
-// CLEANUP
 
-3. Remove old auth from the server routes
-4. Remove the login styles
-5. Remove auth interceptor from config
-6. Remove reference to the G+ API in AppCtrl
-7. In Routes, handle the case of a new account being created
-8. In Auth, make sure the auth.authenticate method works
-9. Refactor controllers (way too big)
-10. Move auth stuff into auth factory
-11. Add visual feedback to sync button
-12. Refactor stylesheet
-
-// NEXT STEPS
-
-1. Reformat login page to incorporate new look
-2. Refactor app initialization sequence (factories / controller split)
-3. Refactor controllers overall, eliminate unncessary getters/setters/functions, implement events model
-5. Refactor code to make use of a refresh token instead of just access token
-6. Cash beacon and event info so we don't need to constantly call the db
-7. Bring back the loading spinner where needed
-8. If you're already logged in and go to login, you should be redirected
 
 
 
