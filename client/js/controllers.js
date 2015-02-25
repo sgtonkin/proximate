@@ -162,6 +162,7 @@ angular.module('proximate.controllers', [])
 
   // Get admin and event info on user login
   $rootScope.$on('auth-login-success', function() {
+    $scope.syncCalendar();
     $scope.getAdminAndEventInfo();
     if ($rootScope.next) {
       $state.go($rootScope.next.name, $rootScope.next.params);
@@ -170,16 +171,15 @@ angular.module('proximate.controllers', [])
     }
   });
 
-    // Get admin and event info on user login
-  $scope.$on('calendar-sync', function() {
+  // Get admin and event info on user login
+  $rootScope.$on('calendar-sync', function() {
     $scope.getAdminAndEventInfo();
   });
 
-  // Fetch relevant info again in case the controller is reloaded
-  // if (Auth.isAuth()) { $scope.getAdminAndEventInfo(); }
 })
 
-.controller('LoginCtrl', function($scope, $rootScope, $http, auth, store) {
+.controller('LoginCtrl', function($scope, $rootScope, $state, $http, auth, store) {
+
   $scope.login = function() {
     auth.signin({    extraParameters: {
         access_type: 'offline'
@@ -215,6 +215,9 @@ angular.module('proximate.controllers', [])
       console.log('Error logging in', error);
     });
   }
+
+  $scope.login();
+
 })
 
 .controller('AdminCtrl', function($scope) {

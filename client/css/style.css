@@ -809,19 +809,14 @@ a {
 /* LOGIN VIEW */
 
 .login {
-
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ECF0F1;
-  background-size: cover;
+  background-color: #24262d;
   zoom: 1;
   z-index: 0;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-image: url(../img/squareoffice.jpg);
 
 }
 
