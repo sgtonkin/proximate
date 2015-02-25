@@ -108,7 +108,7 @@ angular.module('proximate.services', [])
 
 })
 
-.factory('Populate', function($http) {
+.factory('Populate', function($http, $rootScope) {
   var adminId;
 
   return {
@@ -158,7 +158,7 @@ angular.module('proximate.services', [])
       }).then(function(res) {
         return res.data;
       }).catch(function(error) {
-        console.log('Error getting events');
+        console.log('Error getting events', error);
       });
     },
 
@@ -176,7 +176,23 @@ angular.module('proximate.services', [])
       }).catch(function(error) {
         console.log('Error updating participant status');
       });
+    },
+
+    syncCalendar: function(accessToken, email, adminId) {
+      $http({
+        method: 'POST',
+        url: 'api/sync',
+        data: {
+          // We only support G+ so there is only one identity
+          accessToken: accessToken,
+          email: email,
+          adminId: adminId,
+        },
+      }).then(function(res) {
+        $rootScope.$broadcast('calendar-sync');
+      });
     }
+
   };
 
 })

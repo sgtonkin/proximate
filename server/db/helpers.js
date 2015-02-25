@@ -40,28 +40,19 @@ exports.getAdminFromEmail = function(email) {
     });
 };
 
-exports.updateAdminTokens = function(email, name, tokens) {
+exports.updateAdminTokens = function(userInfo) {
 
-  return new models.Admin({email: email})
+  userInfo.created_at = moment().utc().format();
+
+  return new models.Admin({email: userInfo.email})
     .fetch()
     .then(function(model) {
       if (!model) {
-        if (!tokens.refresh_token) {
-          throw new Error('Refresh token not supplied for new user');
-        }
         // Create record if it doesn't exist
-        return models.Admin.forge({
-          name: name,
-          email: email,
-          refresh_token: tokens.refresh_token,
-          access_token: tokens.access_token,
-          token_expiry: tokens.expiry_date,
-          created_at: moment().format('YYYY-MM-DD HH:mm:ss')
-        });
+        return models.Admin.forge(userInfo);
       } else {
         // Update existing record
-        model.set('access_token', tokens.access_token);
-        model.set('token_expiry', tokens.expiry_date);
+        model.set('access_token', userInfo.access_token);
         return model;
       }
     });

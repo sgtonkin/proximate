@@ -4,6 +4,12 @@ var auth = require('./auth');
 var models = require('./models');
 var helpers = require('./db/helpers');
 var sync = require('./db/sync');
+var jwt = require('express-jwt');
+
+var jwtCheck = jwt({
+  secret: new Buffer('HX1IIvt93PfF1XF8Y73tpZ8LwIDKEaYKHTe0jWm_E30rQ9dN8cwZEboX-uRkKDlD', 'base64'),
+  audience: 'nJT0VagYnM6qeMyL01V84ociE46s9LOn'
+});
 
 module.exports = function(app) {
 
@@ -14,55 +20,41 @@ module.exports = function(app) {
     '/api/participant/status',
     '/api/admins/id',
     '/api/admins/*/beacons'
-  ], auth.authClient);
+  ], jwtCheck);
 
   /* API routes */
 
   // POST ROUTES
 
-  // Receive one-time Google+ authorization code
+  // Update admin info after a G+ login
   app.post('/api/token', function(req, res) {
-    // Exchange one-time code for tokens
-    auth.client.getToken(req.body.code, function(err, tokens) {
-      if (err) {
-        console.log('Unable to exchange code for tokens: ', err);
-        res.status(401).send('Authentication error');
-        return;
-      }
 
-      console.log('Received server-side tokens');
-      auth.client.setCredentials(tokens);
-      // Retrieve authenticated user's e-mail address
-      var plus = require('googleapis').plus({version: 'v1', auth: auth.client});
-      plus.people.get({userId: 'me'}, function(err, data) {
-        if (err) {
-          res.status(401).send('Authentication error');
-          return;
-        }
+    // Format info for a db insert
+    var userInfo = {
+      access_token: req.body.accessToken,
+      refresh_token: req.body.refreshToken,
+      email: req.body.email,
+      name: req.body.name
+    };
 
-        data.emails.some(function(email) {
-          if (email.type === 'account') {
-            helpers.updateAdminTokens(email.value, data.displayName, tokens)
-              .then(function(admin) {
-                if (admin.isNew()) {
-                  return admin.save().then(function(admin) {
-                    return sync(admin.get('id'));
-                  });
-                } else {
-                  return admin.save();
-                }
-              })
-              .then(function() {
-                res.status(200).json({name: data.displayName, email: email.value});
-                return true;
-              })
-              .catch(function() {
-                res.status(401).send('Authentication error');
-              });
-          }
+    // Closure variable to store admin ID after db
+    var adminId;
+
+    // Save the new token to the DB
+    helpers.updateAdminTokens(userInfo)
+      .then(function(admin) {
+        return admin.save().then(function(admin) {
+          adminId = admin.get('id');
+          return sync(admin.get('id'), admin.get('access_token'), admin.get('email'));
         });
+      })
+      .then(function() {
+        // Send the adminId back so it can be stored in the client session
+        res.status(200).json({adminId: adminId});
+      })
+      .catch(function(error) {
+        res.status(500).send('Authentication error', error);
       });
-    });
 
   });
 
@@ -78,6 +70,23 @@ module.exports = function(app) {
       })
       .catch(function(error) {
         res.status(404).send('No user found' + error);
+      });
+
+  });
+
+  app.post('/api/sync', function(req, res) {
+
+    var email = req.body.email;
+    var accessToken = req.body.accessToken;
+    var adminId = req.body.adminId;
+
+    sync(adminId, accessToken, email)
+      .then(function(model) {
+        res.status(200).send();
+      })
+      .catch(function(error) {
+        console.log('error', error);
+        res.status(500).send('Error syncing calendar' + error);
       });
 
   });
@@ -239,7 +248,7 @@ module.exports = function(app) {
         if (events.length > 0) {
           res.status(200).json(events.at(0).toJSON());
         } else {
-          res.status(404).send('No current event found for this participant ');
+          res.status(200).send('No current event found');
           return;
         }
       })
@@ -263,15 +272,12 @@ module.exports = function(app) {
 
     var adminId = req.params.adminId;
 
-    sync(adminId)
-      .then(function() {
-        return helpers.getCurrentEventByAdmin(adminId);
-      })
+    helpers.getCurrentEventByAdmin(adminId)
       .then(function(events) {
         if (events.length > 0) {
           res.status(200).json(events.at(0).toJSON());
         } else {
-          res.status(204).send('No current event found for this admin ');
+          res.status(200).send('No current event found');
         }
       })
       .catch(function(error) {
@@ -286,10 +292,7 @@ module.exports = function(app) {
     var adminId = req.params.adminId;
 
     if (adminId) {
-      sync(adminId)
-        .then(function() {
-          return helpers.getEventsByAdminId(adminId);
-        })
+      helpers.getEventsByAdminId(adminId)
         .then(function(model) {
           if (model) {
             res.status(200).json(model.toJSON());

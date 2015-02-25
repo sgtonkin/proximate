@@ -1,11 +1,23 @@
 var promise = require('bluebird');
 var models = require('../models');
-var auth = require('../auth');
+var auth = require('googleapis').auth;
 var helpers = require('./helpers');
 var _ = require('underscore');
 var moment = require('moment');
 
-module.exports = function(adminId) {
+module.exports = function(adminId, accessToken, email) {
+
+  // Initialize the Google client library from config
+  auth.client = new auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    'postmessage'
+  );
+
+  // Set the access token we received from Auth0 after login
+  auth.client.setCredentials({
+     access_token: accessToken,
+  });
 
   // Define calendar API and admin info
   var calendar = require('googleapis').calendar({version: 'v3', auth: auth.client});
@@ -251,17 +263,15 @@ module.exports = function(adminId) {
   var fetchedEvents;
   var participantIds;
   // Remainder of admin parameters will be fetched from DB
-  var adminParams = {id: adminId};
+  var adminParams = {id: adminId, email: email};
 
-  return helpers.getAdminName(adminId)
-    .then(function(admin) {
-      adminParams.email = admin.get('email');
-    })
-    .then(function() {
-      return auth.authenticate(adminParams.email);
-    })
-    .then(getCalendars)
+  return getCalendars()
     .then(function(calendarIds) {
+
+      if (!adminId || !accessToken) {
+        throw new Error('Invalid admin ID or token for sync');
+      }
+
       // Get the gcal event data from all calendars into one array
       var events = _.map(calendarIds, function(item) {
         return getEvents(item);

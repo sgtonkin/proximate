@@ -1,23 +1,12 @@
 angular.module('proximate.controllers', [])
 
-.controller('AppCtrl', function($q, $rootScope, $scope, $state, $window, Auth, Populate, PubNub) {
-
-  // Load the G+ API
-  var po = document.createElement('script');
-  po.type = 'text/javascript';
-  po.async = true;
-  po.src = 'https://plus.google.com/js/client:plusone.js';
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(po, s);
-
-  po.onload = function() {
-    $scope.gapi_loaded = true;
-    $scope.$broadcast('google-api-loaded');
-  };
+.controller('AppCtrl', function($q, $rootScope, $http,
+  $scope, $state, $window, auth, Populate, PubNub, store) {
 
   // Initialize scope variables
   $scope.currentEvent = {};
   $scope.currentEventParticipants = {};
+  $scope.auth = auth;
 
   // Listen for checkin confirmations
   PubNub.subscribe('checkins', function(message) {
@@ -50,7 +39,7 @@ angular.module('proximate.controllers', [])
     $('.rightMenu .subMenu').addClass('show');
   }
 
-// Fires on right menu clicks to handle opening and closing of right menu
+  // Fires on right menu clicks to handle opening and closing of right menu
   $scope.rightMenuClick = function(e) {
     if (!$('.rightMenu .subMenu').hasClass('show')) {
       openRightMenu();
@@ -59,7 +48,13 @@ angular.module('proximate.controllers', [])
     }
   };
 
-  $scope.signOut = Auth.signOut;
+  $scope.logout = function() {
+    auth.signout();
+    store.remove('profile');
+    store.remove('token');
+    store.remove('adminId');
+    $state.go('login');
+  };
 
   /**** SETUP FOR PARTICIPANT STATUS MENU HANDLERS AND LISTENERS ****/
 
@@ -105,7 +100,7 @@ angular.module('proximate.controllers', [])
         $scope.$broadcast('current-event-updated');
       }
     }).catch(function(err) {
-
+      console.log('Error getting current event', err);
     });
   };
 
@@ -121,13 +116,10 @@ angular.module('proximate.controllers', [])
 
   // Set the username and fetch current event data
   $scope.getAdminAndEventInfo = function() {
-    $scope.username = $window.sessionStorage.name;
-
-    Populate.getAdminId($window.sessionStorage.email)
-      .then(function(adminId) {
-        $scope.adminId = adminId;
-        $scope.getCurrentEventData();
-      });
+    $scope.username = auth.profile.name;
+    $scope.email = auth.profile.email;
+    $scope.adminId = store.get('adminId');
+    $scope.getCurrentEventData();
   };
 
   // Gets participant and event data for a given eventId
@@ -164,8 +156,14 @@ angular.module('proximate.controllers', [])
       });
   };
 
+  $scope.syncCalendar = function() {
+    var accessToken = auth.profile.identities[0].access_token;
+    Populate.syncCalendar(accessToken, store.get('email'), store.get('adminId'));
+  };
+
   // Get admin and event info on user login
   $rootScope.$on('auth-login-success', function() {
+    $scope.syncCalendar();
     $scope.getAdminAndEventInfo();
     if ($rootScope.next) {
       $state.go($rootScope.next.name, $rootScope.next.params);
@@ -174,8 +172,53 @@ angular.module('proximate.controllers', [])
     }
   });
 
-  // Fetch relevant info again in case the controller is reloaded
-  if (Auth.isAuth()) { $scope.getAdminAndEventInfo(); }
+  // Get admin and event info on user login
+  $rootScope.$on('calendar-sync', function() {
+    $scope.getAdminAndEventInfo();
+  });
+
+})
+
+.controller('LoginCtrl', function($scope, $rootScope, $state, $http, auth, store) {
+
+  $scope.login = function() {
+    auth.signin({extraParameters: {
+        access_type: 'offline'
+    }}, function(profile, token) {
+      // Sucess handler post Auth0 authentication
+      store.set('profile', profile);
+      store.set('token', token);
+      $http({
+        method: 'POST',
+        url: 'api/token',
+        data: {
+          // We only support G+ so there is only one identity
+          accessToken: auth.profile.identities[0].access_token,
+          email: auth.profile.email,
+          name: auth.profile.name,
+          refreshToken: null
+        },
+      }).then(function(res) {
+        // Access token successfully stored
+        if (res.status === 200) {
+          store.set('adminId', res.data.adminId);
+          $rootScope.$broadcast('auth-login-success');
+          // There was some problem storing the code
+        } else {
+          console.log('An authentication error occured');
+        }
+      })
+      .catch(function(error) {
+        console.log('An authentication error occured', error);
+      });
+    }, function(error) {
+      // Error logging in with Auth0
+      console.log('Error logging in', error);
+    });
+  };
+
+  $scope.login();
+
 })
 
 .controller('AdminCtrl', function($scope) {
@@ -189,7 +232,7 @@ angular.module('proximate.controllers', [])
   };
 })
 
-.controller('EventsCtrl', function($scope, $state, Populate) {
+.controller('EventsCtrl', function($scope, $rootScope, $state, Populate, auth, $http) {
 
   $scope.displayFilterTime = 'all';
   $scope.displayFilterStatus = 'confirmed';
