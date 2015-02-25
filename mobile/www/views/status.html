@@ -44,7 +44,7 @@
         <div class="current-event-name row">
           <div class="col col-10"></div>
           <div class="col col-80">
-            <h4>{{event.name.toUpperCase()}}</h4>
+            <h4>{{event.name.toUpperCase() | limitLength }}</h4>
           </div>
           <div class="col col-10"></div>
         </div>
@@ -62,7 +62,7 @@
             <i class="huge marker icon"></i>
           </div>
           <div class="col col-80">
-            <h5>{{event.location}}</h5>
+            <h5>{{event.location | limitLength }}</h5>
           </div>
           <div class="col col-10"></div>
         </div>
