@@ -1,6 +1,7 @@
 angular.module('proximate.controllers', [])
 
-.controller('AppCtrl', function($q, $rootScope, $http, $scope, $state, $window, auth, Populate, PubNub, store) {
+.controller('AppCtrl', function($q, $rootScope, $http,
+  $scope, $state, $window, auth, Populate, PubNub, store) {
 
   // Initialize scope variables
   $scope.currentEvent = {};
@@ -53,7 +54,7 @@ angular.module('proximate.controllers', [])
     store.remove('token');
     store.remove('adminId');
     $state.go('login');
-  }
+  };
 
   /**** SETUP FOR PARTICIPANT STATUS MENU HANDLERS AND LISTENERS ****/
 
@@ -181,7 +182,7 @@ angular.module('proximate.controllers', [])
 .controller('LoginCtrl', function($scope, $rootScope, $state, $http, auth, store) {
 
   $scope.login = function() {
-    auth.signin({    extraParameters: {
+    auth.signin({extraParameters: {
         access_type: 'offline'
     }}, function(profile, token) {
       // Sucess handler post Auth0 authentication
@@ -209,12 +210,12 @@ angular.module('proximate.controllers', [])
       })
       .catch(function(error) {
         console.log('An authentication error occured', error);
-      })
+      });
     }, function(error) {
       // Error logging in with Auth0
       console.log('Error logging in', error);
     });
-  }
+  };
 
   $scope.login();
 

@@ -35,7 +35,7 @@ module.exports = function(app) {
       refresh_token: req.body.refreshToken,
       email: req.body.email,
       name: req.body.name
-    }
+    };
 
     // Closure variable to store admin ID after db
     var adminId;

@@ -48,9 +48,6 @@ exports.updateAdminTokens = function(userInfo) {
     .fetch()
     .then(function(model) {
       if (!model) {
-        // if (!tokens.refresh_token) {
-        //   throw new Error('Refresh token not supplied for new user');
-        // }
         // Create record if it doesn't exist
         return models.Admin.forge(userInfo);
       } else {

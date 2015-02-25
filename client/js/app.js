@@ -9,7 +9,8 @@ angular.module('proximate',
   'angular-jwt',
   ])
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider, authProvider, jwtInterceptorProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider,
+  authProvider, jwtInterceptorProvider) {
   authProvider.init({
       domain: 'proximateio.auth0.com',
       clientID: 'nJT0VagYnM6qeMyL01V84ociE46s9LOn',
@@ -23,42 +24,42 @@ angular.module('proximate',
     .state('admin', {
       templateUrl: 'views/admin.html',
       url: '/admin',
-      data: { requiresLogin: true }
+      data: {requiresLogin: true}
     })
 
     .state('admin.events', {
       templateUrl: 'views/partials/events.template.html',
       controller: 'EventsCtrl',
       url: '/events',
-      data: { requiresLogin: true }
+      data: {requiresLogin: true}
     })
 
     .state('admin.roster', {
       templateUrl: 'views/partials/roster.template.html',
       controller: 'RosterCtrl',
       url: '/events/:eventId/roster',
-      data: { requiresLogin: true }
+      data: {requiresLogin: true}
     })
 
     .state('admin.beacons', {
       templateUrl: 'views/partials/beacons.template.html',
       controller: 'BeaconsCtrl',
       url: '/beacons',
-      data: { requiresLogin: true }
+      data: {requiresLogin: true}
     })
 
     .state('admin.participant', {
       templateUrl: 'views/partials/participant.template.html',
       controller: 'ParticipantCtrl',
       url: '/participant/:participantId',
-      data: { requiresLogin: true }
+      data: {requiresLogin: true}
     })
 
     .state('projector', {
       templateUrl: 'views/projector.html',
       controller: 'ProjectorCtrl',
       url: '/events/:eventId/projector',
-      data: { requiresLogin: true }
+      data: {requiresLogin: true}
     })
 
     .state('login', {
@@ -126,7 +127,7 @@ angular.module('proximate',
           $rootScope.$broadcast('auth-login-success');
         } else {
           // Invalid token, send to login
-          $state.go('login')
+          $state.go('login');
         }
       }
     }
