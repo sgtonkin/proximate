@@ -113,20 +113,21 @@ angular.module('proximate',
 
 })
 
-.run(function($rootScope, $state, auth, store, jwtHelper) {
+.run(function($rootScope, auth, $state, store, $location, jwtHelper) {
 
   auth.hookEvents();
 
   // Event handler to check for login credentials, otherwise redirect
-  $rootScope.$on('$stateChangeStart', function() {
+  $rootScope.$on('$locationChangeStart', function() {
     if (!auth.isAuthenticated) {
       var token = store.get('token');
       if (token) {
         if (!jwtHelper.isTokenExpired(token)) {
           auth.authenticate(store.get('profile'), token);
+          $rootScope.$broadcast('auth-login-success');
         } else {
           // Either show Login page or use the refresh token to get a new idToken
-          $state.transitionTo('login');
+          $state.go('login')
         }
       }
     }

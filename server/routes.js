@@ -273,7 +273,7 @@ module.exports = function(app) {
         if (events.length > 0) {
           res.status(200).json(events.at(0).toJSON());
         } else {
-          res.status(404).send('No current event found for this participant ');
+          res.status(204).send();
           return;
         }
       })
@@ -305,12 +305,12 @@ module.exports = function(app) {
         if (events.length > 0) {
           res.status(200).json(events.at(0).toJSON());
         } else {
-          res.status(204).send('No current event found for this admin ');
+          res.status(204);
         }
       })
-      .catch(function(error) {
-        res.status(404).send('Error fetching current event data ' + error);
-      });
+      // .catch(function(error) {
+      //   res.status(404).send('Error fetching current event data ' + error);
+      // });
 
   });
 

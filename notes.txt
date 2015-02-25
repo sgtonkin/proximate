@@ -4,20 +4,37 @@
 4. Remove the login styles
 5. Remove auth interceptor from config
 6. Remove reference to the G+ API in AppCtrl
+7. In Routes, handle the case of a new account being created
+8. In Auth, make sure the auth.authenticate method works
 
 User logs in with Google using Auth0
   // If their account is new
-    // Write their account info to the admin table
-    // Set their admin ID to the correct value
-    // Redirect to events
-    // Sync their calendar
+    // Write their account info to the admin table [X]
+    // Set their admin ID to the correct value [X]
+    // Redirect to events [X]
+    // Sync their calendar [X]
   // If the account is not new
-    // Set their admin ID to the correct value
-    // Redirect to events
-    // Sync all their info (beacons, events, current event etc.)
+    // Set their admin ID to the correct value [X]
+    // Redirect to events [X]
+
+
 
 // Refactor controllers (way too big)
 // Move auth stuff into auth factory
+
+// User is redirected to to admin.events
+
+
+
+
+
+
+
+
+
+
+
+
 
 DOCUMENTING POST SIGN-IN ACTIVITY
 
@@ -26,6 +43,7 @@ DOCUMENTING POST SIGN-IN ACTIVITY
 // Auth callback
   // If token is valid
     // Write id token to storage [X]
+    // Call a callback function [X]
     // Post id token and code to server
     -- Update token post to upsert access token
     -- Update references to sessionStorage.name/email to reference profile
@@ -39,8 +57,6 @@ DOCUMENTING POST SIGN-IN ACTIVITY
         // Call populate.getEventsByAdminId
   // If token is invalid
     // Delete the token from storage
-
-
 
 // Be sure to reload event info if controller is reloaded
 
