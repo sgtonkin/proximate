@@ -1,6 +1,4 @@
 var crypto = require('crypto');
-
-var auth = require('./auth');
 var models = require('./models');
 var helpers = require('./db/helpers');
 var sync = require('./db/sync');

@@ -158,7 +158,7 @@ angular.module('proximate.controllers', [])
 
   $scope.syncCalendar = function() {
     var accessToken = auth.profile.identities[0].access_token;
-    Populate.syncCalendar(accessToken, store.get('email'), store.get('adminId'));
+    Populate.syncCalendar(accessToken, auth.profile.email, store.get('adminId'));
   };
 
   // Get admin and event info on user login
