@@ -105,12 +105,12 @@ angular.module('proximate', ['ionic',
 // Edit LENGTH_LIMIT constant to tweak
 .filter('limitLength', function() {
 
-  const LENGTH_LIMIT = 18;
+  var LENGTH_LIMIT = 18;
 
   return function(input) {
     if (input.length > LENGTH_LIMIT) {
-      return input.substr(0,(LENGTH_LIMIT / 2))
-                          + '...' + input.substr(-LENGTH_LIMIT / 2);
+      return input.substr(0, (LENGTH_LIMIT / 2)) +
+                          '...' + input.substr(-LENGTH_LIMIT / 2);
     } else {
       return input;
     }
