@@ -1,45 +1,41 @@
-<ion-view view-title="Settings">
-  <ion-content class="padding">
+<ion-view view-title="SETTINGS">
+  <ion-content class="settings">
+
     <div class="list">
-      <div class="item item-divider">Your info</div>
-      <label class="item item-input">
-        <span class="input-label">Name</span>
-        <input ng-model="data.username" type="text" disabled>
-      </label>
-      <label class="item item-input">
-          <span class="input-label">Device ID: </span>
-          <input ng-model="data.deviceId" type="text" disabled>
-      </label>
-      <div class="item item-divider">Change password</div>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Current Password</span>
-        <input ng-model="data.oldPassword" type="password" placeholder="Current password">
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">New Password</span>
-        <input ng-model="data.newPassword" type="password" placeholder="New password">
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">New Password (Confirmation)</span>
-        <input ng-model="data.newPasswordConf" type="password" placeholder="New password (confirmation)">
-      </label>
-      <button ng-click="updatePassword()" class="button button-block button-positive">
-        Save settings
-      </button>
-      <button ng-click="refreshBeacons()" class="button button-block">
-        Refresh beacons
-      </button>
-      <button ng-click="logout()" class="button button-block">
-        Logout
-      </button>
+      <div class="item">
+        <label>NAME</label>
+        <h2>{{data.username}}</h2>
+      </div>
+      <a class="item item-icon-right" href="#" ng-click="updatePassword()">
+        <label>PASSWORD</label>
+        <h2>••••••</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a>
+      <div class="item">
+        <label>EMAIL</label>
+        <h2>{{data.email}}</h2>
+      </div>
     </div>
-    <div class="list card">
+
+    <div class="settings-buttons">
+      <div>
+        <button class="button button-block disabled" ng-click="refreshBeacons()">DETECT BEACONS</button>
+      </div>
+      <div>
+        <button class="button button-block" ng-click="logout()">LOGOUT</button>
+      </div>
+      </div>
+    </div>
+
+  <!-- uncomment the below for debug area -->
+
+   <!-- <div class="list card">
       <div class="item item-divider">Dev Status Messages</div>
       <div class="item item-body">
         <div id="dev-messages">
 
         </div>
       </div>
-    </div>
+    </div> -->
   </ion-content>
 </ion-view>

@@ -3,12 +3,13 @@ angular.module('proximate.controllers', [])
 .controller('AppCtrl', function($ionicPlatform, $localStorage,
   $scope, $state, Settings, Events, PubNub, Beacons) {
 
-  $scope.hide_header = true;
-
   // Initialize current event
   $scope.event = {
     id: null
   };
+
+  // Default class value for background
+  $scope.class = 'nothing-scheduled';
 
   // Gets the most current event for the user, and updates the
   // relevant checkin status, protecting for empty responses.
@@ -27,8 +28,14 @@ angular.module('proximate.controllers', [])
         console.log('Checkin status is: ' + JSON.stringify(res));
         if (res) {
           $scope.event.status = res.status;
+          $scope.class = res.status;
+          console.log('res.status', res.status);
+          if ($scope.class === null) {
+            $scope.class = 'no-data';
+          }
         } else {
           $scope.event.status = null;
+          $scope.class = 'nothing-scheduled';
           console.log('No data returned for checkin status');
         }
       })
@@ -37,12 +44,34 @@ angular.module('proximate.controllers', [])
 
         if (err.status === 404) {
           $scope.event.id = null;
+          $scope.class = $scope.class = 'nothing-scheduled';
         }
 
       })
       .finally(function() {
         $scope.$broadcast('scroll.refreshComplete');
       });
+  };
+
+  // Triggers a manual checkin event, publishing a message through PubNub
+  $scope.manualCheckin = function() {
+
+    var checkinInfo = {
+        deviceId: Settings.data.deviceId,
+        userId: Settings.data.userId,
+        username: Settings.data.username,
+        eventId: $scope.event.id,
+        eventType: 'manualCheckin'
+      };
+
+    PubNub.publish('checkins', checkinInfo);
+
+    $scope.backToStatus();
+  };
+
+  // Implements custom 'Back' button for the manual checkin view to return to Status
+  $scope.backToStatus = function() {
+    $state.go('tab.status', {}, {reload: true, inherit: false, location: 'replace'});
   };
 
   // Utility function that populates the pretty time field from start time
@@ -103,12 +132,15 @@ angular.module('proximate.controllers', [])
 
 })
 
-.controller('UpcomingCtrl', function($scope, Events) {
+.controller('UpcomingCtrl', function($rootScope, $scope, Events) {
 
-  //Instantiate empty events list
+  // Instantiate empty events list
   $scope.data = {
     events: []
   };
+
+  // Sets the initial state of the Events Filter
+  $scope.eventsFilterSetting = 'upcoming';
 
   $scope.getUpcomingEvents = function() {
     Events.getUpcomingEvents()
@@ -131,7 +163,7 @@ angular.module('proximate.controllers', [])
   });
 })
 
-// Controls the splash screen for user signin on mobile
+// Controls the splash screen for user signin/signup on mobile
 .controller('SplashCtrl', function($scope, $state, Settings) {
 
   // Initialize data objects
@@ -153,7 +185,6 @@ angular.module('proximate.controllers', [])
     Settings.signin($scope.data)
       .then(function(res) {
         $scope.error = '';
-        $scope.hide_header = false;
         $state.go('tab.status');
       })
       .catch(function(err) {
@@ -165,7 +196,6 @@ angular.module('proximate.controllers', [])
     Settings.signup($scope.data)
       .then(function(res) {
         $scope.error = '';
-        $scope.hide_header = false;
         $state.go('tab.status');
       })
       .catch(function(err) {
@@ -231,11 +261,13 @@ angular.module('proximate.controllers', [])
     $scope.data = {};
     $scope.data.username = Settings.data.username;
     $scope.data.deviceId = Settings.data.deviceId;
+    $scope.data.email = Settings.data.email;
 
   });
 
   $scope.updatePassword = function() {
     // Stem function
+    console.log('updatePassword triggered!');
   };
 
   $scope.refreshBeacons = function() {
@@ -247,7 +279,6 @@ angular.module('proximate.controllers', [])
   };
 
   $scope.logout = function() {
-    $scope.hide_header = true;
     Auth.logout();
   };
 });

@@ -38,6 +38,16 @@ angular.module('proximate', ['ionic',
       }
     })
 
+    .state('tab.manual', {
+      url:'/manual',
+      views: {
+        'status': {
+          templateUrl: 'views/manual.html',
+          controller: 'StatusCtrl'
+        }
+      }
+    })
+
     .state('tab.upcoming', {
       url: '/upcoming',
       views: {
@@ -73,4 +83,36 @@ angular.module('proximate', ['ionic',
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/status');
 
+})
+
+// Filters events for upcoming, or otherwise just returns all events
+.filter('eventsFilter', function() {
+
+  var now = new moment();
+
+  return function(input, eventsFilterSetting) {
+    if (eventsFilterSetting === 'upcoming') {
+      return input.filter(function(event) {
+        return moment(event.start_time).isAfter(now);
+      });
+    } else {
+      return input;
+    }
+  };
+})
+
+// Limits length of entries in event status section
+// Edit LENGTH_LIMIT constant to tweak
+.filter('limitLength', function() {
+
+  var LENGTH_LIMIT = 18;
+
+  return function(input) {
+    if (input.length > LENGTH_LIMIT) {
+      return input.substr(0, (LENGTH_LIMIT / 2)) +
+                          '...' + input.substr(-LENGTH_LIMIT / 2);
+    } else {
+      return input;
+    }
+  };
 });
