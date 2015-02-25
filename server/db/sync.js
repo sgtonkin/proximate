@@ -1,6 +1,5 @@
 var promise = require('bluebird');
 var models = require('../models');
-// var auth = require('../auth');
 var auth = require('googleapis').auth;
 var helpers = require('./helpers');
 var _ = require('underscore');
@@ -266,15 +265,13 @@ module.exports = function(adminId, accessToken, email) {
   // Remainder of admin parameters will be fetched from DB
   var adminParams = {id: adminId, email: email};
 
-  // return helpers.getAdminName(adminId)
-  //   .then(function(admin) {
-  //     adminParams.email = admin.get('email');
-  //   })
-    // .then(function() {
-    //   return auth.authenticate(adminParams.email);
-    // })
   return getCalendars()
     .then(function(calendarIds) {
+
+      if (!adminId || !accessToken) {
+        throw new Error('Invalid admin ID or token for sync');
+      }
+
       // Get the gcal event data from all calendars into one array
       var events = _.map(calendarIds, function(item) {
         return getEvents(item);
