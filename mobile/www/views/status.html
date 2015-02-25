@@ -3,7 +3,7 @@
   <ion-refresher pulling-text="pull to refresh" on-refresh="doRefresh()">
   </ion-refresher>
 
-  <div class="current-event" ng-show="event.id !== null">
+  <div class="current-event" ng-show="event.id">
     <div class="checkin-status row">
         <div class="checkin-status-loading" ng-show="event.status===''" ng-cloak>
           <i class="ion-loop"></i>

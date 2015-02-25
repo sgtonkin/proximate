@@ -12,6 +12,7 @@ angular.module('proximate.services')
   data.currentBeaconList = $localStorage.get('beaconList');
   data.username = $localStorage.get('username');
   data.userId = $localStorage.get('userId');
+  data.email = $localStorage.get('email');
 
   // update the deviceID based on current device
   var updateDeviceId = function() {

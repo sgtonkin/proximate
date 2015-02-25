@@ -163,7 +163,7 @@ angular.module('proximate.controllers', [])
   });
 })
 
-// Controls the splash screen for user signin on mobile
+// Controls the splash screen for user signin/signup on mobile
 .controller('SplashCtrl', function($scope, $state, Settings) {
 
   // Initialize data objects
@@ -185,7 +185,6 @@ angular.module('proximate.controllers', [])
     Settings.signin($scope.data)
       .then(function(res) {
         $scope.error = '';
-        $scope.hide_header = false;
         $state.go('tab.status');
       })
       .catch(function(err) {
@@ -197,7 +196,6 @@ angular.module('proximate.controllers', [])
     Settings.signup($scope.data)
       .then(function(res) {
         $scope.error = '';
-        $scope.hide_header = false;
         $state.go('tab.status');
       })
       .catch(function(err) {
@@ -263,6 +261,7 @@ angular.module('proximate.controllers', [])
     $scope.data = {};
     $scope.data.username = Settings.data.username;
     $scope.data.deviceId = Settings.data.deviceId;
+    $scope.data.email = Settings.data.email;
 
   });
 
