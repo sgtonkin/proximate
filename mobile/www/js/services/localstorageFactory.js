@@ -15,6 +15,9 @@ angular.module('proximate.services', [])
     },
     getObject: function(key) {
       return JSON.parse($window.localStorage[key] || '{}');
+    },
+    clearStorage: function() {
+      $window.localStorage.clear();
     }
   };
 }]);
