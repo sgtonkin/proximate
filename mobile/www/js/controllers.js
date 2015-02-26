@@ -163,95 +163,120 @@ angular.module('proximate.controllers', [])
   });
 })
 
-// Controls the splash screen for user signin/signup on mobile
-.controller('SplashCtrl', function($scope, $state, Settings) {
+// // Controls the splash screen for user signin/signup on mobile
+// .controller('SplashCtrl', function($scope, $state, Settings) {
 
-  // Initialize data objects
-  $scope.data = {
-    username: '',
-    password: '',
-    passwordConfirm: '', // For signup
-    deviceId: ''
-  };
+//   // Initialize data objects
+//   $scope.data = {
+//     username: '',
+//     password: '',
+//     passwordConfirm: '', // For signup
+//     deviceId: ''
+//   };
 
-  $scope.error = '';
+//   $scope.error = '';
 
-  Settings.updateDeviceId();
+//   Settings.updateDeviceId();
 
-  // Calls the factory signin function, and takes the user to the Status view upon success,
-  // or displays an error otherwise
+//   // Calls the factory signin function, and takes the user to the Status view upon success,
+//   // or displays an error otherwise
 
-  $scope.register = function() {
-    Settings.signin($scope.data)
-      .then(function(res) {
-        $scope.error = '';
-        $state.go('tab.status');
-      })
-      .catch(function(err) {
-        $scope.logSplashError(err);
-      });
-  };
+//   $scope.register = function() {
+//     Settings.signin($scope.data)
+//       .then(function(res) {
+//         $scope.error = '';
+//         $state.go('tab.status');
+//       })
+//       .catch(function(err) {
+//         $scope.logSplashError(err);
+//       });
+//   };
 
-  $scope.signup = function() {
-    Settings.signup($scope.data)
-      .then(function(res) {
-        $scope.error = '';
-        $state.go('tab.status');
-      })
-      .catch(function(err) {
-        $scope.logSplashError(err);
-      });
-  };
+//   $scope.signup = function() {
+//     Settings.signup($scope.data)
+//       .then(function(res) {
+//         $scope.error = '';
+//         $state.go('tab.status');
+//       })
+//       .catch(function(err) {
+//         $scope.logSplashError(err);
+//       });
+//   };
 
-  /***********************************************************
-  ** Scope error functions                                  **
-  ***********************************************************/
+//   /***********************************************************
+//   ** Scope error functions                                  **
+//   ***********************************************************/
 
-  // Sets an error on invalid email; clears if ok
-  $scope.invalidEmail = function() {
-    var emailEl = angular.element(document.querySelector('#email'));
+//   // Sets an error on invalid email; clears if ok
+//   $scope.invalidEmail = function() {
+//     var emailEl = angular.element(document.querySelector('#email'));
 
-    if (emailEl.hasClass('ng-invalid-email')) {
-      $scope.error = 'Invalid email';
-    } else {
-      $scope.error = '';
-    }
+//     if (emailEl.hasClass('ng-invalid-email')) {
+//       $scope.error = 'Invalid email';
+//     } else {
+//       $scope.error = '';
+//     }
 
-  };
+//   };
 
-  // Sets an error on invalid password; clears if ok. Currently only
-  // detects passwords that are too short, as defined in their minlength param.
-  // See view html for details
-  $scope.invalidPassword = function() {
-    var passwordEl = angular.element(document.querySelector('#password'));
+//   // Sets an error on invalid password; clears if ok. Currently only
+//   // detects passwords that are too short, as defined in their minlength param.
+//   // See view html for details
+//   $scope.invalidPassword = function() {
+//     var passwordEl = angular.element(document.querySelector('#password'));
 
-    if (passwordEl.hasClass('ng-invalid-minlength')) {
-      $scope.error = 'Password too short';
-    } else {
-      $scope.error = '';
-    }
+//     if (passwordEl.hasClass('ng-invalid-minlength')) {
+//       $scope.error = 'Password too short';
+//     } else {
+//       $scope.error = '';
+//     }
 
-  };
+//   };
 
-  // Sets an error on non-matching passwords; clears if matching
-  $scope.passwordMatch = function() {
-    if ($scope.data.password !== $scope.data.passwordConfirm) {
-      $scope.error = 'Passwords don\'t match';
-    } else {
-      $scope.error = '';
-    }
-  };
+//   // Sets an error on non-matching passwords; clears if matching
+//   $scope.passwordMatch = function() {
+//     if ($scope.data.password !== $scope.data.passwordConfirm) {
+//       $scope.error = 'Passwords don\'t match';
+//     } else {
+//       $scope.error = '';
+//     }
+//   };
 
-  $scope.logSplashError = function(err) {
-    if (err.status === 404) {
-      $scope.error = 'We couldn\'t find you in the system. Please contact your administrator.';
-    } else if (err.status === 0) {
-      $scope.error = 'Could not contact Proximate server. Please try again later.';
-    } else {
-      $scope.error = 'Unknown error: ' + JSON.stringify(err);
-    }
-  };
+//   $scope.logSplashError = function(err) {
+//     if (err.status === 404) {
+//       $scope.error = 'We couldn\'t find you in the system. Please contact your administrator.';
+//     } else if (err.status === 0) {
+//       $scope.error = 'Could not contact Proximate server. Please try again later.';
+//     } else {
+//       $scope.error = 'Unknown error: ' + JSON.stringify(err);
+//     }
+//   };
 
+// })
+
+.controller('LoginCtrl', function LoginCtrl (store, $scope, $location, auth) {
+  $scope.login = function() {
+    auth.signin({
+      authParams: {
+        scope: 'openid offline_access',
+        device: 'Mobile device'
+      }
+    }, function(profile, token, accessToken, state, refreshToken) {
+      // Success callback
+      store.set('profile', profile);
+      store.set('token', token);
+      store.set('refreshToken', refreshToken);
+      $location.path('/');
+    }, function() {
+      // Error callback
+    });
+  }
+
+  $scope.logout = function() {
+    auth.signout();
+    store.remove('profile');
+    store.remove('token');
+  }
 })
 
 .controller('SettingsCtrl', function($scope, Settings, Auth, Beacons) {

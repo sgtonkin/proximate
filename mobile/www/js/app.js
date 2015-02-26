@@ -5,7 +5,7 @@ angular.module('proximate', ['ionic',
   'angular-storage',
   'angular-jwt'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, auth) {
 
   // This hooks all auth events to check everything as soon as the app starts
   auth.hookEvents();
@@ -31,7 +31,7 @@ angular.module('proximate', ['ionic',
 
     .state('login', {
       url: '/login',
-      templateUrl: 'templates/login.html',
+      templateUrl: 'views/login.html',
       controller: 'LoginCtrl',
     })
 
