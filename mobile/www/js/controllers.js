@@ -113,7 +113,7 @@ angular.module('proximate.controllers', [])
   $ionicPlatform.ready(function() {
     if ($localStorage.get('initialized') !== 'true') {
       Settings.updateDeviceId();
-      $state.go('splash');
+      $state.go('login');
     } else {
       loadCycle();
     }
