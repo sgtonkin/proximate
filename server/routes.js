@@ -9,6 +9,11 @@ var jwtCheck = jwt({
   audience: 'nJT0VagYnM6qeMyL01V84ociE46s9LOn'
 });
 
+var jwtCheckMobile = jwt({
+  secret: new Buffer('b6uKKdb1m7vgCP73I6kNQaVHrnxxOeghOFdsN9IDIVd1-e-9fYtp_Xb98gmrIFj8', 'base64'),
+  audience: 'n1J0tFSCtaZSp6lZYOnrrh4e6zlEdHsq'
+});
+
 module.exports = function(app) {
 
   // Set up authenticated routes
@@ -19,6 +24,12 @@ module.exports = function(app) {
     '/api/admins/id',
     '/api/admins/*/beacons'
   ], jwtCheck);
+
+  app.use([
+    '/api/devices/*',
+    '/api/participants/*/events/current',
+    '/api/participants/*/events'
+  ], jwtCheckMobile);
 
   /* API routes */
 
