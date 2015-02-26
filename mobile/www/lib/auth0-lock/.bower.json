@@ -1,0 +1,16 @@
+{
+  "name": "auth0-lock",
+  "version": "7.1.4",
+  "main": "build/auth0-lock.js",
+  "homepage": "https://github.com/auth0/lock",
+  "_release": "7.1.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v7.1.4",
+    "commit": "71679dd0ba32837748c6100150f31504eaa4608a"
+  },
+  "_source": "git://github.com/auth0/lock.git",
+  "_target": "~7.1.4",
+  "_originalSource": "auth0-lock",
+  "_direct": true
+}
