@@ -254,7 +254,7 @@ angular.module('proximate.controllers', [])
 
 // })
 
-.controller('LoginCtrl', function LoginCtrl (store, $scope, $location, auth) {
+.controller('LoginCtrl', function LoginCtrl (store, $state, $scope, $location, auth) {
   $scope.login = function() {
     auth.signin({
       authParams: {
@@ -266,8 +266,9 @@ angular.module('proximate.controllers', [])
       store.set('profile', profile);
       store.set('token', token);
       store.set('refreshToken', refreshToken);
-      $location.path('/');
-    }, function() {
+      $state.go('tab.status');
+    }, function(error) {
+      console.log('auth error', error);
       // Error callback
     });
   }

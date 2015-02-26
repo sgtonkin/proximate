@@ -24,7 +24,7 @@ angular.module('proximate', ['ionic',
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, authProvider,
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, authProvider,
   jwtInterceptorProvider) {
 
   $stateProvider
@@ -96,6 +96,9 @@ angular.module('proximate', ['ionic',
       }
     });
 
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/tab/status');
+
     // .state('splash', {
     //   url: '/splash',
     //   templateUrl: 'views/splash.html',
@@ -108,14 +111,32 @@ angular.module('proximate', ['ionic',
     //   controller: 'SplashCtrl'
     // });
 
+  // Initialize Auth0
   authProvider.init({
     domain: 'proximateio.auth0.com',
     clientID: 'n1J0tFSCtaZSp6lZYOnrrh4e6zlEdHsq',
     loginState: 'login'
   });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/status');
+  // Add Auth0 token to all outgoing API requests in order to secure them
+  jwtInterceptorProvider.tokenGetter = function(store, jwtHelper, auth) {
+    var idToken = store.get('token');
+    var refreshToken = store.get('refreshToken');
+    // If no token return null
+    if (!idToken || !refreshToken) {
+      return null;
+    }
+    // If token is expired, get a new one
+    if (jwtHelper.isTokenExpired(idToken)) {
+      return auth.refreshIdToken(refreshToken).then(function(idToken) {
+        store.set('token', idToken);
+        return idToken;
+      });
+    } else {
+      return idToken;
+    }
+  }
+  $httpProvider.interceptors.push('jwtInterceptor');
 
 })
 
