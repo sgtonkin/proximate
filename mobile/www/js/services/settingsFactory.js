@@ -108,14 +108,10 @@ angular.module('proximate.services')
       // Set local variables to user input on success
       setUserInfoAndInitialize(info);
 
-      if (res.data.name) {
-        $localStorage.set('username', res.data.name);
-        data.username = res.data.name;
-      }
-      if (res.data.id) {
-        $localStorage.set('userId', res.data.id);
-        data.userId = res.data.id;
-      }
+      // Set the username and userId from the server
+      setUserNameAndId(res.data);
+
+      // Return data from promise for further processing
       return res.data;
     });
   };
@@ -136,14 +132,7 @@ angular.module('proximate.services')
       setUserInfoAndInitialize(info);
 
       // Set the username and userId from the server
-      if (res.data.name) {
-        $localStorage.set('username', res.data.name);
-        data.username = res.data.name;
-      }
-      if (res.data.id) {
-        $localStorage.set('userId', res.data.id);
-        data.userId = res.data.id;
-      }
+      setUserNameAndId(res.data);
 
       // Return data from promise for further processing
       return res.data;
@@ -157,6 +146,27 @@ angular.module('proximate.services')
     $localStorage.set('password', info.password);
     data.password = info.password;
     $localStorage.set('initialized', 'true');
+  }
+
+  // Similar utility to the above to set username and userId. Stemmed
+  // into separate function as a) this can have null values, and b)
+  // these are fetched from the server, as opposed to user input
+  function setUserNameAndId(responseObj) {
+    if (responseObj.name && responseObj.name.length) {
+      $localStorage.set('username', responseObj.name);
+      data.username = responseObj.name;
+    } else {
+      $localStorage.set('username', null);
+      data.username = null;
+    }
+
+    if (responseObj.id) {
+      $localStorage.set('userId', responseObj.id);
+      data.userId = responseObj.id;
+    } else {
+      $localStorage.set('userId', null);
+      data.userId = null;
+    }
   }
 
   // Utility logging function. Currently set to log to settings screen on app for DEV purposes
