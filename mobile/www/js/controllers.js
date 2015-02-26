@@ -269,7 +269,7 @@ angular.module('proximate.controllers', [])
       store.set('profile', profile);
       store.set('token', token);
       store.set('refreshToken', refreshToken);
-      //$state.go('tab.status');
+      $state.go('tab.status');
     }, function(error) {
       console.log('auth error', error);
       // Error callback
@@ -281,6 +281,8 @@ angular.module('proximate.controllers', [])
     store.remove('profile');
     store.remove('token');
   }
+
+  $scope.login();
 })
 
 .controller('SettingsCtrl', function($scope, Settings, Auth, Beacons) {
