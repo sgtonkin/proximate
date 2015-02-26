@@ -284,7 +284,15 @@ angular.module('proximate.controllers', [])
   };
 })
 
-.controller('ScannerCtrl', function($scope, Beacons) {
-
+.controller('ScannerCtrl', function($ionicPlatform, $scope, Beacons) {
+  $ionicPlatform.ready(function() {
+    Beacons.scanBeacons(function(beacons){
+      console.log('success got beacons', JSON.stringify(beacons.beacons))
+      $scope.beacons = beacons.beacons;
+      $scope.$apply();
+    }, function(err){
+      console.log('err scanning for beacons', err)
+    })
+  });
 
 })
