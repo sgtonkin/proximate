@@ -80,10 +80,14 @@ angular.module('proximate', ['ionic',
       controller: 'SplashCtrl'
     })
 
-    .state('scanner', {
+    .state('tab.scanner', {
       url: '/scanner',
-      templateUrl: 'views/scanner.html',
-      controller: 'ScannerCtrl'
+      views: {
+        'scanner': {
+          templateUrl: 'views/scanner.html',
+          controller: 'ScannerCtrl'
+        }
+      }
     });
 
   // if none of the above states are matched, use this as the fallback

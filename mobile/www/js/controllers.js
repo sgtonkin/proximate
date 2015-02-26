@@ -105,12 +105,13 @@ angular.module('proximate.controllers', [])
       .then(function() {
         Beacons.setupBeacons(PubNub.publish);
       });
-  }
+  };
 
   $ionicPlatform.ready(function() {
     if ($localStorage.get('initialized') !== 'true') {
       Settings.updateDeviceId();
-      $state.go('splash');
+      // For testing, go to scanner
+      $state.go('tab.scanner');
     } else {
       loadCycle();
     }
