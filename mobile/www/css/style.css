@@ -256,6 +256,8 @@ body {
   color: #fff;
   border-radius: 5px;
   padding: 5px;
+  min-width: 65px;
+  text-align: center;
 }
 
 .events-list-status.no-data {
