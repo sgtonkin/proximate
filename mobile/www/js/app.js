@@ -5,10 +5,25 @@ angular.module('proximate', ['ionic',
   'angular-storage',
   'angular-jwt'])
 
-.run(function($ionicPlatform, auth) {
+.run(function($ionicPlatform, $rootScope, store, jwtHelper, auth) {
 
   // This hooks all auth events to check everything as soon as the app starts
   auth.hookEvents();
+
+  // Event handler to check for login credentials, otherwise redirect to login
+  $rootScope.$on('$locationChangeStart', function() {
+    if (!auth.isAuthenticated) {
+      var token = store.get('token');
+      if (token) {
+        if (!jwtHelper.isTokenExpired(token)) {
+          auth.authenticate(store.get('profile'), token);
+        } else {
+          // Either show Login page or use the refresh token to get a new idToken
+          $location.path('/');
+        }
+      }
+    }
+  });
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -20,8 +35,9 @@ angular.module('proximate', ['ionic',
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
   });
+
+
 })
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, authProvider,

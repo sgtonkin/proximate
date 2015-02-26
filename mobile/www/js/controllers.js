@@ -1,12 +1,15 @@
 angular.module('proximate.controllers', [])
 
 .controller('AppCtrl', function($ionicPlatform, $localStorage,
-  $scope, $state, Settings, Events, PubNub, Beacons) {
+  $scope, $state, Settings, auth, Events, PubNub, Beacons) {
 
   // Initialize current event
   $scope.event = {
     id: null
   };
+
+  // Attach auth to the scope so we can access store authentication profile
+  $scope.auth = auth;
 
   // Default class value for background
   $scope.class = 'nothing-scheduled';
@@ -266,7 +269,7 @@ angular.module('proximate.controllers', [])
       store.set('profile', profile);
       store.set('token', token);
       store.set('refreshToken', refreshToken);
-      $state.go('tab.status');
+      //$state.go('tab.status');
     }, function(error) {
       console.log('auth error', error);
       // Error callback
