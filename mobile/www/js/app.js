@@ -1,8 +1,14 @@
 angular.module('proximate', ['ionic',
   'proximate.controllers',
-  'proximate.services'])
+  'proximate.services',
+  'auth0',
+  'angular-storage',
+  'angular-jwt'])
 
 .run(function($ionicPlatform) {
+
+  // This hooks all auth events to check everything as soon as the app starts
+  auth.hookEvents();
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -18,14 +24,24 @@ angular.module('proximate', ['ionic',
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, authProvider,
+  jwtInterceptorProvider) {
 
   $stateProvider
+
+    .state('login', {
+      url: '/login',
+      templateUrl: 'templates/login.html',
+      controller: 'LoginCtrl',
+    })
 
     .state('tab', {
       url: '/tab',
       abstract: true,
-      templateUrl: 'views/tabs.html'
+      templateUrl: 'views/tabs.html',
+      data: {
+        requiresLogin: true
+      }
     })
 
     .state('tab.status', {
@@ -35,6 +51,9 @@ angular.module('proximate', ['ionic',
           templateUrl: 'views/status.html',
           controller: 'StatusCtrl'
         }
+      },
+      data: {
+        requiresLogin: true
       }
     })
 
@@ -45,6 +64,9 @@ angular.module('proximate', ['ionic',
           templateUrl: 'views/manual.html',
           controller: 'StatusCtrl'
         }
+      },
+      data: {
+        requiresLogin: true
       }
     })
 
@@ -55,6 +77,9 @@ angular.module('proximate', ['ionic',
           templateUrl: 'views/upcoming.html',
           controller: 'UpcomingCtrl'
         }
+      },
+      data: {
+        requiresLogin: true
       }
     })
 
@@ -65,20 +90,29 @@ angular.module('proximate', ['ionic',
           templateUrl: 'views/settings.html',
           controller: 'SettingsCtrl'
         }
+      },
+      data: {
+        requiresLogin: true
       }
-    })
-
-    .state('splash', {
-      url: '/splash',
-      templateUrl: 'views/splash.html',
-      controller: 'SplashCtrl'
-    })
-
-    .state('signup', {
-      url: '/signup',
-      templateUrl: 'views/signup.html',
-      controller: 'SplashCtrl'
     });
+
+    // .state('splash', {
+    //   url: '/splash',
+    //   templateUrl: 'views/splash.html',
+    //   controller: 'SplashCtrl'
+    // })
+
+    // .state('signup', {
+    //   url: '/signup',
+    //   templateUrl: 'views/signup.html',
+    //   controller: 'SplashCtrl'
+    // });
+
+  authProvider.init({
+    domain: 'proximateio.auth0.com',
+    clientID: 'n1J0tFSCtaZSp6lZYOnrrh4e6zlEdHsq',
+    loginState: 'login'
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/status');

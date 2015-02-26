@@ -15,6 +15,7 @@
   },
   "cordovaPlugins": [
     "https://github.com/petermetz/cordova-plugin-ibeacon.git",
-    "https://github.com/jcesarmobile/IDFVPlugin.git"
+    "https://github.com/jcesarmobile/IDFVPlugin.git",
+    "org.apache.cordova.inappbrowser"
   ]
 }
