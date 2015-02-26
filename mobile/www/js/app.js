@@ -93,7 +93,9 @@ angular.module('proximate', ['ionic',
   return function(input, eventsFilterSetting) {
     if (eventsFilterSetting === 'upcoming') {
       return input.filter(function(event) {
-        return moment(event.start_time).isAfter(now);
+        // Note: seemingly magic double event.event syntax is due to
+        // the way we're joining events with related status
+        return moment(event.event.start_time).isAfter(now);
       });
     } else {
       return input;
@@ -111,6 +113,21 @@ angular.module('proximate', ['ionic',
     if (input.length > LENGTH_LIMIT) {
       return input.substr(0, (LENGTH_LIMIT / 2)) +
                           '...' + input.substr(-LENGTH_LIMIT / 2);
+    } else {
+      return input;
+    }
+  };
+})
+
+// Similar to the above, but for the EVENT LOG view only.
+// Truncates the end of event strings, not the middle
+.filter('limitLogTitle', function() {
+
+  var LENGTH_LIMIT = 25;
+
+  return function(input) {
+    if (input.length > LENGTH_LIMIT) {
+      return input.substr(0, (LENGTH_LIMIT)) + '...';
     } else {
       return input;
     }
