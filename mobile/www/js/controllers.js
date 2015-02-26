@@ -281,4 +281,9 @@ angular.module('proximate.controllers', [])
   $scope.logout = function() {
     Auth.logout();
   };
-});
+})
+
+.controller('ScannerCtrl', function($scope, Beacons) {
+
+
+})
