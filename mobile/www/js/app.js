@@ -179,11 +179,13 @@ angular.module('proximate', ['ionic',
   var LENGTH_LIMIT = 18;
 
   return function(input) {
-    if (input.length > LENGTH_LIMIT) {
-      return input.substr(0, (LENGTH_LIMIT / 2)) +
-                          '...' + input.substr(-LENGTH_LIMIT / 2);
-    } else {
-      return input;
+    if(input) {
+      if (input.length > LENGTH_LIMIT) {
+        return input.substr(0, (LENGTH_LIMIT / 2)) +
+                            '...' + input.substr(-LENGTH_LIMIT / 2);
+      } else {
+        return input;
+      }
     }
   };
 });
