@@ -133,6 +133,8 @@ angular.module('proximate.services')
   };
 
   // Scans for beacons
+  // Needs cordova plugin
+  // ionic plugin add https://github.com/evothings/phonegap-estimotebeacons
   var scanBeacons = function(callWhenDone, callWhenErr) {
     estimote.beacons.startRangingBeaconsInRegion({}, callWhenDone, callWhenErr);
   };
