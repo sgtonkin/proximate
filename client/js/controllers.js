@@ -182,9 +182,10 @@ angular.module('proximate.controllers', [])
 .controller('LoginCtrl', function($scope, $rootScope, $state, $http, auth, store) {
 
   $scope.login = function() {
-    auth.signin({extraParameters: {
+    auth.signin({authParams: {
         access_type: 'offline'
     }}, function(profile, token) {
+      console.log('Profile from auth', profile);
       // Sucess handler post Auth0 authentication
       store.set('profile', profile);
       store.set('token', token);
