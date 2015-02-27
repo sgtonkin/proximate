@@ -266,8 +266,9 @@ angular.module('proximate.controllers', [])
   $scope.login = function() {
     ProximateAuth.login();
   }
+
   $scope.login();
-  console.log('login page loaded');
+
 })
 
 .controller('SettingsCtrl', function($scope, Settings, ProximateAuth, Beacons) {

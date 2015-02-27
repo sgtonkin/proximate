@@ -8,7 +8,6 @@ angular.module('proximate.services')
 
     auth.signin({
       closable: false,
-      container: 'login-container',
       icon: 'img/proximate-login-icon.png',
       dict: {
         signin: {
