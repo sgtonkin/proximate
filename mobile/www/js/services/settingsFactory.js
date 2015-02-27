@@ -35,6 +35,7 @@ angular.module('proximate.services')
       data.deviceId = 'UNSUPPORTED_PLATFORM';
       $localStorage.set('deviceId', data.deviceId);
     }
+    return $localStorage.get('deviceId');
   };
 
   // Gets the most recent beacons from the server, populating local storage
@@ -92,53 +93,6 @@ angular.module('proximate.services')
     });
   };
 
-  var signin = function(info) {
-
-    // Signs in, and returns a promise, setting the user's username and ID on success
-    return $http({
-      method: 'POST',
-      url: webServer.url + '/api/signin',
-      data: {
-        email: info.email,
-        password: info.password,
-        deviceId: data.deviceId
-      }
-    }).then(function(res) {
-
-      // Set local variables to user input on success
-      setUserInfoAndInitialize(info);
-
-      // Set the username and userId from the server
-      setUserNameAndId(res.data);
-
-      // Return data from promise for further processing
-      return res.data;
-    });
-  };
-
-  var signup = function(info) {
-
-    // Signs up, and returns a promise
-    return $http({
-      method: 'POST',
-      url: webServer.url + '/api/signup',
-      data: {
-        email: info.email,
-        password: info.password,
-        deviceId: data.deviceId
-      }
-    }).then(function(res) {
-      // Set local variables to user input on success
-      setUserInfoAndInitialize(info);
-
-      // Set the username and userId from the server
-      setUserNameAndId(res.data);
-
-      // Return data from promise for further processing
-      return res.data;
-    });
-  };
-
   // Utility function for setting common localStorage attributes on signin/signup
   function setUserInfoAndInitialize(info) {
     $localStorage.set('email', info.email);
@@ -190,8 +144,6 @@ angular.module('proximate.services')
     updateBeaconList: updateBeaconList,
     updateUsername: updateUsername,
     updateParticipantInfo: updateParticipantInfo,
-    signin: signin,
-    signup: signup,
     logToDom: logToDom
   };
 

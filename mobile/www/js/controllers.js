@@ -257,35 +257,14 @@ angular.module('proximate.controllers', [])
 
 // })
 
-.controller('LoginCtrl', function LoginCtrl (store, $state, $scope, $location, auth) {
+.controller('LoginCtrl', function LoginCtrl (store, ProximateAuth, $state, $scope, $location, auth) {
   $scope.login = function() {
-    auth.signin({
-      authParams: {
-        scope: 'openid offline_access',
-        device: 'Mobile device'
-      }
-    }, function(profile, token, accessToken, state, refreshToken) {
-      // Success callback
-      store.set('profile', profile);
-      store.set('token', token);
-      store.set('refreshToken', refreshToken);
-      $state.go('tab.status');
-    }, function(error) {
-      console.log('auth error', error);
-      // Error callback
-    });
+    ProximateAuth.login();
   }
-
-  $scope.logout = function() {
-    auth.signout();
-    store.remove('profile');
-    store.remove('token');
-  }
-
   $scope.login();
 })
 
-.controller('SettingsCtrl', function($scope, Settings, Auth, Beacons) {
+.controller('SettingsCtrl', function($scope, Settings, ProximateAuth, Beacons) {
 
   angular.element(document).ready(function() {
 
@@ -310,6 +289,6 @@ angular.module('proximate.controllers', [])
   };
 
   $scope.logout = function() {
-    Auth.logout();
+    ProximateAuth.logout();
   };
 });
