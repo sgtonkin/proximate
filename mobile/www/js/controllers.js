@@ -1,7 +1,7 @@
 angular.module('proximate.controllers', [])
 
 .controller('AppCtrl', function($ionicPlatform, $localStorage,
-  $scope, $state, Settings, auth, Events, PubNub, Beacons) {
+  $scope, $state, $rootScope, Settings, auth, Events, PubNub, Beacons) {
 
   // Initialize current event
   $scope.event = {
@@ -19,7 +19,7 @@ angular.module('proximate.controllers', [])
   $scope.initWithEvent = function() {
     Events.getMostCurrentEvent()
       .then(function(res) {
-        console.log('Got current event: ' + JSON.stringify(res));
+        console.log('Got current event: ' + res.name);
         $scope.event = res;
         $scope.setPrettyStartTime();
         return res;
@@ -28,7 +28,7 @@ angular.module('proximate.controllers', [])
         return Events.getEventCheckinStatus($scope.event.id);
       })
       .then(function(res) {
-        console.log('Checkin status is: ' + JSON.stringify(res));
+        console.log('Checkin status is: ' + res.status);
         if (res) {
           $scope.event.status = res.status;
           $scope.class = res.status;
@@ -126,6 +126,10 @@ angular.module('proximate.controllers', [])
       loadCycle();
     }
   });
+
+  // Need to trigger the login sequence after the user authenticates
+  // In addition to on refresh
+  $rootScope.$on('login-success', loadCycle());
 
 })
 
@@ -262,6 +266,7 @@ angular.module('proximate.controllers', [])
     ProximateAuth.login();
   }
   $scope.login();
+  console.log('login page loaded');
 })
 
 .controller('SettingsCtrl', function($scope, Settings, ProximateAuth, Beacons) {

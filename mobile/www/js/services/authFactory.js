@@ -1,6 +1,7 @@
 angular.module('proximate.services')
 
-.factory('ProximateAuth', function($localStorage, store, Settings, auth, $state, $http, webServer, Beacons) {
+.factory('ProximateAuth', function($localStorage, store, Settings,
+  auth, $state, $http, $rootScope, webServer, Beacons) {
 
   // Trigger the Auth0 login prompt
   var login = function() {
@@ -46,24 +47,23 @@ angular.module('proximate.services')
       console.log('res from server', res.data);
 
       // Set local variables to user input on success
-      setUserInfoAndInitialize(info);
+      Settings.setUserInfoAndInitialize(info);
 
       // Set the username and userId from the server
-      setUserNameAndId(res.data);
+      Settings.setUserNameAndId(res.data);
 
       // Return data from promise for further processing
       return res.data;
 
     }).then(function(res) {
       // Redirect to status page
+      $rootScope.$broadcast('login-success');
       $state.go('tab.status');
     });
   };
 
   // Stem function - for now just destroys the 'registered' state
   var logout = function() {
-    // This should also set the 'initialized' value to false,
-    // returning to the 'logged out' user state
     auth.signout();
     store.remove('profile');
     store.remove('token');

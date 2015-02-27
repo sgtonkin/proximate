@@ -113,6 +113,8 @@ angular.module('proximate.services')
       $localStorage.set('username', null);
       data.username = null;
     }
+    console.log('Received user record', responseObj);
+    console.log('Received user id', responseObj.id);
 
     if (responseObj.id) {
       $localStorage.set('userId', responseObj.id);
@@ -144,7 +146,9 @@ angular.module('proximate.services')
     updateBeaconList: updateBeaconList,
     updateUsername: updateUsername,
     updateParticipantInfo: updateParticipantInfo,
-    logToDom: logToDom
+    logToDom: logToDom,
+    setUserInfoAndInitialize: setUserInfoAndInitialize,
+    setUserNameAndId: setUserNameAndId
   };
 
 });
