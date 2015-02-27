@@ -7,8 +7,9 @@
 
       <!-- no events to show -->
       <div ng-show="data.events.length===0" class="no-upcoming">
-        <h2>No events found!</h2>
-        <h3>try refreshing if you expected some</h3>
+        <i class="huge calendar icon"></i>
+        <h2>NOTHING SCHEDULED</h2>
+        <h3>Try refreshing?</h3>
       </div>
 
       <!-- events list -->
@@ -23,8 +24,9 @@
           </div>
         </div>
         <div class="no-upcoming" ng-show="!filteredEvents.length && data.events.length > 0">
-          <h2>No upcoming events found!</h2>
-          <h3>try refreshing if you expected some</h3>
+          <i class="huge calendar icon"></i>
+          <h2>NOTHING SCHEDULED</h2>
+          <h3>Try refreshing?</h3>
         </div>
       </div>
 

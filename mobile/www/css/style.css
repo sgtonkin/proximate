@@ -63,14 +63,10 @@ body {
   background-color: #24262d;
 }
 
-/* MOBILE LOGIN VIEW */
-/* .container > .signin > .popup > .overlay > ;centrix >*/
-  /* .onestep, .free-subscription, .active */
-    /* .a0-bg-gradient */
-    /* .header, .top-header */
-    /* .icon container */
-    /* .error */
-    /* .success */
+/* ------------------------- */
+/* LOGIN VIEW */
+/* ------------------------- */
+
 
 /* Centering Auth Container */
 #login-container {
@@ -125,61 +121,61 @@ body #a0-lock.a0-theme-default .a0-panel .a0-inputs {
   border: 0;
 }
 
-/* Email/Password inputs */
-body #a0-lock.a0-theme-default .a0-panel .a0-inputs input {
-  background-color: rgba(255,255,255, .10);
-  height: 40px;
-  border-radius: 0;
-}
+  /* Email/Password inputs */
+  body #a0-lock.a0-theme-default .a0-panel .a0-inputs input {
+    background-color: rgba(255,255,255, .10);
+    height: 40px;
+    border-radius: 0;
+  }
 
-/* Styling for form input when selected*/
-body #a0-lock.a0-theme-default .a0-panel .a0-inputs input:focus {
-  opacity: 1;
-  color: #333;
-}
+  /* Border between email and password */
+  body #a0-lock.a0-theme-default .a0-panel .a0-email {
+    border: 0;
+  }
+
+  /* Styling for form input when selected*/
+  body #a0-lock.a0-theme-default .a0-panel .a0-inputs input:focus {
+    opacity: 1;
+    color: #333;
+  }
+
+  /* Email/Password icons */
+  body #a0-lock.a0-theme-default .a0-panel .a0-email .a0-input-box i,
+  body #a0-lock.a0-theme-default .a0-panel .a0-password .a0-input-box i,
+  body #a0-lock.a0-theme-default .a0-panel .a0-repeatPassword .a0-input-box i {
+    top: 13px;
+  }
+
+  /* Border between confirm password and new password */
+  body #a0-lock.a0-theme-default .a0-panel .a0-repeatPassword {
+    border: 0;
+  }
 
 /* Input error */
 body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input input {
   color: #ec4f43;
 }
 
-/* Placeholder text color on error */
-body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input input::-webkit-input-placeholder {
-  color: #ec4f43;
-}
+  /* Placeholder text color on error */
+  body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input input::-webkit-input-placeholder {
+    color: #ec4f43;
+  }
 
-/* Input icon error */
-body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input i {
-  color: #ec4f43;
-}
+  /* Input icon error */
+  body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input i {
+    color: #ec4f43;
+  }
 
-/* Input message error */
-body #a0-lock.a0-theme-default .a0-panel .a0-error {
-  color: #ec4f43;
-}
+  /* Input message error */
+  body #a0-lock.a0-theme-default .a0-panel .a0-error {
+    color: #ec4f43;
+  }
 
-/* Input badge error */
-body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input span {
-  color: #ec4f43;
-  border-color: #ec4f43;
-}
-
-/* Border between email and password */
-body #a0-lock.a0-theme-default .a0-panel .a0-email {
-  border: 0;
-}
-
-/* Email/Password icons */
-body #a0-lock.a0-theme-default .a0-panel .a0-email .a0-input-box i,
-body #a0-lock.a0-theme-default .a0-panel .a0-password .a0-input-box i,
-body #a0-lock.a0-theme-default .a0-panel .a0-repeatPassword .a0-input-box i {
-  top: 13px;
-}
-
-/* Border between confirm password and new password */
-body #a0-lock.a0-theme-default .a0-panel .a0-repeatPassword {
-  border: 0;
-}
+  /* Input badge error */
+  body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input span {
+    color: #ec4f43;
+    border-color: #ec4f43;
+  }
 
 /* Last time you logged in button */
 body #a0-lock.a0-theme-default .a0-zocial.a0-guest {
@@ -214,10 +210,11 @@ body #a0-lock.a0-theme-default .a0-btn-small {
   opacity: .8;
 }
 
+/* Hover for create account buttons */
 body #a0-lock.a0-theme-default .a0-btn-small:hover {
   background: #000;
 }
-
+/*
 .login {
   position: absolute;
   top: 0;
@@ -352,6 +349,10 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 .login-signup-switch-mode a {
   color: #fff;
   font-weight: bold;
+}*/
+
+body .bar-stable .button:hover {
+  color: inherit;
 }
 
 .upcoming {
@@ -360,10 +361,16 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 
 .upcoming h2, .upcoming h3 {
   font-family: 'Lato';
+  color: #24262d;
 }
 
 .upcoming h3 {
-  font-weight: 300;
+  font-family: 'LatoLightItalic';
+}
+
+.upcoming i.icon {
+  color: #24262d;
+  opacity: .7;
 }
 
 .upcoming .event-log-content {
@@ -379,6 +386,11 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   width: 100%;
 }
 
+.no-upcoming h2 {
+  opacity: .7;
+  font-size: 1.8em;
+}
+
 .events-filter {
   height: 60px;
   padding: 0;
@@ -392,8 +404,8 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 }
 
 .events-filter .active {
-  color: #fff;
-  background-color: #000 !important;
+  color: #fff !important;
+  background-color: #24262d !important;
 }
 
 .events-filter-buttons {
@@ -465,6 +477,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 
 .status h2 {
   letter-spacing: .05em;
+  font-size: 1.8em;
 }
 
 .status h3 {
@@ -486,6 +499,10 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   width: 100%;
   position: relative;
 }
+
+  .current-event h2 {
+    font-size: 1em;
+  }
 
 .checkin-status {
   font-size: 2em;
@@ -567,17 +584,9 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
-.status-nothing-scheduled {
-  position: relative;
-  background-image: url('../img/clouds_overlay.png');
-  background-repeat: no-repeat;
-  background-size: auto;
-  min-height: 800px;
-}
-
 .status-nothing-scheduled-content {
   position: absolute;
-  top: 30%;
+  top: 35%;
   height: 200px;
 }
 
