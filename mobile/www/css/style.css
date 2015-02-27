@@ -133,6 +133,7 @@ body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input input {
   color: #ec4f43;
 }
 
+/* Placeholder text color on error */
 body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input input::-webkit-input-placeholder {
   color: #ec4f43;
 }
@@ -153,8 +154,6 @@ body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input span {
   border-color: #ec4f43;
 }
 
-
-
 /* Border between email and password */
 body #a0-lock.a0-theme-default .a0-panel .a0-email {
   border: 0;
@@ -170,7 +169,7 @@ body #a0-lock.a0-theme-default .a0-panel .a0-repeatPassword .a0-input-box i {
 /* Border between confirm password and new password */
 body #a0-lock.a0-theme-default .a0-panel .a0-repeatPassword {
   border: 0;
-};
+}
 
 /* Last time you logged in button */
 body #a0-lock.a0-theme-default .a0-zocial.a0-guest {
@@ -207,8 +206,6 @@ body #a0-lock.a0-theme-default .a0-btn-small {
 body #a0-lock.a0-theme-default .a0-btn-small:hover {
   background: #000;
 }
-
-
 
 .login {
   position: absolute;
