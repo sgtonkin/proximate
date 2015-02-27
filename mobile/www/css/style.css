@@ -133,13 +133,17 @@ body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input input {
   color: #ec4f43;
 }
 
+body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input input::-webkit-input-placeholder {
+  color: #ec4f43;
+}
+
 /* Input icon error */
 body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input i {
   color: #ec4f43;
 }
 
 /* Input message error */
-body #a0-lock.a0-theme-default .a0-panel .a0-error, #a0-lock.a0-theme-default .a0-panel .a0-success {
+body #a0-lock.a0-theme-default .a0-panel .a0-error {
   color: #ec4f43;
 }
 
@@ -148,6 +152,8 @@ body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input span {
   color: #ec4f43;
   border-color: #ec4f43;
 }
+
+
 
 /* Border between email and password */
 body #a0-lock.a0-theme-default .a0-panel .a0-email {

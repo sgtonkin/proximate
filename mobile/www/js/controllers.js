@@ -111,6 +111,7 @@ angular.module('proximate.controllers', [])
   }
 
   $ionicPlatform.ready(function() {
+    console.log('initialized', $localStorage.get('initialized'));
     if ($localStorage.get('initialized') !== 'true') {
       Settings.updateDeviceId();
       $state.go('login');
@@ -129,7 +130,7 @@ angular.module('proximate.controllers', [])
 
   // Need to trigger the login sequence after the user authenticates
   // In addition to on refresh
-  $rootScope.$on('login-success', loadCycle());
+  $rootScope.$on('login-success', loadCycle);
 
 })
 
