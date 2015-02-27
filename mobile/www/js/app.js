@@ -132,4 +132,21 @@ angular.module('proximate', ['ionic',
       return input;
     }
   };
+})
+
+// Takes in an array of events and strips the cancelled items
+.filter('filterCancelledEvents', function() {
+
+  return function(input) {
+
+    var filtered = [];
+
+    input.forEach(function(item) {
+      if (item.event.status !== 'cancelled') {
+        filtered.push(item);
+      }
+    });
+
+    return filtered;
+  };
 });

@@ -14,7 +14,7 @@
       <!-- events list -->
       <div class="events-list">
         <div class="list">
-          <div ng-repeat="event in filteredEvents = (data.events | eventsFilter: eventsFilterSetting)" class="item">
+          <div ng-repeat="event in filteredEvents = (data.events | eventsFilter: eventsFilterSetting | filterCancelledEvents)" class="item">
             <div class="events-list-info">
               <!-- double event.event syntax is due to server join -->
               <h2>{{event.event.name.toUpperCase() | limitLogTitle}}</h2>
