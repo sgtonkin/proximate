@@ -7,9 +7,17 @@ angular.module('proximate.services')
   var login = function() {
 
     auth.signin({
+      closable: false,
+      container: 'login-container',
+      icon: 'img/proximate-login-icon.png',
+      dict: {
+        signin: {
+          title: 'PROXIMATE<span id="beta">BETA</span>'
+        }
+      },
       authParams: {
         scope: 'openid offline_access',
-        device: 'Mobile device'
+        device: 'Mobile device',
       }
     }, function(profile, token, accessToken, state, refreshToken) {
       // Success callback

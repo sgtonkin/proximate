@@ -64,9 +64,147 @@ body {
 }
 
 /* MOBILE LOGIN VIEW */
+/* .container > .signin > .popup > .overlay > ;centrix >*/
+  /* .onestep, .free-subscription, .active */
+    /* .a0-bg-gradient */
+    /* .header, .top-header */
+    /* .icon container */
+    /* .error */
+    /* .success */
+
+/* Centering Auth Container */
+#login-container {
+  margin: 0 auto;
+  width: 282px;
+}
+
+/* Login panel */
+#a0-lock #a0-onestep {
+  background-color: #24262d;
+  -webkit box shadow: none;
+  box-shadow: none;
+  color: #ccc;
+  font-family: 'Lato' !important;
+}
+
+/* General font for login box */
+body #a0-lock.a0-theme-default .a0-panel * {
+  font-family: 'Lato' !important;
+}
+
+/* MLogo text */
+#a0-lock #a0-onestep h1 {
+  font-family: 'Penna' !important;
+  letter-spacing: .2em;
+  color: #fff;
+  padding-left: 15px;
+  text-transform: uppercase;
+}
+
+/* BETA tag for logo*/
+#a0-lock #a0-onestep h1 span {
+  font-family: 'Lato' !important;
+  font-size: .3em;
+  letter-spacing: .1em;
+  opacity: .5;
+  vertical-align: super;
+}
+
+/* Email/Password inputs */
+body #a0-lock.a0-theme-default .a0-panel .a0-inputs {
+  border: 0;
+}
+
+/* Email/Password inputs */
+body #a0-lock.a0-theme-default .a0-panel .a0-inputs input {
+  background-color: rgba(255,255,255, .10);
+  height: 40px;
+  border-radius: 0;
+}
+
+/* Styling for form input when selected*/
+body #a0-lock.a0-theme-default .a0-panel .a0-inputs input:focus {
+  opacity: 1;
+  color: #333;
+}
+
+/* Input error */
+body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input input {
+  color: #ec4f43;
+}
+
+/* Input icon error */
+body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input i {
+  color: #ec4f43;
+}
+
+/* Input message error */
+body #a0-lock.a0-theme-default .a0-panel .a0-error, #a0-lock.a0-theme-default .a0-panel .a0-success {
+  color: #ec4f43;
+}
+
+/* Input badge error */
+body #a0-lock.a0-theme-default .a0-panel.a0-errors .a0-error-input span {
+  color: #ec4f43;
+  border-color: #ec4f43;
+}
+
+/* Border between email and password */
+body #a0-lock.a0-theme-default .a0-panel .a0-email {
+  border: 0;
+}
+
+/* Email/Password icons */
+body #a0-lock.a0-theme-default .a0-panel .a0-email .a0-input-box i,
+body #a0-lock.a0-theme-default .a0-panel .a0-password .a0-input-box i,
+body #a0-lock.a0-theme-default .a0-panel .a0-repeatPassword .a0-input-box i {
+  top: 13px;
+}
+
+/* Border between confirm password and new password */
+body #a0-lock.a0-theme-default .a0-panel .a0-repeatPassword {
+  border: 0;
+};
+
+/* Last time you logged in button */
+body #a0-lock.a0-theme-default .a0-zocial.a0-guest {
+  background-color: #409cda;
+}
+
+/* Hide Auth0 Logo */
+body #a0-lock.a0-theme-default .a0-panel .a0-footer {
+  display: none;
+}
+
+/* Access button */
+body #a0-lock.a0-theme-default .a0-panel button.a0-primary {
+  background-color: #409cda;
+  border-radius: 0;
+  padding: 15px 20px;
+  font-size: .8em;
+  margin-top: 5px;
+}
+
+/* Access button hover */
+body #a0-lock.a0-theme-default .a0-panel button.a0-primary:hover {
+  background-color: #409cda;
+}
+
+/* Create account buttons */
+body #a0-lock.a0-theme-default .a0-btn-small {
+  border: 1px solid #666;
+  border-radius: 0;
+  margin: 0 10px;
+  opacity: .8;
+}
+
+body #a0-lock.a0-theme-default .a0-btn-small:hover {
+  background: #000;
+}
+
+
 
 .login {
-
   position: absolute;
   top: 0;
   left: 0;
