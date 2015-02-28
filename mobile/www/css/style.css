@@ -392,7 +392,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 
 .no-upcoming h2 {
   opacity: .7;
-  font-size: 1.8em;
+  /*font-size: 1.8em;*/
 }
 
 .events-filter {
@@ -647,7 +647,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   position: absolute;
   top: 35%;
   height: 200px;
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 /* ------------------------- */
@@ -665,7 +665,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   float: left;
   margin-left: 22%;
   margin-top: 2%;
-  font-size: 2em;
+  /*font-size: 2em;*/
 }
 
 /* ------------------------- */
