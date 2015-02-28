@@ -351,9 +351,13 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   font-weight: bold;
 }*/
 
-body .bar-stable .button:hover {
+/*body .bar-stable .button:hover {
   color: inherit;
-}
+}*/
+
+/* ------------------------- */
+/* EVENT LOG */
+/* ------------------------- */
 
 .upcoming {
   height: 100%;
@@ -438,21 +442,23 @@ body .bar-stable .button:hover {
   background-color: #ec4f43;
 }
 
+/* ------------------------- */
+/* STATUS */
+/* ------------------------- */
+
 .status, .upcoming {
   width: 100%;
   height: 100%;
 }
-
-/* Revisit: might be able to eliminate this class;*/
 
 .status-heading {
   color: #fff;
 }
 
 .status {
-  background-color: gray;
   color: #fff;
   text-align: center !important;
+  background-color: #3498db;
 }
 
 .status.no-data, .status.nothing-scheduled, .status.excused {
@@ -478,10 +484,13 @@ body .bar-stable .button:hover {
 .status h2 {
   letter-spacing: .05em;
   font-size: 1.8em;
+  margin-bottom: 0;
 }
 
 .status h3 {
   font-family: 'LatoLightItalic';
+  font-size: .8em;
+  margin: .2em 0 0 0;
 }
 
 .status.manual h3 {
@@ -494,6 +503,8 @@ body .bar-stable .button:hover {
   font-family: 'LatoBold';
 }
 
+/* CURRENT EVENT INFO AT BOTTOM OF STATUS */
+
 .current-event {
   height: 100%;
   width: 100%;
@@ -504,11 +515,49 @@ body .bar-stable .button:hover {
     font-size: 1em;
   }
 
+.current-event-info {
+  border-top: 2px solid rgba(0,0,0,0.4);
+  padding: 10px 0px 0px 0px;
+  background-color: rgba(0,0,0,.3);
+  position: absolute;
+  bottom: 45px;
+}
+
+.current-event-info-container div {
+  line-height: 50px;
+  height: 50px;
+  padding: 0;
+  margin: 0;
+}
+
+.current-event-info-container h4  {
+  line-height: 50px;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+}
+
+.current-event-info-container h5 {
+  font-family: 'LatoLight';
+  font-size: 1.3em;
+  line-height: 50px;
+  padding: 0;
+  margin: 0;
+}
+
+.status .current-event-info i {
+  opacity: .5;
+}
+
+.current-event-name, .current-event-time {
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
 .checkin-status {
   font-size: 2em;
   font-weight: bold;
   line-height: 1em;
-  margin: 25% 10% 10% 10%;
+  margin-top: 20px;
   position: absolute;
   top: 0px;
 }
@@ -517,8 +566,9 @@ body .bar-stable .button:hover {
   text-decoration: none;
 }
 
-/* makes room for manual checkin button @50px height */
+/* MANUAL CHECKIN VIEW */
 
+/* makes room for manual checkin button @50px height */
 .manual-checkin-info {
   margin-top: -50px;
 }
@@ -535,12 +585,18 @@ body .bar-stable .button:hover {
 
 .manual-checkin-button {
   cursor: pointer;
-  height: 70px;
+  height: 60px;
   background-color: #ecf0f1;
-  padding-top: 15px;
   margin-top: 30px;
   margin-bottom: 15px;
 }
+
+  .manual-checkin-button h5 {
+    color: #24262d;
+    line-height: 63px;
+    margin: 0;
+    padding: 0;
+  }
 
 .status.manual .manual-checkin-button {
   background-color: #3498db;
@@ -554,34 +610,10 @@ body .bar-stable .button:hover {
   color: #fff;
 }
 
-
-.current-event-info {
-  border-top: 2px solid rgba(0,0,0,0.4);
-  padding: 10px 0px 0px 0px;
-  background-color: rgba(0,0,0,.3);
-  position: absolute;
-  bottom: 45px;
-}
-
 /* Makes room for the title bar presense */
 
 .status.manual .current-event-info {
   bottom: 90px;
-}
-
-.status .current-event-info i {
-  margin-top: 20%;
-  opacity: .5;
-}
-
-.status .current-event-info h5 {
-  font-family: 'LatoLight';
-  font-size: 1.8em;
-  margin-top: 20px;
-}
-
-.current-event-name, .current-event-time {
-  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .status-nothing-scheduled-content {
@@ -604,7 +636,12 @@ body .bar-stable .button:hover {
   font-size: 2em;
 }
 
+/* ------------------------- */
+/* SETTINGS */
+/* ------------------------- */
+
 .settings {
+
 }
 
 .settings label {
@@ -621,7 +658,6 @@ body .bar-stable .button:hover {
   margin-top: 50px;
   text-align: center;
   width: 100%;
-  padding: 30px;
 }
 
 .settings-buttons div {
@@ -632,7 +668,7 @@ body .bar-stable .button:hover {
   font-family: 'Lato';
   color: #fff;
   background-color: #409cda;
-  height: 100px;
+  height: 70px;
 }
 
 .logo-image {

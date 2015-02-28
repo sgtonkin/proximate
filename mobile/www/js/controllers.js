@@ -1,7 +1,7 @@
 angular.module('proximate.controllers', [])
 
 .controller('AppCtrl', function($ionicPlatform, $localStorage,
-  $scope, $state, $rootScope, Settings, auth, Events, PubNub, Beacons) {
+  $scope, $state, $q, $rootScope, Settings, auth, Events, PubNub, Beacons) {
 
   // Initialize current event
   $scope.event = {
@@ -19,37 +19,35 @@ angular.module('proximate.controllers', [])
   $scope.initWithEvent = function() {
     Events.getMostCurrentEvent()
       .then(function(res) {
-        console.log('Got current event: ' + res.name);
-        $scope.event = res;
-        $scope.setPrettyStartTime();
-        return res;
-      })
-      .then(function(res) {
-        return Events.getEventCheckinStatus($scope.event.id);
-      })
-      .then(function(res) {
-        console.log('Checkin status is: ' + res.status);
-        if (res) {
-          $scope.event.status = res.status;
-          $scope.class = res.status;
-          console.log('res.status', res.status);
-          if ($scope.class === null) {
-            $scope.class = 'no-data';
-          }
-        } else {
-          $scope.event.status = null;
-          $scope.class = 'nothing-scheduled';
-          console.log('No data returned for checkin status');
-        }
-      })
-      .catch(function(err) {
-        console.log('getMostCurrentEvent error: ', JSON.stringify(err));
-
-        if (err.status === 404) {
+        // Exit without an error if we have no event
+        if (res.data === "No current event found") {
+          // No current event, exit
+          console.log('No current event available');
           $scope.event.id = null;
           $scope.class = $scope.class = 'nothing-scheduled';
+        } else {
+          // Current event found
+          console.log('Got current event: ', res.data.id, ', ', res.data.name );
+          console.log('event location', $scope.event.location);
+          $scope.event = res.data;
+          $scope.setPrettyStartTime();
+          return Events.getEventCheckinStatus($scope.event.id)
         }
-
+      })
+      .then(function(res) {
+        // There's no current event, exit
+        if (res === undefined) {
+          return;
+        }
+        // Update the current event status
+        if ($scope.class === null) {
+          return $scope.class = 'no-data';
+        }
+        $scope.event.status = res.data.status;
+        $scope.class = res.data.status;
+      })
+      .catch(function(err) {
+        console.log('Error fetching current event');
       })
       .finally(function() {
         $scope.$broadcast('scroll.refreshComplete');
@@ -107,6 +105,9 @@ angular.module('proximate.controllers', [])
     Settings.updateBeaconList()
       .then(function() {
         Beacons.setupBeacons(PubNub.publish);
+      })
+      .catch(function(error) {
+      console.log('Error updating beacons: ' + JSON.stringify(error));
       });
   }
 

@@ -9,31 +9,31 @@
           <i class="ion-loop"></i>
         </div>
         <!-- status null -->
-        <div class="checkin-status-notyet col col-90" ng-show="event.status===null||event.status==='null'||event.status==='none'" ng-cloak>
+        <div class="checkin-status-notyet col" ng-show="event.status===null||event.status==='null'||event.status==='none'" ng-cloak>
           <i class="huge spinner loading icon"></i>
           <h2>NOT HERE YET</h2>
-          <h3>Your phone doesn't seem to be in range</h3>
-          <div class="manual-checkin-button" ng-click="goToManualCheckin()"><a href="#" ui-sref="tab.manual"><h4>CHECK-IN MANUALLY</h4></a></div>
+          <h3>No check-in received</h3>
+          <div class="manual-checkin-button" ng-click="goToManualCheckin()"><a href="#" ui-sref="tab.manual"><h5>CHECK IN MANUALLY</h5></a></div>
         </div>
         <!-- status ontime -->
-        <div class="checkin-status-ontime col col-90" ng-show="event.status==='ontime'" ng-cloak>
+        <div class="checkin-status-ontime col" ng-show="event.status==='ontime'" ng-cloak>
           <i class="huge checkmark box icon"></i>
           <h2>ON TIME</h2>
           <h3>Checked in at 4:47</h3>
         </div>
         <!-- status late -->
-        <div class="checkin-status-late col col-90" ng-show="event.status==='late'" ng-cloak>
+        <div class="checkin-status-late col" ng-show="event.status==='late'" ng-cloak>
           <i class="huge clock icon"></i>
           <h2>LATE</h2>
           <h3>Checked in at 4:47</h3>
         </div>
         <!-- status absent -->
-        <div class="checkin-status-ontime col col-90" ng-show="event.status==='absent'" ng-cloak>
+        <div class="checkin-status-ontime col" ng-show="event.status==='absent'" ng-cloak>
           <i class="huge warning sign icon"></i>
           <h2>UNEXCUSED ABSENCE</h2>
         </div>
         <!-- status excused -->
-        <div class="checkin-status-ontime col col-90" ng-show="event.status==='excused'" ng-cloak>
+        <div class="checkin-status-ontime col" ng-show="event.status==='excused'" ng-cloak>
           <i class="huge checkmark box icon"></i>
           <h2>EXCUSED ABSENCE</h2>
         </div>
@@ -49,22 +49,22 @@
           <div class="col col-5"></div>
         </div>
         <div class="current-event-time row">
-          <div class="col col-5">
-            <i class="huge wait icon"></i>
+          <div class="col col-10">
+            <i class="big wait icon statusIcon"></i>
           </div>
-          <div class="col col-90">
+          <div class="col col-80">
             <h5>{{event.pretty_time}}</h5>
           </div>
-          <div class="col col-5"></div>
+          <div class="col col-10"></div>
         </div>
-        <div class="current-event-location row">
-          <div class="col col-5">
-            <i class="huge marker icon"></i>
+        <div ng-show="{{event.location !== undefined}}" class="current-event-location row">
+          <div class="col col-10">
+            <i class="big marker icon statusIcon"></i>
           </div>
-          <div class="col col-90">
+          <div class="col col-80">
             <h5>{{event.location | limitLength }}</h5>
           </div>
-          <div class="col col-5"></div>
+          <div class="col col-10"></div>
         </div>
       </div>
     </div>
@@ -75,13 +75,11 @@
     <div class="row"></div>
 
     <div class="row status-nothing-scheduled-content">
-      <div class="col col-5"></div>
-      <div class="col col-90">
+      <div class="col">
         <i class="huge calendar icon"></i>
         <h2>NOTHING SCHEDULED</h2>
         <h3>No events within the hour</h3>
       </div>
-      <div class="col col-5"></div>
     </div>
   </div>
 

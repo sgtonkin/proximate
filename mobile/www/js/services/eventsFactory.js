@@ -7,7 +7,7 @@ angular.module('proximate.services')
       url: webServer.url + '/api/participants/' +
         Settings.data.userId + '/events/current'
     }).then(function(res) {
-      return res.data;
+      return res;
     });
   };
 
@@ -17,7 +17,7 @@ angular.module('proximate.services')
       url: webServer.url + '/api/devices/' + Settings.data.deviceId +
         '/events/' + eventId + '/status'
     }).then(function(res) {
-      return res.data;
+      return res;
     });
   };
 

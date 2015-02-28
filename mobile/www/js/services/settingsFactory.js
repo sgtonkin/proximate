@@ -32,7 +32,9 @@ angular.module('proximate.services')
       data.deviceId = device.uuid;
       $localStorage.set('deviceId', data.deviceId);
     } else {
-      data.deviceId = 'UNSUPPORTED_PLATFORM';
+      // Switch the below for testing
+      data.deviceId = 'CACF75FC-3E85-4836-9040-C0F01BB598F6';
+      // data.deviceId = 'UNSUPPORTED_PLATFORM';
       $localStorage.set('deviceId', data.deviceId);
     }
     return $localStorage.get('deviceId');
@@ -56,9 +58,6 @@ angular.module('proximate.services')
       }
       console.log('Fetched beacons from server: ', result.data);
       return result;
-    }).catch(function(error) {
-      logToDom('Error in settings factory: ' + JSON.stringify(error));
-      throw new Error();
     });
   };
 
