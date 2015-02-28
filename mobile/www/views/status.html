@@ -12,7 +12,7 @@
         <div class="checkin-status-notyet col" ng-show="event.status===null||event.status==='null'||event.status==='none'" ng-cloak>
           <i class="huge spinner loading icon"></i>
           <h2>NOT HERE YET</h2>
-          <h3>No check-in received</h3>
+          <h3>No check in received</h3>
           <div class="manual-checkin-button" ng-click="goToManualCheckin()"><a href="#" ui-sref="tab.manual"><h5>CHECK IN MANUALLY</h5></a></div>
         </div>
         <!-- status ontime -->
@@ -28,12 +28,12 @@
           <h3>Checked in at 4:47</h3>
         </div>
         <!-- status absent -->
-        <div class="checkin-status-ontime col" ng-show="event.status==='absent'" ng-cloak>
+        <div class="checkin-status-absent col" ng-show="event.status==='absent'" ng-cloak>
           <i class="huge warning sign icon"></i>
           <h2>UNEXCUSED ABSENCE</h2>
         </div>
         <!-- status excused -->
-        <div class="checkin-status-ontime col" ng-show="event.status==='excused'" ng-cloak>
+        <div class="checkin-status-excused col" ng-show="event.status==='excused'" ng-cloak>
           <i class="huge checkmark box icon"></i>
           <h2>EXCUSED ABSENCE</h2>
         </div>
@@ -76,7 +76,7 @@
 
     <div class="row status-nothing-scheduled-content">
       <div class="col">
-        <i class="huge calendar icon"></i>
+        <i class="big calendar icon"></i>
         <h2>NOTHING SCHEDULED</h2>
         <h3>No events within the hour</h3>
       </div>

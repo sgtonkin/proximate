@@ -446,6 +446,12 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 /* STATUS */
 /* ------------------------- */
 
+.current-event {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
 .status, .upcoming {
   width: 100%;
   height: 100%;
@@ -483,14 +489,14 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 
 .status h2 {
   letter-spacing: .05em;
-  font-size: 1.8em;
+  font-size: .9em;
   margin-bottom: 0;
 }
 
 .status h3 {
   font-family: 'LatoLightItalic';
-  font-size: .8em;
-  margin: .2em 0 0 0;
+  font-size: .7em;
+  margin: .3em 0 0 0;
 }
 
 .status.manual h3 {
@@ -503,20 +509,38 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   font-family: 'LatoBold';
 }
 
-/* CURRENT EVENT INFO AT BOTTOM OF STATUS */
-
-.current-event {
-  height: 100%;
-  width: 100%;
-  position: relative;
+.checkin-status {
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1em;
+  position: absolute;
+  top: 0px;
 }
 
-  .current-event h2 {
-    font-size: 1em;
-  }
+.checkin-status-notyet {
+  margin-top: 15%;
+}
+
+.checkin-status-late, .checkin-status-ontime  {
+  margin-top: 30%;
+}
+
+.checkin-status-excused, .checkin-status-absent {
+  margin-top: 35%;
+}
+
+.status .checkin-status-excused h2, .status .checkin-status-absent h2 {
+  font-size: .7em;
+}
+
+.checkin-status a {
+  text-decoration: none;
+}
+
+/* CURRENT EVENT INFO AT BOTTOM OF STATUS */
 
 .current-event-info {
-  border-top: 2px solid rgba(0,0,0,0.4);
+  border-top: 2px solid rgba(0,0,0,0.2);
   padding: 10px 0px 0px 0px;
   background-color: rgba(0,0,0,.3);
   position: absolute;
@@ -532,7 +556,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 
 .current-event-info-container h4  {
   line-height: 50px;
-  font-size: 1em;
+  font-size: 1.2em;
   padding: 0;
   margin: 0;
 }
@@ -540,7 +564,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 .current-event-info-container h5 {
   font-family: 'LatoLight';
   font-size: 1.3em;
-  line-height: 50px;
+  line-height: 55px;
   padding: 0;
   margin: 0;
 }
@@ -553,32 +577,24 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
-.checkin-status {
-  font-size: 2em;
-  font-weight: bold;
-  line-height: 1em;
-  margin-top: 20px;
-  position: absolute;
-  top: 0px;
-}
-
-.checkin-status a {
-  text-decoration: none;
+.status.no-data .checkin-status {
+  margin-top: 30px;
 }
 
 /* MANUAL CHECKIN VIEW */
 
 /* makes room for manual checkin button @50px height */
+
 .manual-checkin-info {
-  margin-top: -50px;
+  margin: 50px auto;
 }
 
-.status.no-data .checkin-status {
-  margin-top: 30px;
-}
+.manual-checkin-info h5 {
+  color: #24262d;
 
+}
 .manual-checkin-info a {
-  font-size: .6em;
+  font-size: .5em;
   text-decoration: underline;
   color: #3498db;
 }
@@ -594,8 +610,19 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   .manual-checkin-button h5 {
     color: #24262d;
     line-height: 63px;
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: .1em;
     margin: 0;
     padding: 0;
+  }
+
+  .manual-checkin-button .blue {
+    background-color: #3498db;
+  }
+
+  .manual-checkin-button .blue h5 {
+    color: #fff !important;
   }
 
 .status.manual .manual-checkin-button {
@@ -620,7 +647,12 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   position: absolute;
   top: 35%;
   height: 200px;
+  font-size: 1.5em;
 }
+
+/* ------------------------- */
+/* EVENT LOG */
+/* ------------------------- */
 
 .event-log {
 }
