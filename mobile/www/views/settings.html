@@ -20,7 +20,19 @@
 
     <div class="settings-buttons">
       <div>
-        <button class="button button-block disabled" ng-click="refreshBeacons()">DETECT BEACONS</button>
+        <button class="button button-block disabled" ng-click="scanBeacons()">DETECT BEACONS</button>
+        <div ng-show="scanning">
+          <h2>Scan For Beacons</h2>
+          <!-- Orders beacons found by major -->
+          <div ng-repeat="beacon in beacons | orderBy : 'major'">
+            <div>NAME: {{beacon.name}}</div>
+            <div>UID: {{beacon.proximityUUID}}</div>
+            <div>MAJOR {{beacon.major}}</div>
+            <div>MINOR {{beacon.minor}}</div>
+            <div>DISTANCE: {{beacon.distance}}</div>
+            <br>
+          </div>
+        </div>
       </div>
       <div>
         <button class="button button-block" ng-click="logout()">LOGOUT</button>
