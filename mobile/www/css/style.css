@@ -24,6 +24,9 @@ body,
 body h1, body h2, body h3, body h4, body h5, body h6 {
   margin: 0;
   padding: 0;
+  color: #24262d;
+  font-family: 'Lato-Regular';
+  font-weight: normal;;
 }
 
 body h1 a, body h2 a, body h3 a, body h4 a, body h5 a, body h6 a {
@@ -217,17 +220,19 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 /* EVENT LOG */
 /* ------------------------- */
 
+.no-upcoming {
+  opacity: .5;
+  margin-top: 20%;
+}
 .upcoming {
   height: 100%;
 }
 
-.upcoming h2, .upcoming h3 {
-  color: #24262d;
-}
 
 .upcoming i.icon {
   color: #24262d;
-  opacity: .7;
+  margin-bottom: 1.4rem !important;
+
 }
 
 .upcoming .event-log-content {
@@ -243,19 +248,33 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   width: 100%;
 }
 
+.event-log {
+}
+
+
+.upcoming-datetime {
+  float: left;
+}
+
+.upcoming-content {
+  float: left;
+  margin-left: 22%;
+  margin-top: 2%;
+}
+
 .no-upcoming h2 {
   opacity: .7;
 }
 
 .events-filter {
   height: 60px;
-  padding: 0;
+  padding: 0 !important;
   border-top: 1px gray solid;
 }
 
 .events-filter .button {
   border-width: 0px;
-  letter-spacing: .2em;
+  font-family: 'Lato-Regular';
 }
 
 .events-filter .active {
@@ -478,24 +497,6 @@ current-event-time {
   position: absolute;
   top: 35%;
   height: 200px;
-}
-
-/* ------------------------- */
-/* EVENT LOG */
-/* ------------------------- */
-
-.event-log {
-}
-
-.upcoming-datetime {
-  float: left;
-}
-
-.upcoming-content {
-  float: left;
-  margin-left: 22%;
-  margin-top: 2%;
-  /*font-size: 2em;*/
 }
 
 /* ------------------------- */

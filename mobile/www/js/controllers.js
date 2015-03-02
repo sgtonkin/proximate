@@ -100,6 +100,7 @@ angular.module('proximate.controllers', [])
     });
   };
 
+  // Called each time the app is reloaded and after login
   function loadCycle() {
     $scope.initWithEvent();
     $scope.subscribeToCheckinStatus();
@@ -112,6 +113,7 @@ angular.module('proximate.controllers', [])
       });
   }
 
+  // Check if we're logged in and load, otherwise redirect
   $ionicPlatform.ready(function() {
     console.log('initialized', $localStorage.get('initialized'));
     if ($localStorage.get('initialized') !== 'true') {
@@ -124,14 +126,7 @@ angular.module('proximate.controllers', [])
 
   $ionicPlatform.on('resume', loadCycle);
 
-  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-    if (fromState.name === 'splash') {
-      loadCycle();
-    }
-  });
-
-  // Need to trigger the login sequence after the user authenticates
-  // In addition to on refresh
+  // Triggers the login sequence after user authenticatation
   $rootScope.$on('login-success', loadCycle);
 
 })
@@ -153,9 +148,11 @@ angular.module('proximate.controllers', [])
   $scope.eventsFilterSetting = 'upcoming';
 
   $scope.getUpcomingEvents = function() {
+    console.log('getting upcoming events');
     Events.getUpcomingEvents()
       .then(function(events) {
         $scope.data.events = events;
+        console.log
       }).finally(function() {
         // Re-scrolls the mobile screen on
         // pull-to-refresh
@@ -168,9 +165,8 @@ angular.module('proximate.controllers', [])
     $scope.getUpcomingEvents();
   };
 
-  $scope.$on('$stateChangeSuccess', function() {
-    $scope.getUpcomingEvents();
-  });
+  $scope.getUpcomingEvents();
+
 })
 
 // // Controls the splash screen for user signin/signup on mobile
