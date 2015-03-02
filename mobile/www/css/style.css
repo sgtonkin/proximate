@@ -42,25 +42,51 @@
   display: none !important;
 }
 
+/* ------------------------- */
+/* GENERAL STYLES */
+/* ------------------------- */
+
+
 html,
 body,
 .status .scroll,
 .upcoming .scroll {
   height: 100%;
-}
-
-body {
   font-family: 'Lato';
+  font-size: 12px !important;
 }
 
-.event-timestamp {
-  text-align: right;
-  color: gray;
-  margin-right: 30px;
+body h1, body h2, body h3, body h4, body h5, body h6 {
+  margin: 0;
+  padding: 0;
 }
 
-.splash {
-  background-color: #24262d;
+body h1 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-family: 'Lato';
+  letter-spacing: .05em;
+}
+
+body h2 {
+  font-size: 1.625rem;
+  font-size: 1.5rem;
+}
+
+body h3 {
+  font-family: 'LatoLightItalic';
+  font-size: 1.375rem;
+  margin: .5rem 0 0 0 !important;
+  letter-spacing: .05em;
+}
+
+body h4 {
+  font-size: 1.125rem;
+  font-family: 'Lato-Bold';
+}
+
+.white {
+  color: #fff !important;
 }
 
 /* ------------------------- */
@@ -368,10 +394,6 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   color: #24262d;
 }
 
-.upcoming h3 {
-  font-family: 'LatoLightItalic';
-}
-
 .upcoming i.icon {
   color: #24262d;
   opacity: .7;
@@ -467,6 +489,10 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   background-color: #3498db;
 }
 
+.status i {
+  margin-bottom: 1.3rem !important;
+}
+
 .status.no-data, .status.nothing-scheduled, .status.excused {
   background-color: #3498db;
 }
@@ -483,25 +509,9 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   background-color: #22c064;
 }
 
-.status h2, .status h3, .status h4, .status h5 {
-  color: #fff;
-}
-
-.status h2 {
-  letter-spacing: .05em;
-  font-size: .9em;
-  margin-bottom: 0;
-}
-
-.status h3 {
-  font-family: 'LatoLightItalic';
-  font-size: .7em;
-  margin: .3em 0 0 0;
-}
-
 .status.manual h3 {
   font-family: 'Lato-Bold';
-  font-size: .7em;
+  /*font-size: .7em;*/
   color: #000;
 }
 
@@ -510,7 +520,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 }
 
 .checkin-status {
-  font-size: 2em;
+  /*font-size: 2em;*/
   font-weight: bold;
   line-height: 1em;
   position: absolute;
@@ -530,7 +540,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 }
 
 .status .checkin-status-excused h2, .status .checkin-status-absent h2 {
-  font-size: .7em;
+  /*font-size: .7em;*/
 }
 
 .checkin-status a {
@@ -556,14 +566,14 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 
 .current-event-info-container h4  {
   line-height: 50px;
-  font-size: 1.2em;
+  /*font-size: 1.2em;*/
   padding: 0;
   margin: 0;
 }
 
 .current-event-info-container h5 {
   font-family: 'LatoLight';
-  font-size: 1.3em;
+  /*font-size: 1.3em;*/
   line-height: 55px;
   padding: 0;
   margin: 0;
@@ -647,7 +657,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   position: absolute;
   top: 35%;
   height: 200px;
-  font-size: 1.8em;
+  /*font-size: 1.8em;*/
 }
 
 /* ------------------------- */
@@ -709,13 +719,13 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   width: 100px;
 }
 
-.register {
+./*register {
   color: #34495E !important;
 }
 
 input.register {
   font-size: 1.5em;
-}
+}*/
 
 .register.ng-touched.ng-invalid-email, .register.ng-touched.ng-invalid-minlength {
   color: red !important;
