@@ -111,7 +111,7 @@ angular.module('proximate.controllers', [])
     if ($localStorage.get('initialized') !== 'true') {
       Settings.updateDeviceId();
       // For testing, go to scanner
-      $state.go('tab.settings');
+      $state.go('splash');
     } else {
       loadCycle();
     }
