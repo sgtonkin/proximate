@@ -15,12 +15,18 @@
       <!-- events list -->
       <div class="events-list">
         <div class="list">
-          <div ng-repeat="event in filteredEvents = (data.events | eventsFilter: eventsFilterSetting)" class="item">
-            <div class="events-list-info">
+          <div ng-repeat="event in filteredEvents = (data.events | orderBy: '-start_time' | eventsFilter: eventsFilterSetting)" class="item">
+            <div class="events-list-info" >
               <h2>{{event.name  | limitLength }}</h2>
               <h3>{{event.start_time | date:'EEE, MMM d, yyyy \| h:mm a'}}</h3>
             </div>
-            <div class="events-list-status late">late</div>
+            <div ng-switch on="event._pivot_status">
+              <div ng-switch-default></div>
+              <div ng-switch-when="late" class="events-list-status late">late</div>
+              <div ng-switch-when="ontime" class="events-list-status ontime">ontime</div>
+              <div ng-switch-when="absent" class="events-list-status absent">absent</div>
+              <div ng-switch-when="excused" class="events-list-status excused">excused</div>
+            </div>
           </div>
         </div>
         <div class="no-upcoming" ng-show="!filteredEvents.length && data.events.length > 0">
@@ -38,14 +44,14 @@
   <ion-footer-bar class="bar-stable events-filter">
     <div class="button-bar events-filter-buttons">
       <button class="button"
-              ng-click="eventsFilterSetting='upcoming'"
-              ng-class="{active: eventsFilterSetting==='upcoming'}">
-              UPCOMING
-      </button>
-      <button class="button"
               ng-click="eventsFilterSetting='all'"
               ng-class="{active: eventsFilterSetting==='all'}">
               ALL
+      </button>
+      <button class="button"
+              ng-click="eventsFilterSetting='upcoming'"
+              ng-class="{active: eventsFilterSetting==='upcoming'}">
+              UPCOMING
       </button>
     </div>
 </ion-footer-bar>

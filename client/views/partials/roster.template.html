@@ -33,7 +33,8 @@
           <span><a ui-sref="admin.participant({participantId: participant.id})" class="participantName">{{participant.name}}</a></span>
         </td>
         <td data-title="'Email'">
-          <span class="participantEmail">{{participant.email}}</span>
+          <span class="participantEmail">
+          <a ui-sref="admin.participant({participantId: participant.id})" class="participantName">{{participant.email}}</a></span>
         </td>
         <td data-title="'Status'" class="setStatus-cell" ng-class="setClassForStatus(participant._pivot_status)" ng-click="participant.$edit = true">
           <span ng-if="!participant.$edit && participant._pivot_status !== null && participant._pivot_status !== 'null'"><i class="edit icon setStatus-icon"></i>{{participant._pivot_status}}</span>

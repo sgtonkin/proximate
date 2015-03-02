@@ -30,7 +30,7 @@ var Participant = exports.Participant = bookshelf.Model.extend({
   events: function() {
     return this.belongsToMany(Event)
     .through(EventParticipant)
-    .withPivot(['checkin_time', 'status', 'gcal_response']);
+    .withPivot(['checkin_time', 'status', 'gcal_response_status']);
   },
   status: function() {
     return this.hasMany(EventParticipant);

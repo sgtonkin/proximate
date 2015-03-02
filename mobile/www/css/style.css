@@ -3,7 +3,12 @@
   src: url('../fonts/penna.otf') format('opentype');
 }
 
-[ng\:cloak], [ng-cloak], .ng-cloak {
+[ng:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
   display: none !important;
 }
 
@@ -225,6 +230,12 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   opacity: .5;
   margin-top: 20%;
 }
+
+.no-upcoming h3 {
+  margin-top: .5rem;
+}
+
+}
 .upcoming {
   height: 100%;
 }
@@ -279,12 +290,19 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   background-color: #24262d !important;
 }
 
-.events-filter-buttons {
+.events-filter-buttons button {
+  border: 0;
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
 }
 
 .events-list-info {
   float: left;
 }
+
+  .events-list .item {
+    padding: 12px;
+  }
 
 .events-list h2 {
   font-family: 'Lato-Regular';
@@ -293,6 +311,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 .events-list-status {
   float: right;
   color: #fff;
+  font-size: .9rem;
   border-radius: 5px;
   padding: 4px 5px 4px 5px;
   margin-top: 4px;
@@ -307,7 +326,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 }
 
 .events-list-status.excused {
-  background-color: #3498db;
+  background-color: #3c9ad8;
 }
 
 .events-list-status.absent, .events-list-status.late {
