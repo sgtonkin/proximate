@@ -10,32 +10,32 @@
         </div>
         <!-- status null -->
         <div class="checkin-status-notyet col" ng-show="event.status===null||event.status==='null'||event.status==='none'" ng-cloak>
-          <i class="huge spinner loading icon"></i>
+          <i class="massive spinner loading icon"></i>
           <h1 class="white">NOT HERE YET</h1>
           <h3 class="white">No check in received</h3>
           <div class="manual-checkin-button" ng-click="goToManualCheckin()"><a href="#" ui-sref="tab.manual">CHECK IN MANUALLY</a></div>
         </div>
         <!-- status ontime -->
         <div class="checkin-status-ontime col" ng-show="event.status==='ontime'" ng-cloak>
-          <i class="huge checkmark box icon"></i>
-          <h2>ON TIME</h2>
-          <h3>Checked in at 4:47</h3>
+          <i class="massive checkmark box icon"></i>
+          <h1 class="white">ON TIME</h1>
+          <h3 class="white">Checked in at 4:47</h3>
         </div>
         <!-- status late -->
         <div class="checkin-status-late col" ng-show="event.status==='late'" ng-cloak>
-          <i class="huge clock icon"></i>
-          <h2>LATE</h2>
-          <h3>Checked in at 4:47</h3>
+          <i class="massive clock icon"></i>
+          <h1 class="white">LATE</h1>
+          <h3 class="white">Checked in at 4:47</h3>
         </div>
         <!-- status absent -->
         <div class="checkin-status-absent col" ng-show="event.status==='absent'" ng-cloak>
-          <i class="huge warning sign icon"></i>
-          <h2>UNEXCUSED ABSENCE</h2>
+          <i class="massive warning sign icon"></i>
+          <h1 class="white">UNEXCUSED ABSENCE</h1>
         </div>
         <!-- status excused -->
         <div class="checkin-status-excused col" ng-show="event.status==='excused'" ng-cloak>
-          <i class="huge checkmark box icon"></i>
-          <h2>EXCUSED ABSENCE</h2>
+          <i class="massive checkmark box icon"></i>
+          <h1 class="white">EXCUSED ABSENCE</h1>
         </div>
     </div>
 
@@ -55,12 +55,12 @@
           </div>
           <div class="col col-10"></div>
         </div>
-        <div ng-show="{{event.location !== undefined}}" class="current-event-location row">
+        <div ng-show="event.location" class="current-event-location row">
           <div class="col col-10">
             <i class="big marker icon statusIcon"></i>
           </div>
           <div class="col col-80">
-            <h5>{{event.location | limitLength }}</h5>
+            <h5 class="white">{{event.location | limitLength }}</h5>
           </div>
           <div class="col col-10"></div>
         </div>
@@ -74,7 +74,7 @@
 
     <div class="row status-nothing-scheduled-content">
       <div class="col">
-        <i class="huge calendar icon"></i>
+        <i class="massive calendar icon"></i>
         <h1 class="white">NOTHING SCHEDULED</h1>
         <h3 class="white">No events within the hour</h3>
       </div>
