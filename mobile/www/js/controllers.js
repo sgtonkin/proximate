@@ -255,7 +255,7 @@ angular.module('proximate.controllers', [])
 
 })
 
-.controller('SettingsCtrl', function($scope, Settings, Auth, Beacons) {
+.controller('SettingsCtrl', function($scope, $ionicPlatform, Settings, Auth, Beacons) {
 
   angular.element(document).ready(function() {
 
@@ -280,16 +280,21 @@ angular.module('proximate.controllers', [])
   };
 
   $scope.scanBeacons = function() {
-    $ionicPlatform.ready(function() {
-      $scope.scanning = true;
-      Beacons.scanBeacons(function(beacons){
-        console.log('success got beacons', JSON.stringify(beacons.beacons))
-        $scope.beacons = beacons.beacons;
-        $scope.$apply();
-      }, function(err){
-        console.log('err scanning for beacons', err)
-      })
-    });
+    if($scope.scanning){
+      $scope.scanning = false;
+      Beacons.stopScanning();
+    }else{
+      $ionicPlatform.ready(function() {
+        $scope.scanning = true;
+        Beacons.scanBeacons(function(beacons){
+          console.log('success got beacons', JSON.stringify(beacons.beacons))
+          $scope.beacons = beacons.beacons;
+          $scope.$apply();
+        }, function(err){
+          console.log('err scanning for beacons', err)
+        })
+      });
+    }
   };
 
   $scope.logout = function() {

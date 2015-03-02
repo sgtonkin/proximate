@@ -20,9 +20,10 @@
 
     <div class="settings-buttons">
       <div>
-        <button class="button button-block disabled" ng-click="scanBeacons()">DETECT BEACONS</button>
+        <button class="button button-block" ng-show="!scanning" ng-click="scanBeacons()">DETECT BEACONS</button>
+        <button class="button button-block" ng-show="scanning" ng-click="scanBeacons()">STOP SCANNING </button>
         <div ng-show="scanning">
-          <h2>Scan For Beacons</h2>
+          <h2>Scanning For Beacons</h2>
           <!-- Orders beacons found by major -->
           <div ng-repeat="beacon in beacons | orderBy : 'major'">
             <div>NAME: {{beacon.name}}</div>

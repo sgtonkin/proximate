@@ -147,10 +147,15 @@ angular.module('proximate.services')
     estimote.beacons.startRangingBeaconsInRegion({}, callWhenDone, callWhenErr);
   };
 
+  var stopScanning = function() {
+    estimote.beacons.stopRangingBeaconsInRegion({});
+  }
+
   return {
     setupBeacons: setupBeacons,
     clearBeacons: clearBeacons,
     restartBeacons: restartBeacons,
-    scanBeacons: scanBeacons
+    scanBeacons: scanBeacons,
+    stopScanning: stopScanning
   };
 });
