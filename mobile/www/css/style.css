@@ -46,7 +46,8 @@ body h2 {
 body h3 {
   font-family: 'Lato-LightItalic';
   font-size: 1.375rem;
-  margin: .5rem 0 0 0 !important;
+  margin: .5rem 0 0 0;
+  margin-top: 0;
   letter-spacing: .05em;
 }
 
@@ -248,10 +249,6 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   width: 100%;
 }
 
-.event-log {
-}
-
-
 .upcoming-datetime {
   float: left;
 }
@@ -289,11 +286,16 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   float: left;
 }
 
+.events-list h2 {
+  font-family: 'Lato-Regular';
+}
+
 .events-list-status {
   float: right;
   color: #fff;
   border-radius: 5px;
-  padding: 5px;
+  padding: 4px 5px 4px 5px;
+  margin-top: 4px;
 }
 
 .events-list-status.no-data {
@@ -335,6 +337,10 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   color: #fff;
   text-align: center !important;
   background-color: #3498db;
+}
+
+.status h3 {
+  margin-top: .5rem;
 }
 
 .status i, .status-nothing-scheduled-content i {

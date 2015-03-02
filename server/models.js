@@ -28,7 +28,9 @@ var Admin = exports.Admin = bookshelf.Model.extend({
 var Participant = exports.Participant = bookshelf.Model.extend({
   tableName: 'participants',
   events: function() {
-    return this.belongsToMany(Event).through(EventParticipant);
+    return this.belongsToMany(Event)
+    .through(EventParticipant)
+    .withPivot(['checkin_time', 'status', 'gcal_response']);
   },
   status: function() {
     return this.hasMany(EventParticipant);

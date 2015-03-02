@@ -152,7 +152,8 @@ angular.module('proximate.controllers', [])
     Events.getUpcomingEvents()
       .then(function(events) {
         $scope.data.events = events;
-        console.log
+        console.log('event data');
+        console.log(events);
       }).finally(function() {
         // Re-scrolls the mobile screen on
         // pull-to-refresh

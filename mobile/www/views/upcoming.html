@@ -17,8 +17,8 @@
         <div class="list">
           <div ng-repeat="event in filteredEvents = (data.events | eventsFilter: eventsFilterSetting)" class="item">
             <div class="events-list-info">
-              <h2>{{event.name.toUpperCase()}}</h2>
-              <h3>{{event.start_time | date:'EEEE, MMM d, yyyy \| h:mm a'}}</h3>
+              <h2>{{event.name  | limitLength }}</h2>
+              <h3>{{event.start_time | date:'EEE, MMM d, yyyy \| h:mm a'}}</h3>
             </div>
             <div class="events-list-status late">late</div>
           </div>
