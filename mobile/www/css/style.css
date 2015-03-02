@@ -83,6 +83,11 @@ body h3 {
 body h4 {
   font-size: 1.125rem;
   font-family: 'Lato-Bold';
+  text-transform: uppercase;
+}
+
+body h5 {
+  font-family: 'Lato-Light';
 }
 
 .white {
@@ -490,8 +495,24 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 }
 
 .status i {
-  margin-bottom: 1.3rem !important;
+  margin-bottom: 1.4rem !important;
 }
+
+.status .manual-checkin-button {
+  cursor: pointer;
+  height: 55px;
+  background-color: #ecf0f1;
+  margin: 30px auto 15px auto;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  width: 90%;
+}
+
+  .status .manual-checkin-button a {
+    font-family: 'Lato-Medium';
+    color: #24262d;
+    line-height: 57px;
+  }
 
 .status.no-data, .status.nothing-scheduled, .status.excused {
   background-color: #3498db;
@@ -509,18 +530,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   background-color: #22c064;
 }
 
-.status.manual h3 {
-  font-family: 'Lato-Bold';
-  /*font-size: .7em;*/
-  color: #000;
-}
-
-.status h4 {
-  font-family: 'LatoBold';
-}
-
 .checkin-status {
-  /*font-size: 2em;*/
   font-weight: bold;
   line-height: 1em;
   position: absolute;
@@ -528,7 +538,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 }
 
 .checkin-status-notyet {
-  margin-top: 15%;
+  margin-top: 20%;
 }
 
 .checkin-status-late, .checkin-status-ontime  {
@@ -539,10 +549,6 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   margin-top: 35%;
 }
 
-.status .checkin-status-excused h2, .status .checkin-status-absent h2 {
-  /*font-size: .7em;*/
-}
-
 .checkin-status a {
   text-decoration: none;
 }
@@ -551,40 +557,48 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 
 .current-event-info {
   border-top: 2px solid rgba(0,0,0,0.2);
-  padding: 10px 0px 0px 0px;
   background-color: rgba(0,0,0,.3);
   position: absolute;
-  bottom: 45px;
+  bottom: 0px;
 }
 
-.current-event-info-container div {
-  line-height: 50px;
+.current-event-info div.col {
+  margin: 0;
+  padding: 0;
+}
+
+.current-event div.row {
+  padding: 0;
+}
+
+.current-event-info-container div.row {
   height: 50px;
-  padding: 0;
-  margin: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
-.current-event-info-container h4  {
-  line-height: 50px;
-  /*font-size: 1.2em;*/
-  padding: 0;
-  margin: 0;
-}
+  .current-event-info-container h4 {
+    line-height: 50px;
+    margin-top: 1px;
+  }
 
-.current-event-info-container h5 {
-  font-family: 'LatoLight';
-  /*font-size: 1.3em;*/
-  line-height: 55px;
-  padding: 0;
-  margin: 0;
-}
+  .current-event-info-container h5 {
+    line-height: 50px;
+    margin-top: 1px;
+  }
 
 .status .current-event-info i {
   opacity: .5;
+  line-height: 50px;
+  padding-left: 10px;
+  margin-top: 1px;
 }
 
-.current-event-name, .current-event-time {
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+.current-event-name {
+
+}
+
+current-event-time {
+
 }
 
 .status.no-data .checkin-status {

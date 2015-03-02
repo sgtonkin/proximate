@@ -11,9 +11,9 @@
         <!-- status null -->
         <div class="checkin-status-notyet col" ng-show="event.status===null||event.status==='null'||event.status==='none'" ng-cloak>
           <i class="huge spinner loading icon"></i>
-          <h2>NOT HERE YET</h2>
-          <h3>No check in received</h3>
-          <div class="manual-checkin-button" ng-click="goToManualCheckin()"><a href="#" ui-sref="tab.manual"><h5>CHECK IN MANUALLY</h5></a></div>
+          <h1 class="white">NOT HERE YET</h1>
+          <h3 class="white">No check in received</h3>
+          <div class="manual-checkin-button" ng-click="goToManualCheckin()"><a href="#" ui-sref="tab.manual">CHECK IN MANUALLY</a></div>
         </div>
         <!-- status ontime -->
         <div class="checkin-status-ontime col" ng-show="event.status==='ontime'" ng-cloak>
@@ -42,18 +42,16 @@
     <div class="current-event-info row">
       <div class="current-event-info-container col">
         <div class="current-event-name row">
-          <div class="col col-5"></div>
-          <div class="col col-90">
-            <h4>{{event.name.toUpperCase() | limitLength }}</h4>
+          <div class="col">
+            <h4 class="white">{{event.name.toUpperCase() | limitLength }}</h4>
           </div>
-          <div class="col col-5"></div>
         </div>
         <div class="current-event-time row">
           <div class="col col-10">
             <i class="big wait icon statusIcon"></i>
           </div>
           <div class="col col-80">
-            <h5>{{event.pretty_time}}</h5>
+            <h5 class="white">{{event.pretty_time}}</h5>
           </div>
           <div class="col col-10"></div>
         </div>
