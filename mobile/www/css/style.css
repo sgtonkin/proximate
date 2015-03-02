@@ -61,6 +61,9 @@ body h1, body h2, body h3, body h4, body h5, body h6 {
   padding: 0;
 }
 
+body h1 a, body h2 a, body h3 a, body h4 a, body h5 a, body h6 a {
+  text-decoration: none;
+}
 body h1 {
   font-size: 2rem;
   text-transform: uppercase;
@@ -245,146 +248,6 @@ body #a0-lock.a0-theme-default .a0-btn-small {
 body #a0-lock.a0-theme-default .a0-btn-small:hover {
   background: #000;
 }
-/*
-.login {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ECF0F1;
-  background-size: cover;
-  zoom: 1;
-  z-index: 0;
-}
-
-.login .login-box{
-  opacity: .95;
-  width: 90%;
-  text-align: center;
-  margin: 2% auto;
-  padding: 30px 18px 10px 18px;
-}
-
-.login img {
-  width: 37%;
-  height: 37%;
-}
-
-.login .box-container {
-  margin-top: 10%;
-  margin-bottom: -18px;
-}
-
-.login .input-box, .login .input-box input {
-  height: 60px;
-  background-color: rgba(255,255,255, .10);
-  color: white !important;
-}
-
-.login .input-box input {
-  background-color: rgba(255,255,255, 0);
-  font-weight: bold;
-}
-
-.login .input-box{
-  position: relative;
-  width: 90%;
-  text-align: center;
-  margin: 5% auto;
-  padding: 1px 20px 1px 20px;
-}
-
-.login i {
-  position: absolute;
-  top: 10px;
-  left: 25px;
-  opacity: .8;
-  display: block;
-  float: left;
-  font-size: 2.5em;
-}
-
-.login .input-box i:after {
-  content: '|';
-  padding-left: 15px;
-  opacity: .7;
-}
-
-.login .input-button {
-  width: 90%;
-  text-align: center;
-  font-size: 1.5em;
-  color: #fff;
-  margin: 10% auto;
-  padding: 20px 18px;
-  background-color: #3498db;
-}
-
-.login .input-button span {
-  color: #ECF0F1;
-  background-color: #3498DB;
-  opacity: .95;
-}
-
-.login h1 {
-  font-family: 'Penna';
-  margin-top: 30px;
-  letter-spacing: .118em;
-  font-size: 2.8em;
-  text-shadow: 0px 1px 5px rgba(255,255,255,0.6);
-  font-weight: bold;
-  color: white;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.login h1 .beta {
-  font-family: 'Lato';
-  font-size: .3em;
-  margin-left: 2px;
-  top: -20px;
-  letter-spacing: 0;
-  font-style: normal;
-  font-weight: 300;
-}
-
-.login h4 {
-  font-family: 'LatoLight';
-  text-shadow: 0px 1px 5px rgba(0,0,0,0.6);
-  color: white;
-  opacity: .8;
-  margin-top: -25px;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.login .divider {
-  background-color: #ECF0F1;
-  height: 1px;
-  margin-top: 40px;
-  margin-bottom: 20px;
-}
-
-.splash-error {
-  text-align: center;
-  font-size: 1.5em;
-  color: #EC4F43;
-  font-weight: bold;
-}
-
-.login-signup-switch-mode {
-  text-align: center;
-}
-
-.login-signup-switch-mode a {
-  color: #fff;
-  font-weight: bold;
-}*/
-
-/*body .bar-stable .button:hover {
-  color: inherit;
-}*/
 
 /* ------------------------- */
 /* EVENT LOG */
@@ -395,7 +258,6 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 }
 
 .upcoming h2, .upcoming h3 {
-  font-family: 'Lato';
   color: #24262d;
 }
 
@@ -419,7 +281,6 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 
 .no-upcoming h2 {
   opacity: .7;
-  /*font-size: 1.8em;*/
 }
 
 .events-filter {
@@ -430,7 +291,6 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 
 .events-filter .button {
   border-width: 0px;
-  font-family: 'Lato';
   letter-spacing: .2em;
 }
 
@@ -494,7 +354,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   background-color: #3498db;
 }
 
-.status i {
+.status i, .status-nothing-scheduled-content i {
   margin-bottom: 1.4rem !important;
 }
 
@@ -671,7 +531,6 @@ current-event-time {
   position: absolute;
   top: 35%;
   height: 200px;
-  /*font-size: 1.8em;*/
 }
 
 /* ------------------------- */
