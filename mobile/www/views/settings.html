@@ -4,7 +4,8 @@
     <div class="list">
       <div class="item">
         <label>NAME</label>
-        <h2>{{data.username}}</h2>
+        <h2 ng-show="data.username !== null">{{data.username}}</h2>
+        <h2 ng-show="data.username === null">{{data.email}}</h2>
       </div>
       <a class="item item-icon-right" href="#" ng-click="updatePassword()">
         <label>PASSWORD</label>

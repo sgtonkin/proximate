@@ -4,7 +4,9 @@ angular.module('proximate.services')
 
   // Stem function - for now just destroys the 'registered' state
   var logout = function() {
-    $localStorage.set('initialized', 'false');
+    // This should also set the 'initialized' value to false,
+    //      returning to the 'logged out' user state
+    $localStorage.clearStorage();
     Beacons.clearBeacons();
     $state.go('splash');
   };

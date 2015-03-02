@@ -103,7 +103,9 @@ angular.module('proximate', ['ionic',
   return function(input, eventsFilterSetting) {
     if (eventsFilterSetting === 'upcoming') {
       return input.filter(function(event) {
-        return moment(event.start_time).isAfter(now);
+        // Note: seemingly magic double event.event syntax is due to
+        // the way we're joining events with related status
+        return moment(event.event.start_time).isAfter(now);
       });
     } else {
       return input;
@@ -124,5 +126,37 @@ angular.module('proximate', ['ionic',
     } else {
       return input;
     }
+  };
+})
+
+// Similar to the above, but for the EVENT LOG view only.
+// Truncates the end of event strings, not the middle
+.filter('limitLogTitle', function() {
+
+  var LENGTH_LIMIT = 25;
+
+  return function(input) {
+    if (input.length > LENGTH_LIMIT) {
+      return input.substr(0, (LENGTH_LIMIT)) + '...';
+    } else {
+      return input;
+    }
+  };
+})
+
+// Takes in an array of events and strips the cancelled items
+.filter('filterCancelledEvents', function() {
+
+  return function(input) {
+
+    var filtered = [];
+
+    input.forEach(function(item) {
+      if (item.event.status !== 'cancelled') {
+        filtered.push(item);
+      }
+    });
+
+    return filtered;
   };
 });

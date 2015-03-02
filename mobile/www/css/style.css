@@ -227,6 +227,11 @@ body {
   width: 100%;
 }
 
+/* Prevents bottom events from being obscured */
+.events-list {
+  padding-bottom: 200px;
+}
+
 .events-filter {
   height: 60px;
   padding: 0;
@@ -256,6 +261,8 @@ body {
   color: #fff;
   border-radius: 5px;
   padding: 5px;
+  min-width: 65px;
+  text-align: center;
 }
 
 .events-list-status.no-data {
