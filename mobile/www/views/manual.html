@@ -10,35 +10,32 @@
     <div class="checkin-status row">
         <div class="manual-checkin-info col col-80" ng-cloak>
           <h5>Verify you're here by connecting to WiFi before you checkin.</h5>
-          <div class="manual-checkin-button blue" ng-click="manualCheckin()"><h5>I'M HERE!</h5></div>
-          <a>(Having trouble with auto-detection?)</a>
+          <div class="manual-checkin-button" ng-click="manualCheckin()"><span>I'M HERE</span></div>
         </div>
     </div>
 
     <div class="current-event-info row">
       <div class="current-event-info-container col">
         <div class="current-event-name row">
-          <div class="col col-10"></div>
-          <div class="col col-80">
-            <h4>{{event.name.toUpperCase() | limitLength}}</h4>
+          <div class="col">
+            <h4 class="white">{{event.name.toUpperCase() | limitLength}}</h4>
           </div>
-          <div class="col col-10"></div>
         </div>
         <div class="current-event-time row">
           <div class="col col-10">
             <i class="big wait icon"></i>
           </div>
           <div class="col col-80">
-            <h5>{{event.pretty_time}}</h5>
+            <h5 class="white">{{event.pretty_time}}</h5>
           </div>
           <div class="col col-10"></div>
         </div>
-        <div ng-show="{{event.location !== undefined}}" class="current-event-location row">
+        <div ng-show="event.location" class="current-event-location row">
           <div class="col col-10">
             <i class="big marker icon"></i>
           </div>
           <div class="col col-80" >
-            <h5>{{event.location | limitLength}}</h5>
+            <h5 class="white">{{event.location | limitLength}}</h5>
           </div>
           <div class="col col-10"></div>
         </div>

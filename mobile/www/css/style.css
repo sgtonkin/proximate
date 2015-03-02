@@ -442,35 +442,24 @@ current-event-time {
 
 }
 .manual-checkin-info a {
-  font-size: .5em;
   text-decoration: underline;
   color: #3498db;
 }
 
-.manual-checkin-button {
+.manual-checkin-info .manual-checkin-button {
   cursor: pointer;
-  height: 60px;
-  background-color: #ecf0f1;
+  height: 55px;
+  background-color: #3498db;
+  margin: 30px auto 15px auto;
   margin-top: 30px;
   margin-bottom: 15px;
+  width: 100%;
 }
 
-  .manual-checkin-button h5 {
-    color: #24262d;
-    line-height: 63px;
-    color: #fff;
-    font-weight: 400;
-    letter-spacing: .1em;
-    margin: 0;
-    padding: 0;
-  }
-
-  .manual-checkin-button .blue {
-    background-color: #3498db;
-  }
-
-  .manual-checkin-button .blue h5 {
-    color: #fff !important;
+  .manual-checkin-info .manual-checkin-button span {
+    font-family: 'Lato-Medium';
+    display: block;;
+    line-height: 57px;
   }
 
 .status.manual .manual-checkin-button {
@@ -483,12 +472,6 @@ current-event-time {
 
 .status.manual .manual-checkin-button h4 {
   color: #fff;
-}
-
-/* Makes room for the title bar presense */
-
-.status.manual .current-event-info {
-  bottom: 90px;
 }
 
 .status-nothing-scheduled-content {
