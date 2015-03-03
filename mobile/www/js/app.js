@@ -5,7 +5,7 @@ angular.module('proximate', ['ionic',
   'angular-storage',
   'angular-jwt'])
 
-.run(function($ionicPlatform, $rootScope, store, jwtHelper, auth) {
+.run(function($ionicPlatform, ProximateAuth, $state, $rootScope, store, jwtHelper, auth) {
 
   // This hooks all auth events to check everything as soon as the app starts
   auth.hookEvents();
@@ -17,10 +17,15 @@ angular.module('proximate', ['ionic',
       if (token) {
         if (!jwtHelper.isTokenExpired(token)) {
           auth.authenticate(store.get('profile'), token);
+          $state.go('tab.status');
         } else {
           // Either show Login page or use the refresh token to get a new idToken
-          $location.path('/');
+          $state.go('login');
+          ProximateAuth.login();
         }
+      } else {
+        $state.go('login');
+        ProximateAuth.login();
       }
     }
   });
@@ -48,7 +53,7 @@ angular.module('proximate', ['ionic',
     .state('login', {
       url: '/login',
       templateUrl: 'views/login.html',
-      controller: 'LoginCtrl',
+      controller: 'LoginCtrl'
     })
 
     .state('tab', {
@@ -114,18 +119,6 @@ angular.module('proximate', ['ionic',
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/status');
-
-    // .state('splash', {
-    //   url: '/splash',
-    //   templateUrl: 'views/splash.html',
-    //   controller: 'SplashCtrl'
-    // })
-
-    // .state('signup', {
-    //   url: '/signup',
-    //   templateUrl: 'views/signup.html',
-    //   controller: 'SplashCtrl'
-    // });
 
   // Initialize Auth0
   authProvider.init({

@@ -7,11 +7,11 @@
         <h2 ng-show="data.username !== null">{{data.username}}</h2>
         <h2 ng-show="data.username === null">{{data.email}}</h2>
       </div>
-      <a class="item item-icon-right" href="#" ng-click="updatePassword()">
+      <!-- <a class="item item-icon-right" href="#" ng-click="updatePassword()">
         <label>PASSWORD</label>
         <h2>••••••</h2>
         <i class="icon ion-chevron-right icon-accessory"></i>
-      </a>
+      </a> -->
       <div class="item">
         <label>EMAIL</label>
         <h2>{{data.email}}</h2>
@@ -20,10 +20,10 @@
 
     <div class="settings-buttons">
       <div>
-        <button class="button button-block disabled" ng-click="refreshBeacons()">DETECT BEACONS</button>
+        <button class="button" ng-click="refreshBeacons()"><span>DETECT BEACONS</span></button>
       </div>
       <div>
-        <button class="button button-block" ng-click="logout()">LOGOUT</button>
+        <button class="button" ng-click="logout()"><span>LOGOUT</span></button>
       </div>
       </div>
     </div>

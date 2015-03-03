@@ -16,7 +16,8 @@ angular.module('proximate.services')
 
   // Stops monitoring / ranging for all current beacons
   var clearBeacons = function() {
-    cordova.plugins.locationManager.getMonitoredRegions()
+    try {
+      cordova.plugins.locationManager.getMonitoredRegions()
       .then(function(data) {
         console.log('Clearing monitored regions:', data);
 
@@ -35,6 +36,10 @@ angular.module('proximate.services')
             .done();
         });
       });
+    } catch(e) {
+      console.log(e);
+    }
+
   };
 
   var restartBeacons = function() {

@@ -24,9 +24,6 @@ angular.module('proximate.services')
         email: profile.email,
         deviceId: Settings.updateDeviceId()
       }
-      console.log('user info', userInfo);
-      console.log('profile', profile);
-      console.log('refreshToken', refreshToken);
       store.set('profile', profile);
       store.set('token', token);
       store.set('refreshToken', refreshToken);
@@ -76,7 +73,7 @@ angular.module('proximate.services')
     store.remove('token');
     $localStorage.clearStorage();
     Beacons.clearBeacons();
-    $state.go('login');
+    $state.go($state.current.name, $state.params, { reload: true });
   };
 
   return {

@@ -111,18 +111,9 @@ angular.module('proximate.controllers', [])
       .catch(function(error) {
       console.log('Error updating beacons: ' + JSON.stringify(error));
       });
-  }
 
-  // Check if we're logged in and load, otherwise redirect
-  $ionicPlatform.ready(function() {
-    console.log('initialized', $localStorage.get('initialized'));
-    if ($localStorage.get('initialized') !== 'true') {
-      Settings.updateDeviceId();
-      $state.go('login');
-    } else {
-      loadCycle();
-    }
-  });
+    console.log('load cycle firing');
+  }
 
   $ionicPlatform.on('resume', loadCycle);
 
@@ -148,12 +139,9 @@ angular.module('proximate.controllers', [])
   $scope.eventsFilterSetting = 'all';
 
   $scope.getUpcomingEvents = function() {
-    console.log('getting upcoming events');
     Events.getUpcomingEvents()
       .then(function(events) {
         $scope.data.events = events;
-        console.log('event data');
-        console.log(events);
       }).finally(function() {
         // Re-scrolls the mobile screen on
         // pull-to-refresh
@@ -170,98 +158,8 @@ angular.module('proximate.controllers', [])
 
 })
 
-// // Controls the splash screen for user signin/signup on mobile
-// .controller('SplashCtrl', function($scope, $state, Settings) {
+.controller('LoginCtrl', function LoginCtrl (store, $rootScope, ProximateAuth, $state, $scope, $location, auth) {
 
-//   // Initialize data objects
-//   $scope.data = {
-//     username: '',
-//     password: '',
-//     passwordConfirm: '', // For signup
-//     deviceId: ''
-//   };
-
-//   $scope.error = '';
-
-//   Settings.updateDeviceId();
-
-//   // Calls the factory signin function, and takes the user to the Status view upon success,
-//   // or displays an error otherwise
-
-//   $scope.register = function() {
-//     Settings.signin($scope.data)
-//       .then(function(res) {
-//         $scope.error = '';
-//         $state.go('tab.status');
-//       })
-//       .catch(function(err) {
-//         $scope.logSplashError(err);
-//       });
-//   };
-
-//   $scope.signup = function() {
-//     Settings.signup($scope.data)
-//       .then(function(res) {
-//         $scope.error = '';
-//         $state.go('tab.status');
-//       })
-//       .catch(function(err) {
-//         $scope.logSplashError(err);
-//       });
-//   };
-
-//   /***********************************************************
-//   ** Scope error functions                                  **
-//   ***********************************************************/
-
-//   // Sets an error on invalid email; clears if ok
-//   $scope.invalidEmail = function() {
-//     var emailEl = angular.element(document.querySelector('#email'));
-
-//     if (emailEl.hasClass('ng-invalid-email')) {
-//       $scope.error = 'Invalid email';
-//     } else {
-//       $scope.error = '';
-//     }
-
-//   };
-
-//   // Sets an error on invalid password; clears if ok. Currently only
-//   // detects passwords that are too short, as defined in their minlength param.
-//   // See view html for details
-//   $scope.invalidPassword = function() {
-//     var passwordEl = angular.element(document.querySelector('#password'));
-
-//     if (passwordEl.hasClass('ng-invalid-minlength')) {
-//       $scope.error = 'Password too short';
-//     } else {
-//       $scope.error = '';
-//     }
-
-//   };
-
-//   // Sets an error on non-matching passwords; clears if matching
-//   $scope.passwordMatch = function() {
-//     if ($scope.data.password !== $scope.data.passwordConfirm) {
-//       $scope.error = 'Passwords don\'t match';
-//     } else {
-//       $scope.error = '';
-//     }
-//   };
-
-//   $scope.logSplashError = function(err) {
-//     if (err.status === 404) {
-//       $scope.error = 'We couldn\'t find you in the system. Please contact your administrator.';
-//     } else if (err.status === 0) {
-//       $scope.error = 'Could not contact Proximate server. Please try again later.';
-//     } else {
-//       $scope.error = 'Unknown error: ' + JSON.stringify(err);
-//     }
-//   };
-
-// })
-
-.controller('LoginCtrl', function LoginCtrl (store, ProximateAuth, $state, $scope, $location, auth) {
   $scope.login = function() {
     ProximateAuth.login();
   }
@@ -275,7 +173,12 @@ angular.module('proximate.controllers', [])
   angular.element(document).ready(function() {
 
     $scope.data = {};
-    $scope.data.username = Settings.data.username;
+    // Set the username to the email if they don't have one
+    if (Settings.data.username !== 'null') {
+      $scope.data.username = Settings.data.username;
+    } else {
+      $scope.data.username = Settings.data.email;
+    }
     $scope.data.deviceId = Settings.data.deviceId;
     $scope.data.email = Settings.data.email;
 

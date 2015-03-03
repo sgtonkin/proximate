@@ -66,6 +66,11 @@ body h5 {
   font-family: 'Lato-Light';
 }
 
+body .title {
+  font-family: 'Lato-Light';
+  font-size: 1.375rem !important;
+}
+
 .white {
   color: #fff !important;
 }
@@ -96,12 +101,12 @@ body #a0-lock .a0-overlay {
   -webkit box shadow: none;
   box-shadow: none;
   color: #ccc;
-  font-family: 'Lato' !important;
+  font-family: 'Lato-Regular' !important;
 }
 
 /* General font for login box */
 body #a0-lock.a0-theme-default .a0-panel * {
-  font-family: 'Lato' !important;
+  font-family: 'Lato-Regular' !important;
 }
 
 /* MLogo text */
@@ -116,7 +121,7 @@ body #a0-lock.a0-theme-default .a0-panel * {
 
 /* BETA tag for logo*/
 #a0-lock #a0-onestep h1 span {
-  font-family: 'Lato' !important;
+  font-family: 'Lato-Regular' !important;
   font-size: .3em;
   letter-spacing: .1em;
   opacity: .5;
@@ -374,6 +379,7 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   margin-top: 30px;
   margin-bottom: 15px;
   width: 90%;
+  border: 0;
 }
 
   .status .manual-checkin-button a {
@@ -534,12 +540,9 @@ current-event-time {
 
 .settings label {
   display: block;
+  color: #aaaaaa;
+  font-family: 'Lato-Regular';
   margin-bottom: 5px;
-  color: #7f7f82;
-}
-
-.settings h2 {
-  font-family: 'Lato';
 }
 
 .settings-buttons {
@@ -553,10 +556,13 @@ current-event-time {
 }
 
 .settings-buttons button {
-  font-family: 'Lato';
+  cursor: pointer;
+  font-family: 'Lato-Regular';
   color: #fff;
   background-color: #409cda;
-  height: 70px;
+  height: 55px;
+  width: 90%;
+  border: 0;
 }
 
 .logo-image {
