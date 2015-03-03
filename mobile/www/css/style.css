@@ -573,6 +573,23 @@ body .scanningDialog h2 {
   margin-top: 1rem;
 }
 
+.beaconList {
+  margin: 10% 5% 5% 10%;
+  margin-left: 5%;
+  margin-top: 20px;
+  text-align: left;
+  font-family: 'Lato-Regular';
+  font-size: 1rem;
+  background: #ecf0f1;
+  border: 1px solid #efefef;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+  .beaconList li span.label {
+    font-family: 'Lato-Bold';
+  }
+
 .logo-image {
   text-align: center;
   height: 100px;

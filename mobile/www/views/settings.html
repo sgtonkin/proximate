@@ -33,14 +33,13 @@
       <button class="button scanningButton" ng-click="scanBeacons()">STOP SCANNING </button>
 
       <!-- Orders beacons found by major -->
-      <div ng-repeat="beacon in beacons | orderBy : 'major'">
-        <div>NAME: {{beacon.name}}</div>
-        <div>UID: {{beacon.proximityUUID}}</div>
-        <div>MAJOR {{beacon.major}}</div>
-        <div>MINOR {{beacon.minor}}</div>
-        <div>DISTANCE: {{beacon.distance}}</div>
-        <br>
-      </div>
+      <ul class="beaconList" ng-repeat="beacon in beacons | orderBy : 'major'">
+        <li><span class="label">NAME:</span> {{beacon.name}}</li>
+        <li><span class="label">UID:</span> {{beacon.proximityUUID}}</li>
+        <li><span class="label">MAJOR:</span> {{beacon.major}}</li>
+        <li><span class="label">MINOR:</span> {{beacon.minor}}</li>
+        <li><span class="label">DISTANCE:</span> {{beacon.distance.toFixed(2) + 'm'}}</li>
+      </ul>
     </div>
 
 

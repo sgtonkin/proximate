@@ -205,11 +205,14 @@ angular.module('proximate.controllers', [])
     });
   };
 
+  // Function to scan for beacons on settings page
   $scope.scanBeacons = function() {
-    if($scope.scanning){
+    // Already scanning, stop
+    if ($scope.scanning){
       $scope.scanning = false;
       Beacons.stopScanning();
-    }else{
+    // Start scanning
+    } else{
       $ionicPlatform.ready(function() {
         $scope.scanning = true;
         Beacons.scanBeacons(function(beacons){
