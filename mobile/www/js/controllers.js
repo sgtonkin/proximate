@@ -20,19 +20,19 @@ angular.module('proximate.controllers', [])
     Events.getMostCurrentEvent()
       .then(function(res) {
         // Exit without an error if we have no event
-        if (res.data === "No current event found") {
+        if (res.data === 'No current event found') {
           // No current event, exit
           console.log('No current event available');
           $scope.event.id = null;
           $scope.class = $scope.class = 'nothing-scheduled';
         } else {
           // Current event found
-          console.log('Got current event: ', res.data.id, ', ', res.data.name );
+          console.log('Got current event: ', res.data.id, ', ', res.data.name);
           $scope.event = res.data;
           console.log('event', $scope.event);
           console.log('event location', $scope.event.location);
           $scope.setPrettyStartTime();
-          return Events.getEventCheckinStatus($scope.event.id)
+          return Events.getEventCheckinStatus($scope.event.id);
         }
       })
       .then(function(res) {
@@ -42,7 +42,8 @@ angular.module('proximate.controllers', [])
         }
         // Update the current event status
         if ($scope.class === null) {
-          return $scope.class = 'no-data';
+          $scope.class = 'no-data';
+          return;
         }
         $scope.event.status = res.data.status;
         $scope.class = res.data.status;
@@ -109,7 +110,7 @@ angular.module('proximate.controllers', [])
         Beacons.setupBeacons(PubNub.publish);
       })
       .catch(function(error) {
-      console.log('Error updating beacons: ' + JSON.stringify(error));
+        console.log('Error updating beacons: ' + JSON.stringify(error));
       });
 
     console.log('load cycle firing');
@@ -164,11 +165,12 @@ angular.module('proximate.controllers', [])
 
 })
 
-.controller('LoginCtrl', function LoginCtrl (store, $rootScope, ProximateAuth, $state, $scope, $location, auth) {
+.controller('LoginCtrl', function LoginCtrl (store, $rootScope,
+  ProximateAuth, $state, $scope, $location, auth) {
 
   $scope.login = function() {
     ProximateAuth.login();
-  }
+  };
 
   $scope.login();
 

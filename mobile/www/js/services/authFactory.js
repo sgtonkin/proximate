@@ -24,7 +24,7 @@ angular.module('proximate.services')
       var userInfo = {
         email: profile.email,
         deviceId: Settings.updateDeviceId()
-      }
+      };
       store.set('profile', profile);
       store.set('token', token);
       store.set('refreshToken', refreshToken);
@@ -35,7 +35,7 @@ angular.module('proximate.services')
       console.log('Authentication error for' + profile.email, error);
     });
 
-  }
+  };
 
   function initializeUser(info) {
 
@@ -62,7 +62,7 @@ angular.module('proximate.services')
       $rootScope.$broadcast('login-success');
       $state.go('tab.status');
     });
-  };
+  }
 
   // Stem function - for now just destroys the 'registered' state
   var logout = function() {
@@ -71,7 +71,8 @@ angular.module('proximate.services')
     store.remove('token');
     $localStorage.clearStorage();
     Beacons.clearBeacons();
-    $state.go($state.current.name, $state.params, { reload: true });
+    // Refresh the page to trigger auth interceptor from app.js
+    $state.go($state.current.name, $state.params, {reload: true});
   };
 
   return {

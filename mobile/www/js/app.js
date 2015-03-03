@@ -42,7 +42,6 @@ angular.module('proximate', ['ionic',
     }
   });
 
-
 })
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, authProvider,
@@ -144,7 +143,7 @@ angular.module('proximate', ['ionic',
     } else {
       return idToken;
     }
-  }
+  };
   $httpProvider.interceptors.push('jwtInterceptor');
 
 })
@@ -172,7 +171,7 @@ angular.module('proximate', ['ionic',
   var LENGTH_LIMIT = 22;
 
   return function(input) {
-    if(input) {
+    if (input) {
       if (input.length > LENGTH_LIMIT) {
         return input.substr(0, LENGTH_LIMIT) + '...';
       } else {

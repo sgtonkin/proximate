@@ -16,27 +16,27 @@ angular.module('proximate.services')
 
   // update the deviceID based on current device
   var updateDeviceId = function() {
-    // if (ionic.Platform.isIOS()) {
-    //   window.IDFVPlugin.getIdentifier(
-    //     // on success, set deviceId in memory and localstorage
-    //     function(result) {
-    //       console.log('Setting deviceId: ' + result);
-    //       data.deviceId = result;
-    //       $localStorage.set('deviceId', data.deviceId);
-    //     // on failure, simlpy output the error to the console
-    //     // this will cause us to use the default test value / whatever is stored in localStorage
-    //     }, function(error) {
-    //       console.log(error);
-    //     });
-    // } else if (ionic.Platform.isAndroid()) {
-    //   data.deviceId = device.uuid;
-    //   $localStorage.set('deviceId', data.deviceId);
-    // } else {
-      // Switch the below for testing
-      data.deviceId = 'CACF75FC-3E85-4836-9040-C0F01BB598F6';
-      // data.deviceId = 'UNSUPPORTED_PLATFORM';
+    if (ionic.Platform.isIOS()) {
+      window.IDFVPlugin.getIdentifier(
+        // on success, set deviceId in memory and localstorage
+        function(result) {
+          console.log('Setting deviceId: ' + result);
+          data.deviceId = result;
+          $localStorage.set('deviceId', data.deviceId);
+        // on failure, simlpy output the error to the console
+        // this will cause us to use the default test value / whatever is stored in localStorage
+        }, function(error) {
+          console.log(error);
+        });
+    } else if (ionic.Platform.isAndroid()) {
+      data.deviceId = device.uuid;
       $localStorage.set('deviceId', data.deviceId);
-    // }
+    } else {
+      // Activate the below for testing user 1@1.com
+    // data.deviceId = 'CACF75FC-3E85-4836-9040-C0F01BB598F6';
+      data.deviceId = 'UNSUPPORTED_PLATFORM';
+      $localStorage.set('deviceId', data.deviceId);
+    }
     return $localStorage.get('deviceId');
   };
 

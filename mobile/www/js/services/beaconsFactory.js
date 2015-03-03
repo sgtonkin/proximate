@@ -36,7 +36,7 @@ angular.module('proximate.services')
             .done();
         });
       });
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
 
