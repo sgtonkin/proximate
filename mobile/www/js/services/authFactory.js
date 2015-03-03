@@ -9,6 +9,7 @@ angular.module('proximate.services')
     auth.signin({
       closable: false,
       icon: 'img/proximate-login-icon.png',
+      gravatar: false,
       dict: {
         signin: {
           title: 'PROXIMATE<span id="beta">BETA</span>'

@@ -9,5 +9,5 @@ angular.module('proximate')
 })
 
 .constant('webServer', {
-	url: 'http://localhost:8080'
+	url: 'http://www.proximate.io'
 });
