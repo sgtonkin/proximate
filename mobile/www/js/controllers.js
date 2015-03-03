@@ -112,8 +112,6 @@ angular.module('proximate.controllers', [])
       .catch(function(error) {
         console.log('Error updating beacons: ' + JSON.stringify(error));
       });
-
-    console.log('load cycle firing');
   }
 
   $ionicPlatform.on('resume', loadCycle);
@@ -207,7 +205,25 @@ angular.module('proximate.controllers', [])
     });
   };
 
+  $scope.scanBeacons = function() {
+    if($scope.scanning){
+      $scope.scanning = false;
+      Beacons.stopScanning();
+    }else{
+      $ionicPlatform.ready(function() {
+        $scope.scanning = true;
+        Beacons.scanBeacons(function(beacons){
+          console.log('success got beacons', JSON.stringify(beacons.beacons))
+          $scope.beacons = beacons.beacons;
+          $scope.$apply();
+        }, function(err){
+          console.log('err scanning for beacons', err)
+        })
+      });
+    }
+  };
+
   $scope.logout = function() {
     ProximateAuth.logout();
   };
-});
+})

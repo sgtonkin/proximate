@@ -14,6 +14,7 @@ angular.module('proximate.services')
   data.userId = $localStorage.get('userId');
   data.email = $localStorage.get('email');
 
+  var device;
   // update the deviceID based on current device
   var updateDeviceId = function() {
     if (ionic.Platform.isIOS()) {
@@ -30,7 +31,8 @@ angular.module('proximate.services')
             console.log(error);
           });
       }
-    } else if (ionic.Platform.isAndroid()) {
+    } else if (device && ionic.Platform.isAndroid()) {
+      // Device previously not defined???
       data.deviceId = device.uuid;
       $localStorage.set('deviceId', data.deviceId);
     } else {
