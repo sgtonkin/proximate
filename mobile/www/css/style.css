@@ -37,6 +37,7 @@ body h1, body h2, body h3, body h4, body h5, body h6 {
 body h1 a, body h2 a, body h3 a, body h4 a, body h5 a, body h6 a {
   text-decoration: none;
 }
+
 body h1 {
   font-size: 2rem;
   text-transform: uppercase;
@@ -96,12 +97,13 @@ body #a0-lock .a0-overlay {
 }
 
 /* Login panel */
-#a0-lock #a0-onestep {
+body #a0-lock #a0-onestep {
   background-color: #24262d;
   -webkit box shadow: none;
   box-shadow: none;
   color: #ccc;
   font-family: 'Lato-Regular' !important;
+  margin-top: 20%;
 }
 
 /* General font for login box */
