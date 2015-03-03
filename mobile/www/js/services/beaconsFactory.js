@@ -2,6 +2,10 @@ angular.module('proximate.services')
 
 .factory('Beacons', function($localStorage, Settings) {
 
+  // Global constant to set beacon ranging.
+  // Currently set to false to save battery.
+  var USE_RANGING = false;
+
   // Sets up beacon environment and calls functions to begin monitoring / ranging
   //the beacon list
   var setupBeacons = function(onEnterCallback) {
@@ -11,7 +15,9 @@ angular.module('proximate.services')
     cordova.plugins.locationManager.requestAlwaysAuthorization();
 
     startMonitoringRegions(Settings.data.currentBeaconList);
-    startRangingRegions(Settings.data.currentBeaconList);
+    if (USE_RANGING) {
+      startRangingRegions(Settings.data.currentBeaconList);
+    }
   };
 
   // Stops monitoring / ranging for all current beacons
@@ -45,7 +51,9 @@ angular.module('proximate.services')
   var restartBeacons = function() {
     if (Settings.data.currentBeaconList.length > 0) {
       startMonitoringRegions(Settings.data.currentBeaconList);
-      startRangingRegions(Settings.data.currentBeaconList);
+      if (USE_RANGING) {
+        startRangingRegions(Settings.data.currentBeaconList);
+      }
     }
   };
 

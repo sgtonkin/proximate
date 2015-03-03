@@ -319,8 +319,14 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   color: #fff;
   font-size: .9rem;
   border-radius: 5px;
+<<<<<<< HEAD
   padding: 4px 5px 4px 5px;
   margin-top: 4px;
+=======
+  padding: 5px;
+  min-width: 65px;
+  text-align: center;
+>>>>>>> fe102997d5b2e8729b1c6a528b11f50e83d8aeb7
 }
 
 .events-list-status.no-data {
