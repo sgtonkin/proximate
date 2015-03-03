@@ -158,18 +158,12 @@ angular.module('proximate.controllers', [])
       });
   };
 
-  $rootScope.$on('no-upcoming-events', function() {
-    $scope.noUpcoming = true;
-  })
-
   // Pull-to-refresh functionality
   $scope.doRefresh = function() {
     $scope.getUpcomingEvents();
   };
 
   $scope.getUpcomingEvents();
-
-
 
 })
 

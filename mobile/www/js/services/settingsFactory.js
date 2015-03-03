@@ -17,7 +17,7 @@ angular.module('proximate.services')
   // update the deviceID based on current device
   var updateDeviceId = function() {
     if (ionic.Platform.isIOS()) {
-      if(window.IDFVPlugin) {
+      if (window.IDFVPlugin) {
         window.IDFVPlugin.getIdentifier(
           // on success, set deviceId in memory and localstorage
           function(result) {
