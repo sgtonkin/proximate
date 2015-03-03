@@ -135,6 +135,9 @@ angular.module('proximate.controllers', [])
     events: []
   };
 
+  $scope.noUpcoming = false;
+  $scope.noEvents = false;
+
   // Sets the initial state of the Events Filter
   $scope.eventsFilterSetting = 'all';
 
@@ -145,6 +148,9 @@ angular.module('proximate.controllers', [])
       }).finally(function() {
         // Re-scrolls the mobile screen on
         // pull-to-refresh
+        if ($scope.data.events.length === 0) {
+          $scope.noEvents = true;
+        }
         $scope.$broadcast('scroll.refreshComplete');
       });
   };

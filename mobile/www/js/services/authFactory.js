@@ -30,8 +30,8 @@ angular.module('proximate.services')
       // Fetch/set relevant data for this participant email
       initializeUser(userInfo);
     }, function(error) {
-      console.log('Authentication error for' + profile.email, error);
       // Error callback
+      console.log('Authentication error for' + profile.email, error);
     });
 
   }
@@ -47,9 +47,6 @@ angular.module('proximate.services')
         deviceId: info.deviceId
       }
     }).then(function(res) {
-      console.log('incoming user info', info);
-      console.log('res from server', res.data);
-
       // Set local variables to user input on success
       Settings.setUserInfoAndInitialize(info);
 

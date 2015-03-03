@@ -75,7 +75,16 @@ module.exports = function(app) {
 
     helpers.updateDeviceId(email, deviceId)
       .then(function(model) {
-        res.status(201).send(model.toJSON());
+        // No participant found
+        if (model === 404) {
+          // Create a new participant
+          helpers.upsertParticipant({email:email})
+            .then(function(model) {
+              res.status(201).send(model.toJSON());
+            });
+        } else {
+          res.status(201).send(model.toJSON());
+        }
       })
       .catch(function(error) {
         res.status(404).send('No user found' + error);

@@ -300,7 +300,6 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 .events-filter-buttons button {
   border: 0;
   border-top: 1px solid #efefef;
-  border-bottom: 1px solid #efefef;
 }
 
 .events-list-info {
@@ -467,14 +466,6 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   line-height: 50px;
   padding-left: 10px;
   margin-top: 1px;
-}
-
-.current-event-name {
-
-}
-
-current-event-time {
-
 }
 
 .status.no-data .checkin-status {

@@ -9,11 +9,16 @@ exports.updateDeviceId = function(email, deviceId) {
 
   return new models.Participant()
     .query({where: {email: email}})
-    .fetch({require:true})
+    .fetch()
     .then(function(model) {
-      model.set('device_id', deviceId);
-      model.save();
-      return model;
+      // We have a record to update
+      if (model) {
+        model.set('device_id', deviceId);
+        model.save();
+        return model;
+      } else {
+        return (404);
+      }
     });
 
 };
@@ -357,6 +362,8 @@ exports.upsertEventParticipants = function(eventRecord, attendees) {
 
 // Upsert participant info from gcal sync
 exports.upsertParticipant = function(participant) {
+
+  console.log(participant.email);
 
   return new models.Participant({email: participant.email})
     .fetch()
