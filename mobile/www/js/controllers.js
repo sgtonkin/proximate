@@ -176,7 +176,7 @@ angular.module('proximate.controllers', [])
 
 })
 
-.controller('SettingsCtrl', function($scope, Settings, ProximateAuth, Beacons) {
+.controller('SettingsCtrl', function($scope, Settings, $ionicPlatform, ProximateAuth, Beacons) {
 
   angular.element(document).ready(function() {
 
