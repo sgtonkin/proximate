@@ -21,15 +21,12 @@ angular.module('proximate.services')
     });
   };
 
-  // 02/26/2015: Switched this function to use the /history route; was previously
-  //             using /event
   var getUpcomingEvents = function() {
     return $http({
       method: 'GET',
       url: webServer.url + '/api/participants/' +
-        Settings.data.userId + '/history'
+        Settings.data.userId + '/events'
     }).then(function(res) {
-      console.log(res.data);
       return res.data;
     });
   };

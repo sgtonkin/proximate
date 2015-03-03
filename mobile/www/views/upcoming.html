@@ -6,7 +6,7 @@
     <div class="event-log-content">
 
       <!-- no events to show -->
-      <div ng-show="noEvents" class="no-upcoming">
+      <div ng-hide="filteredEvents.length" class="no-upcoming">
         <i class="huge calendar icon"></i>
         <h2>NOTHING SCHEDULED</h2>
       </div>
@@ -14,7 +14,7 @@
       <!-- events list -->
       <div class="events-list">
         <div class="list">
-          <div ng-repeat="event in filteredEvents = (data.events | orderBy: '-start_time' | eventsFilter: eventsFilterSetting)" class="item">
+          <div ng-repeat="event in filteredEvents = (data.events | orderBy: '-start_time' | eventsFilter: eventsFilterSetting | filterCancelledEvents)" class="item">
             <div class="events-list-info" >
               <h2>{{event.name  | limitLength }}</h2>
               <h3>{{event.start_time | date:'EEE, MMM d, yyyy \| h:mm a'}}</h3>

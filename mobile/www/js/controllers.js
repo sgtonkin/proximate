@@ -136,7 +136,6 @@ angular.module('proximate.controllers', [])
     events: []
   };
 
-  $scope.noUpcoming = false;
   $scope.noEvents = false;
 
   // Sets the initial state of the Events Filter
@@ -145,16 +144,23 @@ angular.module('proximate.controllers', [])
   $scope.getUpcomingEvents = function() {
     Events.getUpcomingEvents()
       .then(function(events) {
-        $scope.data.events = events;
+        $scope.data.events = events.events;
       }).finally(function() {
         // Re-scrolls the mobile screen on
         // pull-to-refresh
         if ($scope.data.events.length === 0) {
           $scope.noEvents = true;
+        } else {
+          $scope.noEvents = false;
         }
+        $scope.noUpcoming = false;
         $scope.$broadcast('scroll.refreshComplete');
       });
   };
+
+  $rootScope.$on('no-upcoming-events', function() {
+    $scope.noUpcoming = true;
+  })
 
   // Pull-to-refresh functionality
   $scope.doRefresh = function() {
@@ -162,6 +168,8 @@ angular.module('proximate.controllers', [])
   };
 
   $scope.getUpcomingEvents();
+
+
 
 })
 

@@ -156,9 +156,7 @@ angular.module('proximate', ['ionic',
   return function(input, eventsFilterSetting) {
     if (eventsFilterSetting === 'upcoming') {
       return input.filter(function(event) {
-        // Note: seemingly magic double event.event syntax is due to
-        // the way we're joining events with related status
-        return moment(event.event.start_time).isAfter(now);
+        return moment(event.start_time).isAfter(now);
       });
     } else {
       return input;
@@ -206,7 +204,7 @@ angular.module('proximate', ['ionic',
     var filtered = [];
 
     input.forEach(function(item) {
-      if (item.event.status !== 'cancelled') {
+      if (item.status !== 'cancelled') {
         filtered.push(item);
       }
     });
