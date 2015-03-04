@@ -29,8 +29,6 @@ angular.module('proximate.controllers', [])
           // Current event found
           console.log('Got current event: ', res.data.id, ', ', res.data.name);
           $scope.event = res.data;
-          console.log('event', $scope.event);
-          console.log('event location', $scope.event.location);
           $scope.setPrettyStartTime();
           return Events.getEventCheckinStatus($scope.event.id);
         }

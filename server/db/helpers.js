@@ -202,21 +202,13 @@ exports.getParticipant = function(deviceId) {
 
 };
 
-exports.getCheckinStatus = function(deviceId, eventId) {
+exports.getCheckinStatus = function(participantId, eventId) {
 
-  var participant_id;
-
-  return exports.getParticipant(deviceId)
+  return new models.EventsParticipants()
+    .query({where:{participant_id: participantId, event_id: eventId}})
+    .fetchOne({require: true})
     .then(function(model) {
-      participant_id = model.get('id');
-    })
-    .then(function() {
-      return new models.EventsParticipants()
-        .query({where:{participant_id: participant_id, event_id: eventId}})
-        .fetchOne({require: true})
-        .then(function(model) {
-          return model;
-        });
+      return model;
     });
 
 };
