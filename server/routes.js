@@ -29,7 +29,8 @@ module.exports = function(app) {
     '/api/devices/*',
     '/api/participants/*/events/current',
     '/api/participants/*/events',
-    '/api/participants/*/events/*/status'
+    '/api/participants/*/events/*/status',
+    '/api/participants/*/beacons'
   ], jwtCheckMobile);
 
   /* API routes */
@@ -180,13 +181,13 @@ module.exports = function(app) {
   // GET ROUTES
 
   // Return a list of beacons associated with events
-  // that belong to a certain device ID
-  app.get('/api/devices/:deviceId/beacons', function(req, res) {
+  // that belong to a certain participant ID
+  app.get('/api/participants/:participantId/beacons', function(req, res) {
 
-    var deviceId = req.params.deviceId;
+    var participantId = req.params.participantId;
 
     new models.Participant()
-      .query({where:{device_id: deviceId}})
+      .query({where:{participant_id: participantId}})
       .fetch({withRelated:'events.beacons'})
       .then(function(model) {
         var beacons = model.related('events')

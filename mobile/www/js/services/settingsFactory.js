@@ -50,9 +50,8 @@ angular.module('proximate.services')
   var updateBeaconList = function() {
     return $http({
       method: 'GET',
-      url: webServer.url + '/api/devices/' + data.deviceId + '/beacons',
+      url: webServer.url + '/api/participants/' + $localStorage.get('userId') + '/beacons',
     }).then(function(result) {
-
       if (result.status === 404) {
         console.log('Error getting beacons');
       } else {
@@ -127,7 +126,6 @@ angular.module('proximate.services')
   }
 
   // Utility logging function. Currently set to log to settings screen on app for DEV purposes
-
   var logToDom = function(message) {
     var e = document.createElement('label');
     e.innerText = message;
