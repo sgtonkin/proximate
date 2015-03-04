@@ -38,13 +38,12 @@ angular.module('proximate.controllers', [])
         if (res === undefined) {
           return;
         }
-        // Update the current event status
-        if ($scope.class === null) {
-          $scope.class = 'no-data';
-          return;
-        }
         $scope.event.status = res.data.status;
         $scope.class = res.data.status;
+        // Update the current event status
+        if (res.data.status === null || res.data.status === 'none') {
+          $scope.class = 'no-data';
+        }
       })
       .catch(function(err) {
         console.log('Error fetching current event');
