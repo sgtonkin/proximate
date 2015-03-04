@@ -17,6 +17,7 @@ angular.module('proximate.services')
       url: webServer.url + '/api/participants/' + $localStorage.get('userId') +
         '/events/' + eventId + '/status'
     }).then(function(res) {
+      console.log('get checkin status', res);
       return res;
     });
   };

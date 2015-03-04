@@ -54,8 +54,6 @@ angular.module('proximate.services')
       // Set the username and userId from the server
       Settings.setUserNameAndId(res.data);
 
-      console.log('user info set');
-
       // Return data from promise for further processing
       return res.data;
 

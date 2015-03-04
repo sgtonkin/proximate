@@ -17,7 +17,7 @@ angular.module('proximate', ['ionic',
       if (token) {
         if (!jwtHelper.isTokenExpired(token)) {
           auth.authenticate(store.get('profile'), token);
-          $state.go('tab.status');
+          $rootScope.$broadcast('resume');
         } else {
           // Either show Login page or use the refresh token to get a new idToken
           $state.go('login');

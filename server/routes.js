@@ -187,7 +187,7 @@ module.exports = function(app) {
     var participantId = req.params.participantId;
 
     new models.Participant()
-      .query({where:{participant_id: participantId}})
+      .query({where:{id: participantId}})
       .fetch({withRelated:'events.beacons'})
       .then(function(model) {
         var beacons = model.related('events')

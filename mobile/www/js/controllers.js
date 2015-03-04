@@ -17,7 +17,7 @@ angular.module('proximate.controllers', [])
   // Gets the most current event for the user, and updates the
   // relevant checkin status, protecting for empty responses.
   $scope.initWithEvent = function() {
-    return Events.getMostCurrentEvent()
+    Events.getMostCurrentEvent()
       .then(function(res) {
         // Exit without an error if we have no event
         if (res.data === 'No current event found') {
@@ -45,8 +45,13 @@ angular.module('proximate.controllers', [])
         }
         $scope.event.status = res.data.status;
         $scope.class = res.data.status;
-        return res;
       })
+      .catch(function(err) {
+        console.log('Error fetching current event');
+      })
+      .finally(function() {
+        $scope.$broadcast('scroll.refreshComplete');
+      });
   };
 
   // Triggers a manual checkin event, publishing a message through PubNub
@@ -96,20 +101,18 @@ angular.module('proximate.controllers', [])
 
   // Called each time the app is reloaded and after login
   function loadCycle() {
-    $scope.initWithEvent()
-      .then(Settings.updateBeaconList)
+    $scope.initWithEvent();
+    $scope.subscribeToCheckinStatus();
+    Settings.updateBeaconList()
       .then(function() {
         Beacons.setupBeacons(PubNub.publish);
       })
       .catch(function(error) {
-        console.log('Error initializing user: ' + JSON.stringify(error));
-      })
-      .finally(function() {
-        $scope.$broadcast('scroll.refreshComplete');
+        console.log('Error updating beacons: ' + JSON.stringify(error));
       });
   }
 
-  $ionicPlatform.on('resume', loadCycle);
+  $rootScope.$on('resume', loadCycle);
 
   // Triggers the login sequence after user authenticatation
   $rootScope.$on('login-success', loadCycle);
