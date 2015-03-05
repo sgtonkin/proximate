@@ -14,6 +14,15 @@ angular.module('proximate.controllers', [])
   // Default class value for background
   $scope.class = 'nothing-scheduled';
 
+  // Set the correct class to display after checkin
+  $scope.setClass = function(status) {
+    if (status === null || status === 'none') {
+      $scope.class = 'no-data';
+    } else {
+      $scope.class = status;
+    }
+  };
+
   // Gets the most current event for the user, and updates the
   // relevant checkin status, protecting for empty responses.
   $scope.initWithEvent = function() {
@@ -27,7 +36,7 @@ angular.module('proximate.controllers', [])
           $scope.class = $scope.class = 'nothing-scheduled';
         } else {
           // Current event found
-          console.log('Got current event: ', res.data.id, ', ', res.data.name);
+          console.log('Got current event:', res.data.id, ',', res.data.name);
           $scope.event = res.data;
           $scope.setPrettyStartTime();
           return Events.getEventCheckinStatus($scope.event.id);
@@ -38,12 +47,9 @@ angular.module('proximate.controllers', [])
         if (res === undefined) {
           return;
         }
+        $scope.event.checkinTime = res.data.checkin_time;
         $scope.event.status = res.data.status;
-        $scope.class = res.data.status;
-        // Update the current event status
-        if (res.data.status === null || res.data.status === 'none') {
-          $scope.class = 'no-data';
-        }
+        $scope.setClass(res.data.status);
       })
       .catch(function(err) {
         console.log('Error fetching current event');
@@ -63,8 +69,6 @@ angular.module('proximate.controllers', [])
         eventId: $scope.event.id,
         eventType: 'manualCheckin'
       };
-
-    console.log('manual checkin', checkinInfo);
 
     PubNub.publish('checkins', checkinInfo);
 
@@ -87,14 +91,14 @@ angular.module('proximate.controllers', [])
   $scope.subscribeToCheckinStatus = function() {
     PubNub.subscribe('checkins', function(message) {
       console.log('Received PubNub message: ', JSON.stringify(message));
-
       if (message.deviceId === Settings.data.deviceId &&
           message.eventType === 'checkinConfirm' &&
           message.eventId == $scope.event.id) {
-        console.log('Setting status: ' + message.checkinStatus);
         //apply scope in callback so as to not lose reference
         $scope.$apply(function() {
           $scope.event.status = message.checkinStatus;
+          $scope.event.checkinTime = message.checkinTime;
+          $scope.setClass(message.checkinStatus);
         });
       }
     });

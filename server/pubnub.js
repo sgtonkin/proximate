@@ -39,6 +39,8 @@ pubnub.subscribe('checkins', function(message) {
             eventType: 'checkinConfirm',
             deviceId: checkinProps.deviceId,
             eventId: checkinProps.eventId,
+            checkinTime: checkinProps.checkinTime,
+            checkinType: checkinProps.checkinType,
             participantId: checkinProps.participantId,
             checkinStatus: checkinProps.status
           });

@@ -218,7 +218,6 @@ exports.getCurrentEvent = function(participantId) {
   return new models.Participant({id: participantId})
     .fetch({withRelated: 'currentEvent', require: true})
     .then(function(participant) {
-      console.log('participant found', participant);
       return participant.related('currentEvent');
     });
 
@@ -245,7 +244,7 @@ exports.checkinUser = function(deviceId, type) {
   var eventId;
   var eventStartTime;
   var status;
-  var now = moment();
+  var now = moment().utc();
 
   // Get the participant_id from the deviceID
   return exports.getParticipant(deviceId)
@@ -257,7 +256,6 @@ exports.checkinUser = function(deviceId, type) {
     })
     .then(function(collection) {
       var model = collection.at(0);
-      console.log('current event found', model);
       eventId = model.get('id');
       eventStartTime = moment(model.get('start_time'));
       // Update the event_participant status and check-in time
@@ -266,21 +264,24 @@ exports.checkinUser = function(deviceId, type) {
         .fetch();
     })
     .then(function(model) {
-      if (model && !model.get('status')) {
+      console.log('ready to update', model);
+      if (model && (!model.get('status') || model.get('status') === 'none')) {
         // Record exists with a null status, update it
         model.set('status', status);
-        model.set('checkinType', checkinType);
-        model.set('checkin_time', moment().utc().format());
+        model.set('checkin_type', checkinType);
+        model.set('checkin_time', now.format());
         model.save();
+        console.log('record updated', model)
       } else if (!model) {
         // Record doesn't exist, create it
         models.EventParticipant.forge({
           event_id: eventId,
           participant_id: participantId,
           status: status,
-          checkinType: checkinType,
-          checkin_time: moment().utc().format()
+          checkin_type: checkinType,
+          checkin_time: now.format()
         }).save();
+        console.log('record updated', model);
       } else {
         // Status is already set, do nothing
         return;
@@ -288,6 +289,8 @@ exports.checkinUser = function(deviceId, type) {
       return {
         deviceId: deviceId,
         eventId: eventId,
+        checkinType: checkinType,
+        checkinTime: now,
         participantId: participantId,
         status: status
       };

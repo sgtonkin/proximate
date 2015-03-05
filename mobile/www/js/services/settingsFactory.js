@@ -63,7 +63,6 @@ angular.module('proximate.services')
         $localStorage.setObject('beaconList', result.data);
         data.currentBeaconList = $localStorage.get('beaconList');
       }
-      console.log('Fetched beacons from server: ', result.data);
       return result;
     });
   };
