@@ -29,8 +29,10 @@ var pubnub = module.exports = {
 
 // Listen for and confirm received checkins
 pubnub.subscribe('checkins', function(message) {
-  if (message.eventType === 'didEnterRegion') {
-    helpers.checkinUser(message.deviceId)
+  console.log('received message', message);
+  if (message.eventType === 'didEnterRegion' ||
+    message.eventType === 'manualCheckin') {
+    helpers.checkinUser(message.deviceId, message.eventType)
       .then(function(checkinProps) {
         if (checkinProps) {
           pubnub.publish('checkins', {

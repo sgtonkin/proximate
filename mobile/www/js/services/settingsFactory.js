@@ -30,6 +30,11 @@ angular.module('proximate.services')
           }, function(error) {
             console.log(error);
           });
+      // On ios but can't access plugin, probably browser testing
+      } else {
+        // Activate the below for testing user 1@1.com
+        data.deviceId = (data.email === '1@1.com') ? '1' : 'UNSUPPORTED';
+        $localStorage.set('deviceId', data.deviceId);
       }
     } else if (device && ionic.Platform.isAndroid()) {
       // Device previously not defined???
@@ -37,8 +42,7 @@ angular.module('proximate.services')
       $localStorage.set('deviceId', data.deviceId);
     } else {
       // Activate the below for testing user 1@1.com
-      // data.deviceId = 'CACF75FC-3E85-4836-9040-C0F01BB598F6';
-      data.deviceId = 'UNSUPPORTED_PLATFORM';
+      data.deviceId = (data.email === '1@1.com') ? '1' : 'UNSUPPORTED';
       $localStorage.set('deviceId', data.deviceId);
     }
     return $localStorage.get('deviceId');

@@ -57,12 +57,14 @@ angular.module('proximate.controllers', [])
   $scope.manualCheckin = function() {
 
     var checkinInfo = {
-        deviceId: Settings.data.deviceId,
-        userId: Settings.data.userId,
-        username: Settings.data.username,
+        deviceId: $localStorage.get('deviceId'),
+        userId: $localStorage.get('userId'),
+        username: $localStorage.get('username'),
         eventId: $scope.event.id,
         eventType: 'manualCheckin'
       };
+
+    console.log('manual checkin', checkinInfo);
 
     PubNub.publish('checkins', checkinInfo);
 

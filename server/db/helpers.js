@@ -218,6 +218,7 @@ exports.getCurrentEvent = function(participantId) {
   return new models.Participant({id: participantId})
     .fetch({withRelated: 'currentEvent', require: true})
     .then(function(participant) {
+      console.log('participant found', participant);
       return participant.related('currentEvent');
     });
 
@@ -234,8 +235,12 @@ exports.getCurrentEventByAdmin = function(adminId) {
 
 // PUBNUB HELPERS
 
-exports.checkinUser = function(deviceId) {
+exports.checkinUser = function(deviceId, type) {
 
+  console.log(type, ' checkin happening for ', deviceId);
+
+  // Define the type of checkin for storage later
+  var checkinType = (type === 'didEnterRegion') ? 'auto' : 'manual';
   var participantId;
   var eventId;
   var eventStartTime;
@@ -252,6 +257,7 @@ exports.checkinUser = function(deviceId) {
     })
     .then(function(collection) {
       var model = collection.at(0);
+      console.log('current event found', model);
       eventId = model.get('id');
       eventStartTime = moment(model.get('start_time'));
       // Update the event_participant status and check-in time
@@ -263,7 +269,8 @@ exports.checkinUser = function(deviceId) {
       if (model && !model.get('status')) {
         // Record exists with a null status, update it
         model.set('status', status);
-        model.set('checkin_time', moment().format('YYYY-MM-DD HH:mm:ss'));
+        model.set('checkinType', checkinType);
+        model.set('checkin_time', moment().utc().format());
         model.save();
       } else if (!model) {
         // Record doesn't exist, create it
@@ -271,7 +278,8 @@ exports.checkinUser = function(deviceId) {
           event_id: eventId,
           participant_id: participantId,
           status: status,
-          checkin_time: now.format('YYYY-MM-DD HH:mm:ss')
+          checkinType: checkinType,
+          checkin_time: moment().utc().format()
         }).save();
       } else {
         // Status is already set, do nothing
