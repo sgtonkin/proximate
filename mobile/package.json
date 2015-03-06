@@ -18,6 +18,7 @@
     "https://github.com/jcesarmobile/IDFVPlugin.git",
     "org.apache.cordova.inappbrowser",
     "https://github.com/katzer/cordova-plugin-local-notifications.git",
-    "https://github.com/evothings/phonegap-estimotebeacons.git"
+    "https://github.com/evothings/phonegap-estimotebeacons.git",
+    "org.apache.cordova.splashscreen"
   ]
 }
