@@ -238,7 +238,7 @@ exports.getCurrentEventByAdmin = function(adminId) {
 
 exports.checkinUser = function(participantId, type) {
 
-  console.log(type, ' checkin happening for ', userId);
+  console.log(type, ' checkin happening for ', participantId);
 
   // Define the type of checkin for storage later
   var checkinType = (type === 'didEnterRegion') ? 'auto' : 'manual';
@@ -284,7 +284,6 @@ exports.checkinUser = function(participantId, type) {
         return;
       }
       return {
-        deviceId: deviceId,
         eventId: eventId,
         checkinType: checkinType,
         checkinTime: now,
