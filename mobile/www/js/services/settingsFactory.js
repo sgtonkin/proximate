@@ -19,6 +19,7 @@ angular.module('proximate.services')
   var updateDeviceId = function() {
     if (ionic.Platform.isIOS()) {
       if (window.IDFVPlugin) {
+        // On an actual device
         window.IDFVPlugin.getIdentifier(
           // on success, set deviceId in memory and localstorage
           function(result) {
@@ -30,9 +31,8 @@ angular.module('proximate.services')
           }, function(error) {
             console.log(error);
           });
-      // On ios but can't access plugin, probably browser testing
       } else {
-        // Activate the below for testing user 1@1.com
+        // On ios but can't access plugin, probably browser testing
         data.deviceId = (data.email === '1@1.com') ? '1' : 'UNSUPPORTED';
         $localStorage.set('deviceId', data.deviceId);
         console.log('setting device id to', data.deviceId);
@@ -42,7 +42,6 @@ angular.module('proximate.services')
       $localStorage.set('deviceId', data.deviceId);
       console.log('setting device id to', data.deviceId);
     } else {
-      // Activate the below for testing user 1@1.com
       data.deviceId = (data.email === '1@1.com') ? '1' : 'UNSUPPORTED';
       $localStorage.set('deviceId', data.deviceId);
     }

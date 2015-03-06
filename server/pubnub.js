@@ -32,7 +32,7 @@ pubnub.subscribe('checkins', function(message) {
   console.log('received message', message);
   if (message.eventType === 'didEnterRegion' ||
     message.eventType === 'manualCheckin') {
-    helpers.checkinUser(message.deviceId, message.eventType)
+    helpers.checkinUser(message.userId, message.eventType)
       .then(function(checkinProps) {
         if (checkinProps) {
           pubnub.publish('checkins', {

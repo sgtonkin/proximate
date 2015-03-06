@@ -5,6 +5,7 @@ var promise = require('bluebird');
 
 // POST HELPERS
 
+// Update the device id for a given participant
 exports.updateDeviceId = function(email, deviceId) {
 
   return new models.Participant()
@@ -12,7 +13,6 @@ exports.updateDeviceId = function(email, deviceId) {
     .fetch()
     .then(function(model) {
       console.log('updating', model);
-      console.log('device id', deviceId);
       // We have a record to update
       if (model) {
         model.set('device_id', deviceId);
@@ -236,34 +236,29 @@ exports.getCurrentEventByAdmin = function(adminId) {
 
 // PUBNUB HELPERS
 
-exports.checkinUser = function(deviceId, type) {
+exports.checkinUser = function(participantId, type) {
 
-  console.log(type, ' checkin happening for ', deviceId);
+  console.log(type, ' checkin happening for ', userId);
 
   // Define the type of checkin for storage later
   var checkinType = (type === 'didEnterRegion') ? 'auto' : 'manual';
-  var participantId;
   var eventId;
   var eventStartTime;
   var status;
   var now = moment().utc();
 
   // Get the participant_id from the deviceID
-  return exports.getParticipant(deviceId)
 
     // Get the event_id of the closest event in time
-    .then(function(model) {
-      participantId = model.get('id');
-      return exports.getCurrentEvent(participantId);
-    })
-    .then(function(collection) {
-      var model = collection.at(0);
-      eventId = model.get('id');
-      eventStartTime = moment(model.get('start_time'));
-      // Update the event_participant status and check-in time
-      status = (eventStartTime.format('X') - now.format('X') >= 0) ? 'ontime' : 'late';
-      return new models.EventParticipant({event_id: eventId, participant_id: participantId})
-        .fetch();
+    return exports.getCurrentEvent(participantId)
+      .then(function(collection) {
+        var model = collection.at(0);
+        eventId = model.get('id');
+        eventStartTime = moment(model.get('start_time'));
+        // Update the event_participant status and check-in time
+        status = (eventStartTime.format('X') - now.format('X') >= 0) ? 'ontime' : 'late';
+        return new models.EventParticipant({event_id: eventId, participant_id: participantId})
+          .fetch();
     })
     .then(function(model) {
       console.log('ready to update', model);
