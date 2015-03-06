@@ -12,7 +12,7 @@ angular.module('proximate.services')
       channel: channel,
       message: message,
       callback: function(res) {
-        console.log('Publish successful ', res);
+        console.log('Publish successful ', message);
       }
     };
 

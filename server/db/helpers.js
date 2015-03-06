@@ -5,12 +5,14 @@ var promise = require('bluebird');
 
 // POST HELPERS
 
+// Update the device id for a given participant
 exports.updateDeviceId = function(email, deviceId) {
 
   return new models.Participant()
     .query({where: {email: email}})
     .fetch()
     .then(function(model) {
+      console.log('updating', model);
       // We have a record to update
       if (model) {
         model.set('device_id', deviceId);
@@ -202,21 +204,13 @@ exports.getParticipant = function(deviceId) {
 
 };
 
-exports.getCheckinStatus = function(deviceId, eventId) {
+exports.getCheckinStatus = function(participantId, eventId) {
 
-  var participant_id;
-
-  return exports.getParticipant(deviceId)
+  return new models.EventsParticipants()
+    .query({where:{participant_id: participantId, event_id: eventId}})
+    .fetchOne({require: true})
     .then(function(model) {
-      participant_id = model.get('id');
-    })
-    .then(function() {
-      return new models.EventsParticipants()
-        .query({where:{participant_id: participant_id, event_id: eventId}})
-        .fetchOne({require: true})
-        .then(function(model) {
-          return model;
-        });
+      return model;
     });
 
 };
@@ -242,22 +236,21 @@ exports.getCurrentEventByAdmin = function(adminId) {
 
 // PUBNUB HELPERS
 
-exports.checkinUser = function(deviceId) {
+exports.checkinUser = function(participantId, type) {
 
-  var participantId;
+  console.log(type, ' checkin happening for ', participantId);
+
+  // Define the type of checkin for storage later
+  var checkinType = (type === 'didEnterRegion') ? 'auto' : 'manual';
   var eventId;
   var eventStartTime;
   var status;
-  var now = moment();
+  var now = moment().utc();
 
   // Get the participant_id from the deviceID
-  return exports.getParticipant(deviceId)
 
     // Get the event_id of the closest event in time
-    .then(function(model) {
-      participantId = model.get('id');
-      return exports.getCurrentEvent(participantId);
-    })
+  return exports.getCurrentEvent(participantId)
     .then(function(collection) {
       var model = collection.at(0);
       eventId = model.get('id');
@@ -268,26 +261,32 @@ exports.checkinUser = function(deviceId) {
         .fetch();
     })
     .then(function(model) {
-      if (model && !model.get('status')) {
+      console.log('ready to update', model);
+      if (model && (!model.get('status') || model.get('status') === 'none')) {
         // Record exists with a null status, update it
         model.set('status', status);
-        model.set('checkin_time', moment().format('YYYY-MM-DD HH:mm:ss'));
+        model.set('checkin_type', checkinType);
+        model.set('checkin_time', now.format());
         model.save();
+        console.log('record updated', model);
       } else if (!model) {
         // Record doesn't exist, create it
         models.EventParticipant.forge({
           event_id: eventId,
           participant_id: participantId,
           status: status,
-          checkin_time: now.format('YYYY-MM-DD HH:mm:ss')
+          checkin_type: checkinType,
+          checkin_time: now.format()
         }).save();
+        console.log('record updated', model);
       } else {
         // Status is already set, do nothing
         return;
       }
       return {
-        deviceId: deviceId,
         eventId: eventId,
+        checkinType: checkinType,
+        checkinTime: now,
         participantId: participantId,
         status: status
       };

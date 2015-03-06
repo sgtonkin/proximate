@@ -2,31 +2,46 @@
   <ion-content class="settings">
 
     <div class="list">
-      <div class="item">
+      <div class="item" ng-show="!scanning">
         <label>NAME</label>
         <h2 ng-show="data.username !== null">{{data.username}}</h2>
         <h2 ng-show="data.username === null">{{data.email}}</h2>
       </div>
-      <!-- <a class="item item-icon-right" href="#" ng-click="updatePassword()">
-        <label>PASSWORD</label>
-        <h2>••••••</h2>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </a> -->
-      <div class="item">
+      <div class="item" ng-show="!scanning">
         <label>EMAIL</label>
         <h2>{{data.email}}</h2>
       </div>
     </div>
 
-    <div class="settings-buttons">
+      <!-- <a class="item item-icon-right" href="#" ng-click="updatePassword()">
+        <label>PASSWORD</label>
+        <h2>••••••</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </a> -->
+
+    <div class="settings-buttons" ng-show="!scanning">
       <div>
-        <button class="button" ng-click="refreshBeacons()"><span>DETECT BEACONS</span></button>
+        <button class="button" ng-click="scanBeacons()"><span>DETECT BEACONS</span></button>
       </div>
       <div>
         <button class="button" ng-click="logout()"><span>LOGOUT</span></button>
       </div>
-      </div>
     </div>
+
+
+    <div class="scanningDialog" ng-show="scanning">
+      <button class="button scanningButton" ng-click="scanBeacons()">STOP SCANNING </button>
+
+      <!-- Orders beacons found by major -->
+      <ul class="beaconList" ng-repeat="beacon in beacons | orderBy : 'major'">
+        <li><span class="label">NAME:</span> {{beacon.name}}</li>
+        <li><span class="label">UID:</span> {{beacon.proximityUUID}}</li>
+        <li><span class="label">MAJOR:</span> {{beacon.major}}</li>
+        <li><span class="label">MINOR:</span> {{beacon.minor}}</li>
+        <li><span class="label">DISTANCE:</span> {{beacon.distance.toFixed(2) + 'm'}}</li>
+      </ul>
+    </div>
+
 
   <!-- uncomment the below for debug area -->
 <!--
@@ -39,4 +54,5 @@
       </div>
     </div> -->
   </ion-content>
+
 </ion-view>

@@ -28,7 +28,9 @@ module.exports = function(app) {
   app.use([
     '/api/devices/*',
     '/api/participants/*/events/current',
-    '/api/participants/*/events'
+    '/api/participants/*/events',
+    '/api/participants/*/events/*/status',
+    '/api/participants/*/beacons'
   ], jwtCheckMobile);
 
   /* API routes */
@@ -175,16 +177,17 @@ module.exports = function(app) {
         res.status(404).send('Error deleting beacon' + error);
       });
   });
+
   // GET ROUTES
 
   // Return a list of beacons associated with events
-  // that belong to a certain device ID
-  app.get('/api/devices/:deviceId/beacons', function(req, res) {
+  // that belong to a certain participant ID
+  app.get('/api/participants/:participantId/beacons', function(req, res) {
 
-    var deviceId = req.params.deviceId;
+    var participantId = req.params.participantId;
 
     new models.Participant()
-      .query({where:{device_id: deviceId}})
+      .query({where:{id: participantId}})
       .fetch({withRelated:'events.beacons'})
       .then(function(model) {
         var beacons = model.related('events')
@@ -286,6 +289,7 @@ module.exports = function(app) {
       });
   });
 
+  // Get current event for an admin
   app.get('/api/admins/:adminId/events/current', function(req, res) {
 
     var adminId = req.params.adminId;
@@ -368,13 +372,13 @@ module.exports = function(app) {
 
   });
 
-  // Get the checkin status for a given device and event
-  app.get('/api/devices/:deviceId/events/:eventId/status', function(req, res) {
+  // Get the checkin status for a given participant and event
+  app.get('/api/participants/:participantId/events/:eventId/status', function(req, res) {
 
-    var deviceId = req.params.deviceId;
+    var participantId = req.params.participantId;
     var eventId = req.params.eventId;
 
-    helpers.getCheckinStatus(deviceId, eventId)
+    helpers.getCheckinStatus(participantId, eventId)
       .then(function(model) {
         res.status(200).json(model.toJSON());
       })

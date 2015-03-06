@@ -546,15 +546,49 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   margin: 0px 0 20px 0;
 }
 
-.settings-buttons button {
+.settings-buttons button, .scanningDialog .scanningButton {
   cursor: pointer;
   font-family: 'Lato-Regular';
   color: #fff;
   background-color: #409cda;
   height: 55px;
   width: 90%;
+  margin: 0 auto;
   border: 0;
 }
+
+.scanningButton i {
+  display: inline !important;
+  position: relative;
+  right: 20px;
+}
+
+.scanningDialog {
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+}
+
+body .scanningDialog h2 {
+  margin-top: 1rem;
+}
+
+.beaconList {
+  margin: 10% 5% 5% 10%;
+  margin-left: 5%;
+  margin-top: 20px;
+  text-align: left;
+  font-family: 'Lato-Regular';
+  font-size: 1rem;
+  background: #ecf0f1;
+  border: 1px solid #efefef;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+  .beaconList li span.label {
+    font-family: 'Lato-Bold';
+  }
 
 .logo-image {
   text-align: center;

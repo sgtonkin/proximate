@@ -14,6 +14,15 @@ angular.module('proximate.controllers', [])
   // Default class value for background
   $scope.class = 'nothing-scheduled';
 
+  // Set the correct class to display after checkin
+  $scope.setClass = function(status) {
+    if (status === null || status === 'none') {
+      $scope.class = 'no-data';
+    } else {
+      $scope.class = status;
+    }
+  };
+
   // Gets the most current event for the user, and updates the
   // relevant checkin status, protecting for empty responses.
   $scope.initWithEvent = function() {
@@ -27,10 +36,8 @@ angular.module('proximate.controllers', [])
           $scope.class = $scope.class = 'nothing-scheduled';
         } else {
           // Current event found
-          console.log('Got current event: ', res.data.id, ', ', res.data.name);
+          console.log('Got current event:', res.data.id, res.data.name);
           $scope.event = res.data;
-          console.log('event', $scope.event);
-          console.log('event location', $scope.event.location);
           $scope.setPrettyStartTime();
           return Events.getEventCheckinStatus($scope.event.id);
         }
@@ -40,13 +47,9 @@ angular.module('proximate.controllers', [])
         if (res === undefined) {
           return;
         }
-        // Update the current event status
-        if ($scope.class === null) {
-          $scope.class = 'no-data';
-          return;
-        }
+        $scope.event.checkinTime = res.data.checkin_time;
         $scope.event.status = res.data.status;
-        $scope.class = res.data.status;
+        $scope.setClass(res.data.status);
       })
       .catch(function(err) {
         console.log('Error fetching current event');
@@ -60,9 +63,9 @@ angular.module('proximate.controllers', [])
   $scope.manualCheckin = function() {
 
     var checkinInfo = {
-        deviceId: Settings.data.deviceId,
-        userId: Settings.data.userId,
-        username: Settings.data.username,
+        deviceId: $localStorage.get('deviceId'),
+        userId: $localStorage.get('userId'),
+        username: $localStorage.get('username'),
         eventId: $scope.event.id,
         eventType: 'manualCheckin'
       };
@@ -88,14 +91,14 @@ angular.module('proximate.controllers', [])
   $scope.subscribeToCheckinStatus = function() {
     PubNub.subscribe('checkins', function(message) {
       console.log('Received PubNub message: ', JSON.stringify(message));
-
-      if (message.deviceId === Settings.data.deviceId &&
+      if (message.participantId === $localStorage.get('userId') &&
           message.eventType === 'checkinConfirm' &&
           message.eventId == $scope.event.id) {
-        console.log('Setting status: ' + message.checkinStatus);
         //apply scope in callback so as to not lose reference
         $scope.$apply(function() {
           $scope.event.status = message.checkinStatus;
+          $scope.event.checkinTime = message.checkinTime;
+          $scope.setClass(message.checkinStatus);
         });
       }
     });
@@ -112,11 +115,10 @@ angular.module('proximate.controllers', [])
       .catch(function(error) {
         console.log('Error updating beacons: ' + JSON.stringify(error));
       });
-
-    console.log('load cycle firing');
   }
 
-  $ionicPlatform.on('resume', loadCycle);
+  // Trigger the load cycle after refresh
+  $rootScope.$on('resume', loadCycle);
 
   // Triggers the login sequence after user authenticatation
   $rootScope.$on('login-success', loadCycle);
@@ -139,7 +141,8 @@ angular.module('proximate.controllers', [])
   $scope.noEvents = false;
 
   // Sets the initial state of the Events Filter
-  $scope.eventsFilterSetting = 'all';
+  $scope.eventsFilterSetting = 'past';
+  $scope.eventsOrder = '-start_time';
 
   $scope.getUpcomingEvents = function() {
     Events.getUpcomingEvents()
@@ -178,7 +181,7 @@ angular.module('proximate.controllers', [])
 
 })
 
-.controller('SettingsCtrl', function($scope, Settings, ProximateAuth, Beacons) {
+.controller('SettingsCtrl', function($scope, Settings, $ionicPlatform, ProximateAuth, Beacons) {
 
   angular.element(document).ready(function() {
 
@@ -205,6 +208,27 @@ angular.module('proximate.controllers', [])
     .then(function() {
       Beacons.restartBeacons();
     });
+  };
+
+  // Function to scan for beacons on settings page
+  $scope.scanBeacons = function() {
+    // Already scanning, stop
+    if ($scope.scanning) {
+      $scope.scanning = false;
+      Beacons.stopScanning();
+    // Start scanning
+    } else {
+      $ionicPlatform.ready(function() {
+        $scope.scanning = true;
+        Beacons.scanBeacons(function(beacons) {
+          console.log('success got beacons', JSON.stringify(beacons.beacons));
+          $scope.beacons = beacons.beacons;
+          $scope.$apply();
+        }, function(err) {
+          console.log('err scanning for beacons', err);
+        });
+      });
+    }
   };
 
   $scope.logout = function() {

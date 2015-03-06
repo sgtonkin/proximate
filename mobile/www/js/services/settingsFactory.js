@@ -14,10 +14,12 @@ angular.module('proximate.services')
   data.userId = $localStorage.get('userId');
   data.email = $localStorage.get('email');
 
+  var device;
   // update the deviceID based on current device
   var updateDeviceId = function() {
     if (ionic.Platform.isIOS()) {
       if (window.IDFVPlugin) {
+        // On an actual device
         window.IDFVPlugin.getIdentifier(
           // on success, set deviceId in memory and localstorage
           function(result) {
@@ -29,14 +31,18 @@ angular.module('proximate.services')
           }, function(error) {
             console.log(error);
           });
+      } else {
+        // On ios but can't access plugin, probably browser testing
+        data.deviceId = (data.email === '1@1.com') ? '1' : 'UNSUPPORTED';
+        $localStorage.set('deviceId', data.deviceId);
+        console.log('setting device id to', data.deviceId);
       }
-    } else if (ionic.Platform.isAndroid()) {
+    } else if (device && ionic.Platform.isAndroid()) {
       data.deviceId = device.uuid;
       $localStorage.set('deviceId', data.deviceId);
+      console.log('setting device id to', data.deviceId);
     } else {
-      // Activate the below for testing user 1@1.com
-      // data.deviceId = 'CACF75FC-3E85-4836-9040-C0F01BB598F6';
-      data.deviceId = 'UNSUPPORTED_PLATFORM';
+      data.deviceId = (data.email === '1@1.com') ? '1' : 'UNSUPPORTED';
       $localStorage.set('deviceId', data.deviceId);
     }
     return $localStorage.get('deviceId');
@@ -44,13 +50,11 @@ angular.module('proximate.services')
 
   // Gets the most recent beacons from the server, populating local storage
   //on success
-
   var updateBeaconList = function() {
     return $http({
       method: 'GET',
-      url: webServer.url + '/api/devices/' + data.deviceId + '/beacons',
+      url: webServer.url + '/api/participants/' + $localStorage.get('userId') + '/beacons',
     }).then(function(result) {
-
       if (result.status === 404) {
         console.log('Error getting beacons');
       } else {
@@ -58,7 +62,6 @@ angular.module('proximate.services')
         $localStorage.setObject('beaconList', result.data);
         data.currentBeaconList = $localStorage.get('beaconList');
       }
-      console.log('Fetched beacons from server: ', result.data);
       return result;
     });
   };
@@ -125,7 +128,6 @@ angular.module('proximate.services')
   }
 
   // Utility logging function. Currently set to log to settings screen on app for DEV purposes
-
   var logToDom = function(message) {
     var e = document.createElement('label');
     e.innerText = message;

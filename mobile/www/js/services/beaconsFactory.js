@@ -94,8 +94,9 @@ angular.module('proximate.services')
         console.log('Entered the region!');
 
         var regionInfo = {
-          deviceId: Settings.data.deviceId,
-          username: Settings.data.username,
+          userId: $localStorage.get('userId'),
+          deviceId: $localStorage.get('deviceId'),
+          username: $localStorage.get('userName'),
           region: pluginResult.region,
           eventType: 'didEnterRegion'
         };
@@ -145,9 +146,22 @@ angular.module('proximate.services')
     return regionList;
   };
 
+  // Scans for beacons
+  // Needs cordova plugin
+  // ionic plugin add https://github.com/evothings/phonegap-estimotebeacons
+  var scanBeacons = function(callWhenDone, callWhenErr) {
+    estimote.beacons.startRangingBeaconsInRegion({}, callWhenDone, callWhenErr);
+  };
+
+  var stopScanning = function() {
+    estimote.beacons.stopRangingBeaconsInRegion({});
+  };
+
   return {
     setupBeacons: setupBeacons,
     clearBeacons: clearBeacons,
-    restartBeacons: restartBeacons
+    restartBeacons: restartBeacons,
+    scanBeacons: scanBeacons,
+    stopScanning: stopScanning
   };
 });

@@ -437,11 +437,12 @@ angular.module('proximate.controllers', [])
       return 'Invalid uuid';
     }
     var regex = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', 'i');
-    console.log(regex.test(data), data);
     if (!regex.test(data)) {
       return 'Format: 11111111-2222-3333-4444-555555555555';
     }
-
+    if (data.length !== 36) {
+      return 'Format: 11111111-2222-3333-4444-555555555555';
+    }
   };
 
   $scope.saveBeacon = function(beacon, id) {

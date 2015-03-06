@@ -29,7 +29,7 @@
 
         <!-- UUID -->
         <div ng-class="{'field error': beaconForm.uuid.$invalid && submitted}">
-          <input name="uuid" type="text" ng-model="newBeacon.uuid" placeholder="UUID (11111111-2222-3333-4444-555555555555)" required ng-pattern="/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/" />
+          <input name="uuid" type="text" ng-model="newBeacon.uuid" placeholder="UUID (11111111-2222-3333-4444-555555555555)" required ng-pattern="/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/"/>
           <span ng-show="beaconForm.uuid.$invalid && submitted" class="ui input error">Enter a valid UUID (11111111-2222-3333-4444-555555555555)</span>
         </div>
         <div class="ui divider"></div>

@@ -20,21 +20,23 @@
         <div class="checkin-status-ontime col" ng-show="event.status==='ontime'" ng-cloak>
           <i class="massive checkmark box icon"></i>
           <h1 class="white">ON TIME</h1>
+          <h3 class="white">Checked in at {{event.checkinTime | date:'h:mm a'}}</h3>
         </div>
         <!-- status late -->
         <div class="checkin-status-late col" ng-show="event.status==='late'" ng-cloak>
           <i class="massive clock icon"></i>
           <h1 class="white">LATE</h1>
+          <h3 class="white">Checked in at {{event.checkinTime | date:'h:mm a'}}</h3>
         </div>
         <!-- status absent -->
         <div class="checkin-status-absent col" ng-show="event.status==='absent'" ng-cloak>
           <i class="massive warning sign icon"></i>
-          <h1 class="white">UNEXCUSED ABSENCE</h1>
+          <h1 class="white">ABSENT</h1>
         </div>
         <!-- status excused -->
         <div class="checkin-status-excused col" ng-show="event.status==='excused'" ng-cloak>
           <i class="massive checkmark box icon"></i>
-          <h1 class="white">EXCUSED ABSENCE</h1>
+          <h1 class="white">EXCUSED</h1>
         </div>
     </div>
 

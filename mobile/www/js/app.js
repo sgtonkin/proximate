@@ -17,7 +17,7 @@ angular.module('proximate', ['ionic',
       if (token) {
         if (!jwtHelper.isTokenExpired(token)) {
           auth.authenticate(store.get('profile'), token);
-          $state.go('tab.status');
+          $rootScope.$broadcast('resume');
         } else {
           // Either show Login page or use the refresh token to get a new idToken
           $state.go('login');
@@ -33,7 +33,7 @@ angular.module('proximate', ['ionic',
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if (window.StatusBar) {
@@ -159,7 +159,9 @@ angular.module('proximate', ['ionic',
         return moment(event.start_time).isAfter(now);
       });
     } else {
-      return input;
+      return input.filter(function(event) {
+        return moment(event.start_time).isBefore(now);
+      });
     }
   };
 })

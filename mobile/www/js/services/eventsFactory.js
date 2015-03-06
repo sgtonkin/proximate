@@ -1,6 +1,6 @@
 angular.module('proximate.services')
 
-.factory('Events', function($http, webServer, Settings) {
+.factory('Events', function($http, $localStorage, webServer, Settings) {
   var getMostCurrentEvent = function() {
     return $http({
       method: 'GET',
@@ -14,7 +14,7 @@ angular.module('proximate.services')
   var getEventCheckinStatus = function(eventId) {
     return $http({
       method: 'GET',
-      url: webServer.url + '/api/devices/' + Settings.data.deviceId +
+      url: webServer.url + '/api/participants/' + $localStorage.get('userId') +
         '/events/' + eventId + '/status'
     }).then(function(res) {
       return res;
