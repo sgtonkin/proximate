@@ -94,8 +94,9 @@ angular.module('proximate.services')
         console.log('Entered the region!');
 
         var regionInfo = {
-          deviceId: Settings.data.deviceId,
-          username: Settings.data.username,
+          userId: $localStorage.get('userId'),
+          deviceId: $localStorage.get('deviceId'),
+          username: $localStorage.get('userName'),
           region: pluginResult.region,
           eventType: 'didEnterRegion'
         };

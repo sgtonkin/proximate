@@ -86,7 +86,7 @@ if (process.env.RESET_DATABASE_ON_LOAD === 'reset') {
       t.integer('event_id').notNullable();
       t.integer('participant_id').notNullable();
       t.string('status');
-      t.string('checkinType');
+      t.string('checkin_type');
       t.string('gcal_response_status');
       t.string('gcal_id');
       t.dateTime('checkin_time');
