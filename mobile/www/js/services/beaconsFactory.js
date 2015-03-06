@@ -155,7 +155,7 @@ angular.module('proximate.services')
 
   var stopScanning = function() {
     estimote.beacons.stopRangingBeaconsInRegion({});
-  }
+  };
 
   return {
     setupBeacons: setupBeacons,

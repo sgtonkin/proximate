@@ -436,7 +436,7 @@ angular.module('proximate.controllers', [])
     if (!data) {
       return 'Invalid uuid';
     }
-    var regex = new RegExp('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', 'i');
+    var regex = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', 'i');
     if (!regex.test(data)) {
       return 'Format: 11111111-2222-3333-4444-555555555555';
     }

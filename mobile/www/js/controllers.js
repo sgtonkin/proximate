@@ -36,7 +36,7 @@ angular.module('proximate.controllers', [])
           $scope.class = $scope.class = 'nothing-scheduled';
         } else {
           // Current event found
-          console.log('Got current event:', res.data.id, ',', res.data.name);
+          console.log('Got current event:', res.data.id, res.data.name);
           $scope.event = res.data;
           $scope.setPrettyStartTime();
           return Events.getEventCheckinStatus($scope.event.id);
@@ -117,6 +117,7 @@ angular.module('proximate.controllers', [])
       });
   }
 
+  // Trigger the load cycle after refresh
   $rootScope.$on('resume', loadCycle);
 
   // Triggers the login sequence after user authenticatation
@@ -140,7 +141,8 @@ angular.module('proximate.controllers', [])
   $scope.noEvents = false;
 
   // Sets the initial state of the Events Filter
-  $scope.eventsFilterSetting = 'all';
+  $scope.eventsFilterSetting = 'past';
+  $scope.eventsOrder = '-start_time';
 
   $scope.getUpcomingEvents = function() {
     Events.getUpcomingEvents()
@@ -211,20 +213,20 @@ angular.module('proximate.controllers', [])
   // Function to scan for beacons on settings page
   $scope.scanBeacons = function() {
     // Already scanning, stop
-    if ($scope.scanning){
+    if ($scope.scanning) {
       $scope.scanning = false;
       Beacons.stopScanning();
     // Start scanning
-    } else{
+    } else {
       $ionicPlatform.ready(function() {
         $scope.scanning = true;
-        Beacons.scanBeacons(function(beacons){
-          console.log('success got beacons', JSON.stringify(beacons.beacons))
+        Beacons.scanBeacons(function(beacons) {
+          console.log('success got beacons', JSON.stringify(beacons.beacons));
           $scope.beacons = beacons.beacons;
           $scope.$apply();
-        }, function(err){
-          console.log('err scanning for beacons', err)
-        })
+        }, function(err) {
+          console.log('err scanning for beacons', err);
+        });
       });
     }
   };
@@ -232,4 +234,4 @@ angular.module('proximate.controllers', [])
   $scope.logout = function() {
     ProximateAuth.logout();
   };
-})
+});

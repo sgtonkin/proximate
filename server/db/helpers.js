@@ -250,15 +250,15 @@ exports.checkinUser = function(participantId, type) {
   // Get the participant_id from the deviceID
 
     // Get the event_id of the closest event in time
-    return exports.getCurrentEvent(participantId)
-      .then(function(collection) {
-        var model = collection.at(0);
-        eventId = model.get('id');
-        eventStartTime = moment(model.get('start_time'));
-        // Update the event_participant status and check-in time
-        status = (eventStartTime.format('X') - now.format('X') >= 0) ? 'ontime' : 'late';
-        return new models.EventParticipant({event_id: eventId, participant_id: participantId})
-          .fetch();
+  return exports.getCurrentEvent(participantId)
+    .then(function(collection) {
+      var model = collection.at(0);
+      eventId = model.get('id');
+      eventStartTime = moment(model.get('start_time'));
+      // Update the event_participant status and check-in time
+      status = (eventStartTime.format('X') - now.format('X') >= 0) ? 'ontime' : 'late';
+      return new models.EventParticipant({event_id: eventId, participant_id: participantId})
+        .fetch();
     })
     .then(function(model) {
       console.log('ready to update', model);
@@ -268,7 +268,7 @@ exports.checkinUser = function(participantId, type) {
         model.set('checkin_type', checkinType);
         model.set('checkin_time', now.format());
         model.save();
-        console.log('record updated', model)
+        console.log('record updated', model);
       } else if (!model) {
         // Record doesn't exist, create it
         models.EventParticipant.forge({

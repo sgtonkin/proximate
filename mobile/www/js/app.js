@@ -116,7 +116,6 @@ angular.module('proximate', ['ionic',
       }
     });
 
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/status');
 
@@ -160,7 +159,9 @@ angular.module('proximate', ['ionic',
         return moment(event.start_time).isAfter(now);
       });
     } else {
-      return input;
+      return input.filter(function(event) {
+        return moment(event.start_time).isBefore(now);
+      });
     }
   };
 })
