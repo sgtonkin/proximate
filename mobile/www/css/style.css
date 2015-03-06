@@ -230,6 +230,25 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 }
 
 /* ------------------------- */
+/* LOADING VIEW */
+/* ------------------------- */
+
+.loadingScreen {
+  text-align: center;
+  height: 100%;
+  background-color: #24262d;
+}
+
+.loadingScreen img {
+  margin: 50% 0 0 0;
+  padding-left: 10px;
+}
+
+.loadingScreen h3 {
+  padding-top: .5rem;
+}
+
+/* ------------------------- */
 /* EVENT LOG */
 /* ------------------------- */
 

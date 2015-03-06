@@ -1,7 +1,7 @@
 angular.module('proximate.controllers', [])
 
 .controller('AppCtrl', function($ionicPlatform, $localStorage,
-  $scope, $state, $q, $rootScope, Settings, auth, Events, PubNub, Beacons) {
+  $scope, $state, $q, $ionicLoading, $rootScope, Settings, auth, Events, PubNub, Beacons) {
 
   // Initialize current event
   $scope.event = {
@@ -99,6 +99,7 @@ angular.module('proximate.controllers', [])
           $scope.event.status = message.checkinStatus;
           $scope.event.checkinTime = message.checkinTime;
           $scope.setClass(message.checkinStatus);
+          $rootScope.$broadcast('checkinOccured');
         });
       }
     });
@@ -115,6 +116,7 @@ angular.module('proximate.controllers', [])
       .catch(function(error) {
         console.log('Error updating beacons: ' + JSON.stringify(error));
       });
+    $ionicLoading.hide();
   }
 
   // Trigger the load cycle after refresh
@@ -168,6 +170,10 @@ angular.module('proximate.controllers', [])
 
   $scope.getUpcomingEvents();
 
+  // Refresh the event list after a checkin event
+  $rootScope.$on('checkinOccured', function() {
+    $scope.getUpcomingEvents();
+  });
 })
 
 .controller('LoginCtrl', function LoginCtrl (store, $rootScope,
