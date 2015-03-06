@@ -91,6 +91,8 @@ angular.module('proximate.controllers', [])
   $scope.subscribeToCheckinStatus = function() {
     PubNub.subscribe('checkins', function(message) {
       console.log('Received PubNub message: ', JSON.stringify(message));
+      console.log('Device ID on disk', $localStorage.get('deviceId'));
+      console.log('DeviceId from server', message.deviceId);
       if (message.deviceId === Settings.data.deviceId &&
           message.eventType === 'checkinConfirm' &&
           message.eventId == $scope.event.id) {

@@ -35,11 +35,12 @@ angular.module('proximate.services')
         // Activate the below for testing user 1@1.com
         data.deviceId = (data.email === '1@1.com') ? '1' : 'UNSUPPORTED';
         $localStorage.set('deviceId', data.deviceId);
+        console.log('setting device id to', data.deviceId);
       }
     } else if (device && ionic.Platform.isAndroid()) {
-      // Device previously not defined???
       data.deviceId = device.uuid;
       $localStorage.set('deviceId', data.deviceId);
+      console.log('setting device id to', data.deviceId);
     } else {
       // Activate the below for testing user 1@1.com
       data.deviceId = (data.email === '1@1.com') ? '1' : 'UNSUPPORTED';
@@ -50,7 +51,6 @@ angular.module('proximate.services')
 
   // Gets the most recent beacons from the server, populating local storage
   //on success
-
   var updateBeaconList = function() {
     return $http({
       method: 'GET',

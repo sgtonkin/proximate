@@ -11,6 +11,8 @@ exports.updateDeviceId = function(email, deviceId) {
     .query({where: {email: email}})
     .fetch()
     .then(function(model) {
+      console.log('updating', model);
+      console.log('device id', deviceId);
       // We have a record to update
       if (model) {
         model.set('device_id', deviceId);
