@@ -227,7 +227,7 @@ angular.module('proximate.controllers', [])
   // Sets CSS classes for editable participant statuses
   $scope.setClassForStatus = function(status) {
     if (status === null || status === 'null') {
-      return 'absent';
+      return 'none';
     }
     return status;
   };

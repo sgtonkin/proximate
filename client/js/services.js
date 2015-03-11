@@ -240,12 +240,15 @@ angular.module('proximate.services', [])
   };
 })
 
-.filter('formatLocation', function() {
-  return function(location) {
-    if (location.length > 27) {
-      return location.slice(0, 27) + '...';
-    } else {
-      return location;
+.filter('limitLength', function() {
+  return function(input, lengthLimit) {
+    if(input) {
+      if (input.length > lengthLimit) {
+        return input.slice(0, lengthLimit) +
+        '...';
+      } else {
+        return input;
+      }
     }
   };
 })

@@ -923,7 +923,7 @@ a {
 }
 
   .rosterHeader h1, p {
-    width: 40%;
+    width: 50%;
   }
 
 .participantHeader {
@@ -1289,6 +1289,13 @@ a {
 .eventCardButtons, .rosterButtons {
   float: right;
   padding-right: 20px;
+}
+
+.rosterHeader .rosterButtons {
+  float: right;
+  padding-right: 20px;
+  width: 40%;
+  text-align: right;
 }
 
 .eventCardButtons, .rosterButtons {

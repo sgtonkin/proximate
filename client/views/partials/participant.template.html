@@ -1,6 +1,6 @@
 <div class="events content">
   <div class="participantHeader">
-    <h1>Attendance history for <i>{{participantInfo.name}}</i></h1>
+    <h1>Attendance history for <i>{{participantInfo.name || participantInfo.email}}</i></h1>
     <div class="chartWrapper">
       <table class="chart">
         <tr class="history-stats-ontime statsRow">
@@ -32,7 +32,7 @@
     </thead>
     <tbody>
       <tr class="adminRow" ng-repeat="data in eventHistory | orderBy: '-start_time'">
-        <td ui-sref="admin.roster({eventId: data.event.id})">{{data.event.name}}</td>
+        <td ui-sref="admin.roster({eventId: data.event.id})">{{data.event.name | limitLength: 30}}</td>
         <td>{{data.event.start_time | date:'EEE, MMM d, h:mm a'}}</td>
         <td data-title="'Status'" class="setStatus-cell" ng-class="setClassForStatus(data.status)" ng-click="participant.$edit = true">
           <span ng-if="!participant.$edit && data.status !== null && data.status !== 'null'"><i class="edit icon setStatus-icon"></i>{{data.status}}</span>
