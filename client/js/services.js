@@ -242,7 +242,7 @@ angular.module('proximate.services', [])
 
 .filter('limitLength', function() {
   return function(input, lengthLimit) {
-    if(input) {
+    if (input) {
       if (input.length > lengthLimit) {
         return input.slice(0, lengthLimit) +
         '...';
