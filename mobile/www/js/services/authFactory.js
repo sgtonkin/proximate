@@ -1,7 +1,7 @@
 angular.module('proximate.services')
 
 .factory('ProximateAuth', function($localStorage, store, Settings,
-  auth, $state, $http, $rootScope, webServer, Beacons) {
+  auth, $state, $http, $ionicLoading, $rootScope, webServer, Beacons) {
 
   // Trigger the Auth0 login prompt
   var login = function() {
@@ -38,7 +38,9 @@ angular.module('proximate.services')
   };
 
   function initializeUser(info) {
-
+    $ionicLoading.show({
+      templateUrl: 'views/loading.html'
+    });
     // Signs in, and returns a promise, setting the user's username and ID on success
     return $http({
       method: 'POST',
@@ -61,6 +63,10 @@ angular.module('proximate.services')
       // Redirect to status page
       $rootScope.$broadcast('login-success');
       $state.go('tab.status');
+    }).catch(function(error) {
+      $ionicLoading.hide();
+      $state.go('login');
+      console.log('Error');
     });
   }
 

@@ -10,8 +10,8 @@
          GCal
        </a>
      </div>
-    <h1>{{event.name}}</h1>
-    <p class="admin-time">{{event.start_time | date:'EEE, MMM d, h:mm a'}}</p>
+    <h1>{{event.name | limitLength: 18}}</h1>
+    <p class="admin-time">{{event.start_time | date:'EEEE, MMM d, h:mm a'}}</p>
   </div>
   <div class="tableControls">
     <div class="ui icon input small filterbox">
@@ -30,7 +30,7 @@
     <tbody>
       <tr class="adminRow" ng-repeat="participant in participants | filter: search">
         <td data-title="'Name'">
-          <span><a ui-sref="admin.participant({participantId: participant.id})" class="participantName">{{participant.name}}</a></span>
+          <span><a ui-sref="admin.participant({participantId: participant.id})" class="participantName">{{participant.name || participant.email}}</a></span>
         </td>
         <td data-title="'Email'">
           <span class="participantEmail">

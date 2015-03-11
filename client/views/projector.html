@@ -15,7 +15,7 @@
   </div>
   <div class="eventInfo">
     <div class="title">
-      <h1>{{event.name}}</h1>
+      <h1>{{event.name | limitLength: 22}}</h1>
       <h3>{{event.start_time | date:"fullDate"}}</h3>
     </div>
     <ul class="info">
@@ -30,7 +30,7 @@
         <i class="marker icon infoIcon"></i>
       </li>
       <li ng-if="event.location">
-         <h2 class="label">{{event.location | formatLocation}}</h2>
+         <h2 class="label">{{event.location | limitLength: 22}}</h2>
       </li>
     </ul>
     <div class="names">
