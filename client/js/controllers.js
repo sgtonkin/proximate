@@ -90,7 +90,7 @@ angular.module('proximate.controllers', [])
   // Fetch the participant and event data from the server
   $scope.getCurrentEventData = function() {
     Populate.getCurrentEvent($scope.adminId).then(function(eventData) {
-      if (eventData) {
+      if (eventData !== "No current event found") {
         $scope.setCurrentEvent(eventData);
         return Populate.getEventWithParticipants($scope.currentEvent.id);
       }
@@ -185,7 +185,6 @@ angular.module('proximate.controllers', [])
     auth.signin({authParams: {
         access_type: 'offline'
     }}, function(profile, token) {
-      console.log('Profile from auth', profile);
       // Sucess handler post Auth0 authentication
       store.set('profile', profile);
       store.set('token', token);
