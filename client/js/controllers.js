@@ -337,7 +337,6 @@ angular.module('proximate.controllers', [])
         }
       });
     });
-
   };
 
   var clearChart = function() {
@@ -381,7 +380,8 @@ angular.module('proximate.controllers', [])
   }).then(function(res) {
     $scope.eventHistory = res.data.filter(function(item) {
       return (item.event.hasOwnProperty('name') &&
-        moment(item.event.start_time).diff(moment()) < 0);
+        moment(item.event.start_time).diff(moment()) < 0) &&
+        (item.event.admin_id === $scope.adminId);
     });
     //Then call functions with fetched info
     clearChart();
