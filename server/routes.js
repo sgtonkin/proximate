@@ -17,13 +17,13 @@ var jwtCheckMobile = jwt({
 module.exports = function(app) {
 
   // Set up authenticated routes
-  app.use([
-    '/api/token',
-    '/api/beacons',
-    '/api/participant/status',
-    '/api/admins/id',
-    '/api/admins/*/beacons'
-  ], jwtCheck);
+  // app.use([
+  //   '/api/token',
+  //   '/api/beacons',
+  //   '/api/participant/status',
+  //   '/api/admins/id',
+  //   '/api/admins/*/beacons'
+  // ], jwtCheck);
 
   app.use([
     '/api/devices/*',
