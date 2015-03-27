@@ -92,7 +92,7 @@ angular.module('proximate.controllers', [])
   // Fetch the participant and event data from the server
   $scope.getCurrentEventData = function() {
     Populate.getCurrentEvent($scope.adminId).then(function(eventData) {
-      if (eventData !== "No current event found") {
+      if (eventData !== 'No current event found') {
         $scope.setCurrentEvent(eventData);
         return Populate.getEventWithParticipants($scope.currentEvent.id);
       }

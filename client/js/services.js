@@ -258,8 +258,9 @@ angular.module('proximate.services', [])
     var filteredResults = [];
     if (Array.isArray(participants)) {
       participants.forEach(function(participant) {
-        if (participant._pivot_status === null || participant._pivot_status === ""
-          || participant._pivot_status === 'none') {
+        if (participant._pivot_status === null ||
+            participant._pivot_status === '' ||
+            participant._pivot_status === 'none') {
           filteredResults.push(participant);
         }
       });
