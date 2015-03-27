@@ -66,6 +66,11 @@ angular.module('proximate',
       templateUrl: 'views/login.html',
       controller: 'LoginCtrl',
       url: '/login'
+    })
+
+    .state('loading', {
+      templateUrl: 'views/loading.html',
+      url: '/login'
     });
 
   // $httpProvider.interceptors.push(function($q, $injector) {

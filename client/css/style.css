@@ -806,6 +806,51 @@ a {
   color: grey;
 }
 
+/* LOADING VIEW */
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #24262d;
+  zoom: 1;
+  z-index: 0;
+}
+
+.loading .loading-box {
+  width: 300px;
+  text-align: center;
+  margin: 15% auto;
+}
+
+.loading .divider {
+  padding: 0;
+  margin: 20px 0 0 0;
+  height: 1px;
+  background: white;
+  width: 220px;
+  opacity: .2;
+  position: relative;
+  left: 25px;
+}
+
+.loading-box h4 {
+  font-weight: 100;
+  color: white !important;
+  margin-top: 14px;
+  position: relative;
+  right: 15px;
+  opacity: .8;
+}
+
+.ajaxLoader {
+  margin-top: 15px;
+  position: relative;
+  right: 15px;
+}
+
 /* LOGIN VIEW */
 
 .login {
@@ -819,17 +864,7 @@ a {
   z-index: 0;
 }
 
-/*.login .login-box {
-  background-color: #ffffff;
-  opacity: .95;
-  width: 245px;
-  text-align: center;
-  margin: 10% auto;
-  padding: 30px 18px;
-  -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.33);
-  -moz-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.33);
-  box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
-}*/
+
 
 /*.login h1 {
   margin-top: 30px;

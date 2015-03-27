@@ -190,6 +190,7 @@ angular.module('proximate.controllers', [])
       // Sucess handler post Auth0 authentication
       store.set('profile', profile);
       store.set('token', token);
+      $state.go('loading');
       $http({
         method: 'POST',
         url: 'api/token',
