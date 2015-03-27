@@ -81,9 +81,11 @@ angular.module('proximate.controllers', [])
 
   $scope.updateParticipantStatus = function(participantId, eventId, status) {
     Populate.updateParticipantStatus(participantId,
-      eventId, status);
-    closeMenus();
-    $scope.setScopeVars(eventId);
+      eventId, status)
+      .then(function() {
+        closeMenus();
+        $scope.setScopeVars(eventId);
+      });
 
   };
 

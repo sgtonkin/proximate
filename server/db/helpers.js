@@ -83,13 +83,20 @@ exports.upsert = function(model, recordInfo, recordId) {
 
 exports.updateStatus = function(participantInfo) {
 
+  var now = moment().utc();
+  var checkinType = 'manual';
+
   return new models.EventParticipant({
       participant_id: participantInfo.participant_id,
       event_id: participantInfo.event_id
     })
     .fetch({require:true})
     .then(function(event_participant) {
-      return event_participant.save({status:participantInfo.status});
+      return event_participant.save({
+        status:participantInfo.status,
+        checkin_type: checkinType,
+        checkin_time: now.format()
+      });
     });
 
 };
