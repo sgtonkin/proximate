@@ -3,7 +3,7 @@
 // The same timezone as the server, even if they're not
 var knex = require('knex')({
   client: 'pg',
-  connection: process.env.DATABASE_URL+'?ssl=true'
+  connection: process.env.DATABASE_URL + '?ssl=true'
 });
 var bookshelf = require('bookshelf')(knex);
 module.exports = bookshelf;

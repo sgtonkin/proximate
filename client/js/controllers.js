@@ -81,16 +81,18 @@ angular.module('proximate.controllers', [])
 
   $scope.updateParticipantStatus = function(participantId, eventId, status) {
     Populate.updateParticipantStatus(participantId,
-      eventId, status);
-    closeMenus();
-    $scope.setScopeVars(eventId);
+      eventId, status)
+      .then(function() {
+        closeMenus();
+        $scope.setScopeVars(eventId);
+      });
 
   };
 
   // Fetch the participant and event data from the server
   $scope.getCurrentEventData = function() {
     Populate.getCurrentEvent($scope.adminId).then(function(eventData) {
-      if (eventData) {
+      if (eventData !== 'No current event found') {
         $scope.setCurrentEvent(eventData);
         return Populate.getEventWithParticipants($scope.currentEvent.id);
       }
@@ -185,10 +187,10 @@ angular.module('proximate.controllers', [])
     auth.signin({authParams: {
         access_type: 'offline'
     }}, function(profile, token) {
-      console.log('Profile from auth', profile);
       // Sucess handler post Auth0 authentication
       store.set('profile', profile);
       store.set('token', token);
+      $state.go('loading');
       $http({
         method: 'POST',
         url: 'api/token',
@@ -226,7 +228,7 @@ angular.module('proximate.controllers', [])
 
   // Sets CSS classes for editable participant statuses
   $scope.setClassForStatus = function(status) {
-    if (status === null || status === 'null') {
+    if (status === null || status === 'null' || status === 'none') {
       return 'none';
     }
     return status;
@@ -338,7 +340,6 @@ angular.module('proximate.controllers', [])
         }
       });
     });
-
   };
 
   var clearChart = function() {
@@ -382,7 +383,8 @@ angular.module('proximate.controllers', [])
   }).then(function(res) {
     $scope.eventHistory = res.data.filter(function(item) {
       return (item.event.hasOwnProperty('name') &&
-        moment(item.event.start_time).diff(moment()) < 0);
+        moment(item.event.start_time).diff(moment()) < 0) &&
+        (item.event.admin_id === $scope.adminId);
     });
     //Then call functions with fetched info
     clearChart();

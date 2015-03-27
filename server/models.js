@@ -41,7 +41,7 @@ var Participant = exports.Participant = bookshelf.Model.extend({
     .query(function(qb) {
       //jscs:disable
       return qb.whereRaw("ABS(extract(epoch from now()) - extract(epoch FROM events.start_time)) <=" +
-        "1200 AND (events.status != 'cancelled')")
+        "2700 AND (events.status != 'cancelled')")
         .orderByRaw('ABS(extract(epoch from now()) - extract(epoch FROM events.start_time)) ASC')
         .limit(1);
       //jscs:enable
