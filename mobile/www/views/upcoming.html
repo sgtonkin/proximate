@@ -14,7 +14,7 @@
       <!-- events list -->
       <div class="events-list">
         <div class="list">
-          <div ng-repeat="event in filteredEvents = (data.events | orderBy: eventsOrder | eventsFilter: eventsFilterSetting | filterCancelledEvents)" class="item">
+          <div ng-repeat="event in filteredEvents = (data.events | orderBy: eventsOrder | filterCancelledEvents)" class="item">
             <div class="events-list-info" >
               <h2>{{event.name  | limitLength }}</h2>
               <h3>{{event.start_time | date:'EEE, MMM d, yyyy \| h:mm a'}}</h3>
@@ -35,7 +35,7 @@
   </ion-content>
 
   <!-- filters -->
-  <ion-footer-bar class="bar-stable events-filter">
+<!--   <ion-footer-bar class="bar-stable events-filter">
     <div class="button-bar events-filter-buttons">
       <button class="button"
               ng-click="eventsFilterSetting='past'; eventsOrder='-start_time'"
@@ -48,5 +48,5 @@
               UPCOMING
       </button>
     </div>
-</ion-footer-bar>
+</ion-footer-bar> -->
 </ion-view>
