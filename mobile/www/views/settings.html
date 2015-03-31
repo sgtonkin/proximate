@@ -1,33 +1,14 @@
 <ion-view view-title="SETTINGS">
   <ion-content class="settings">
 
-    <div class="list">
-      <div class="item" ng-show="!scanning">
-        <label>NAME</label>
-        <h2 ng-show="data.username !== null">{{data.username}}</h2>
-        <h2 ng-show="data.username === null">{{data.email}}</h2>
-      </div>
-      <div class="item" ng-show="!scanning">
-        <label>EMAIL</label>
-        <h2>{{data.email}}</h2>
-      </div>
-    </div>
-
-      <!-- <a class="item item-icon-right" href="#" ng-click="updatePassword()">
-        <label>PASSWORD</label>
-        <h2>••••••</h2>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </a> -->
-
-    <div class="settings-buttons" ng-show="!scanning">
-      <div>
-        <button class="button" ng-click="scanBeacons()"><span>DETECT BEACONS</span></button>
-      </div>
-      <div>
-        <button class="button" ng-click="logout()"><span>LOGOUT</span></button>
-      </div>
-    </div>
-
+  <ion list>
+    <a class="item item-icon-left settingsItem" ng-show="!scanning" ng-click="scanBeacons()">
+    <i class="icon ion-bluetooth"></i>Detect nearby beacons</a>
+   <a class="item item-icon-left settingsItem" ng-show="!scanning" ng-click="logout()"><i class="icon ion-log-out"></i>Logout <span class="item-note">
+      {{data.email}}
+    </span>
+    </a>
+  </ion-list>
 
     <div class="scanningDialog" ng-show="scanning">
       <button class="button scanningButton" ng-click="scanBeacons()">STOP SCANNING </button>

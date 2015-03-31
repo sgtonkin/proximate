@@ -76,6 +76,10 @@ body .title {
   color: #fff !important;
 }
 
+.headerBar {
+  background-color: #000 !important;
+}
+
 /* ------------------------- */
 /* LOGIN VIEW */
 /* ------------------------- */
@@ -389,6 +393,10 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
   margin-bottom: 1.4rem !important;
 }
 
+.nothing-icon {
+  font-size: 55px;
+}
+
 .status .manual-checkin-button {
   cursor: pointer;
   height: 55px;
@@ -444,6 +452,8 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 .checkin-status a {
   text-decoration: none;
 }
+
+
 
 /* CURRENT EVENT INFO AT BOTTOM OF STATUS */
 
@@ -544,15 +554,8 @@ body #a0-lock.a0-theme-default .a0-btn-small:hover {
 /* SETTINGS */
 /* ------------------------- */
 
-.settings {
-
-}
-
-.settings label {
-  display: block;
-  color: #aaaaaa;
-  font-family: 'Lato-Regular';
-  margin-bottom: 5px;
+.settingsItem  {
+  opacity: .8;
 }
 
 .settings-buttons {
@@ -614,14 +617,6 @@ body .scanningDialog h2 {
   height: 100px;
   width: 100px;
 }
-
-./*register {
-  color: #34495E !important;
-}
-
-input.register {
-  font-size: 1.5em;
-}*/
 
 .register.ng-touched.ng-invalid-email, .register.ng-touched.ng-invalid-minlength {
   color: red !important;

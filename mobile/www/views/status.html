@@ -1,5 +1,5 @@
-<ion-view view-title="STATUS">
-<ion-view view-title="Status" hide-nav-bar="true">
+<ion-view view-title="STATUS" hide-nav-bar="true">
+
   <ion-content class="status" ng-class="class">
   <ion-refresher pulling-text="pull to refresh" on-refresh="doRefresh()">
   </ion-refresher>
@@ -75,9 +75,9 @@
 
     <div class="row status-nothing-scheduled-content">
       <div class="col">
-        <i class="huge calendar icon"></i>
-        <h1 class="white">NOTHING SCHEDULED</h1>
-        <h3 class="white">No events starting now</h3>
+        <i class="ion-android-notifications-off nothing-icon"></i>
+        <h1 style="padding-top: .5rem" class="white">No Event Starting</h1>
+        <h3 class="white">Nothing scheduled within 45 minutes</h3>
       </div>
     </div>
   </div>

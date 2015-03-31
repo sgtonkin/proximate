@@ -193,11 +193,7 @@ angular.module('proximate.controllers', [])
 
     $scope.data = {};
     // Set the username to the email if they don't have one
-    if (Settings.data.username !== 'null') {
-      $scope.data.username = Settings.data.username;
-    } else {
-      $scope.data.username = Settings.data.email;
-    }
+    $scope.data.username = Settings.data.username;
     $scope.data.deviceId = Settings.data.deviceId;
     $scope.data.email = Settings.data.email;
 

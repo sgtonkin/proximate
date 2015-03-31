@@ -5,18 +5,18 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    <!-- CSS -->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/lato.css" rel="stylesheet">
-
     <!-- IONIC -->
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/ionic.app.css" rel="stylesheet">
     <link href="lib/ionicons-2.0.0/css/ionicons.min.css" rel="stylesheet">
     <link href="lib/UI-Icon-master/icon.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/pubnub/pubnub.min.js"></script>
     <script src="lib/moment/min/moment.min.js"></script>
     <script src="cordova.js"></script>
+
+    <!-- CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/lato.css" rel="stylesheet">
 
     <!-- AUTH0 -->
     <script src="lib/auth0-lock/build/auth0-lock.min.js"></script>
@@ -40,8 +40,9 @@
 
   </head>
   <body ng-app="proximate" ng-controller="AppCtrl">
+
     <!-- <ion-nav-bar class="bar-stable" ng-if="!hide_header"> -->
-    <ion-nav-bar class="bar-stable">
+    <ion-nav-bar class="bar-stable" class="headerBar">
       <ion-nav-back-button>
       </ion-nav-back-button>
     </ion-nav-bar>
