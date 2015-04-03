@@ -310,7 +310,6 @@ exports.checkinUser = function(participantId, type) {
         console.log('Status record created for', participantName, participantEmail);
       // Status is already set, do nothing
       }
-      console.log('getting to the end');
       return {
         eventId: eventId,
         checkinType: checkinType,
