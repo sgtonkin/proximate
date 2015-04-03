@@ -245,39 +245,63 @@ exports.getCurrentEventByAdmin = function(adminId) {
 
 exports.checkinUser = function(participantId, type) {
 
-  console.log(type, ' checkin happening for ', participantId);
-
   // Define the type of checkin for storage later
   var checkinType = (type === 'didEnterRegion') ? 'auto' : 'manual';
   var eventId;
+  var participantName;
+  var participantEmail;
   var eventStartTime;
   var status;
   var now = moment().utc();
 
-  // Get the participant_id from the deviceID
+  // Log the name/email for easier login
+  exports.getParticipantInfo(participantId)
+  .then(function(participant) {
+    if (participant) {
+      participantName = participant.get('name');
+      participantEmail = participant.get('email');
+      console.log('Attempting checkin for', participantName, participantEmail);
+    } else {
+      console.log('Invalid participant id for checkin');
+    }
+  });
 
-    // Get the event_id of the closest event in time
+  // Get the event_id of the closest event in time
   return exports.getCurrentEvent(participantId)
     .then(function(collection) {
       var model = collection.at(0);
-      eventId = model.get('id');
-      eventStartTime = moment(model.get('start_time'));
-      // Update the event_participant status and check-in time
-      status = (eventStartTime.format('X') - now.format('X') >= 0) ? 'ontime' : 'late';
-      return new models.EventParticipant({event_id: eventId, participant_id: participantId})
-        .fetch();
+      // Make sure there's a current event to check the user into
+      if(model) {
+        eventId = model.get('id');
+        console.log('Current event id:', eventId, 'name:', model.get('name'), 'found for checkin');
+        eventStartTime = moment(model.get('start_time'));
+        // Update the event_participant status and check-in time
+        status = (eventStartTime.format('X') - now.format('X') >= 0) ? 'ontime' : 'late';
+        return new models.EventParticipant({event_id: eventId, participant_id: participantId})
+          .fetch();
+      } else {
+        throw 'No current event to check user into';
+      }
     })
     .then(function(model) {
-      console.log('ready to update', model);
-      if (model && (!model.get('status') || model.get('status') === 'none')) {
-        // Record exists with a null status, update it
-        model.set('status', status);
-        model.set('checkin_type', checkinType);
-        model.set('checkin_time', now.format());
-        model.save();
-        console.log('record updated', model);
-      } else if (!model) {
-        // Record doesn't exist, create it
+      // Event participant record exists
+      if (model) {
+        console.log('model get status', model.get('status') === 'null', model.get('status'));
+        console.log('model get status none', model.get('status') === 'none');
+        // Status is null or none, update it
+        if(model.get('status') === null || model.get('status') === 'none') {
+          model.set('status', status);
+          model.set('checkin_type', checkinType);
+          model.set('checkin_time', now.format());
+          model.save();
+          console.log('Status record updated for', participantName, participantEmail);
+        } else {
+          // Status is already set, exit out
+          console.log('Status record already set for', participantName, participantEmail);
+          return;
+        }
+      // Event participant record doesn't exist, create it
+      } else {
         models.EventParticipant.forge({
           event_id: eventId,
           participant_id: participantId,
@@ -285,15 +309,14 @@ exports.checkinUser = function(participantId, type) {
           checkin_type: checkinType,
           checkin_time: now.format()
         }).save();
-        console.log('record updated', model);
-      } else {
-        // Status is already set, do nothing
-        return;
+        console.log('Status record created for', participantName, participantEmail);
+      // Status is already set, do nothing
       }
+      console.log('getting to the end');
       return {
         eventId: eventId,
         checkinType: checkinType,
-        checkinTime: now,
+        checkinTime: now.format(),
         participantId: participantId,
         status: status
       };
