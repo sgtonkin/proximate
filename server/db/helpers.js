@@ -286,7 +286,7 @@ exports.checkinUser = function(participantId, type) {
     .then(function(model) {
       // Event participant record exists
       if (model) {
-        console.log('model get status', model.get('status') === 'null', model.get('status'));
+        console.log('model get status', model.get('status') === null, model.get('status'));
         console.log('model get status none', model.get('status') === 'none');
         // Status is null or none, update it
         if(model.get('status') === null || model.get('status') === 'none') {
