@@ -47,7 +47,7 @@ pubnub.subscribe('checkins', function(message) {
         }
       })
       .catch(function(error) {
-        console.log('Unable to checkin user', error);
+        console.log(error);
       });
   }
 });
